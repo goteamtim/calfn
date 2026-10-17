@@ -1,0 +1,11 @@
+.venv/
+.venv-train/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Training outputs: checkpoints (GBs), logs, unsloth's generated code
+/output/
+/runs/
+/unsloth_compiled_cache/
+*.ics

@@ -1,0 +1,7 @@
+# Inference, eval, tests and the converter. Training has its own pinned stack (requirements-train.txt).
+pytest
+icalendar      # .ics round-trip tests
+tzdata         # zoneinfo on Windows
+anthropic      # prompted-Claude baseline (scripts/baseline_claude.py)
+# transformers + torch are needed only to run scripts/inference.py against a model:
+#   install torch for your CUDA first, then: transformers accelerate peft
