@@ -19,10 +19,12 @@ All on `eval_v1` (300 prompts, 215 with held-out wording). Same prompts, same la
 | model | task | dev pass | 95% CI | held-out wording (`ood`) | test (once) |
 |---|---|---|---|---|---|
 | base FunctionGemma 270M | direct | 13.3% (40/300) | 10.0%-17.6% | 12% | |
+| base FunctionGemma 270M | extract | 11.7% (35/300) | 8.5%-15.8% | 10% | |
 | gemma4:12b (prompted, local) | direct | 62.7% (188/300) | 57.1%-68.0% | 62% | |
 | calfn v1 (fine-tuned) | direct | 48.3% (145/300) | 42.7%-54.0% | 43% | |
 | Claude (prompted) | direct | | | | |
-| **calfn v2 (fine-tuned)** | **extract** | | | | |
+| calfn v2 (fine-tuned) | extract | 74.3% (223/300) | 69.1%-79.0% | 65% | |
+| **calfn v3 (wider vocabulary)** | **extract** | **84.7% (254/300)** | **80.2%-88.3%** | **80%** | |
 
 The base model's 40 passes are all correct rejections: it made no correct tool call. The harness is verified with oracle answers (300/300 on `eval_v1`, both tasks). Commands for the remaining rows are in `docs/experiments.md`.
 

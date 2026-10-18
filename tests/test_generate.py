@@ -108,6 +108,16 @@ def test_train_vocab_never_leaks_heldout():
     assert not any(p.lower() in train_text for p in generate.HELDOUT_VOCAB.offtopic)
 
 
+def test_extended_train_vocab_shares_nothing_with_heldout():
+    train, held = generate.TRAIN_GEN_VOCAB, generate.HELDOUT_VOCAB
+    assert {t.lower() for t, _ in train.titles}.isdisjoint({t.lower() for t, _ in held.titles})
+    for name in ("frames", "rec_frames", "short_frames"):
+        assert {p for p, _ in getattr(train, name)}.isdisjoint({p for p, _ in getattr(held, name)}), name
+    assert len({t for t, _ in train.titles}) == len(train.titles)
+    # eval/test "ind" rows must keep drawing from the original lists or the frozen files move
+    assert len(generate.TRAIN_VOCAB.titles) == 80
+
+
 @pytest.mark.skipif(not (DATA / "train.jsonl").exists(), reason="data not generated")
 def test_committed_splits_are_disjoint():
     def texts(path):

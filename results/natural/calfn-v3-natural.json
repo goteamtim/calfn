@@ -1,0 +1,818 @@
+{
+ "run_date": "2026-10-18T15:45:16",
+ "model": "output/calfn-v3",
+ "task": "extract",
+ "eval_file": "data/eval/natural_v1.jsonl",
+ "summary": {
+  "overall": {
+   "n": 32,
+   "pass": 22,
+   "rate": 0.6875,
+   "ci95": [
+    0.5143,
+    0.8205
+   ]
+  },
+  "breakdown": {
+   "exact": 13,
+   "wrong_args": 7,
+   "invalid": 0,
+   "missed_tool_call": 3,
+   "correct_rejection": 9,
+   "false_positive": 0
+  },
+  "rejection": {
+   "gold_rejections": 9,
+   "correct": 9,
+   "false_positives": 0,
+   "gold_calls": 23,
+   "missed_calls": 3
+  },
+  "per_field": {
+   "duration_minutes": {
+    "correct": 3,
+    "total": 3,
+    "accuracy": 1.0
+   },
+   "location": {
+    "correct": 2,
+    "total": 3,
+    "accuracy": 0.6667
+   },
+   "recurrence_count": {
+    "correct": 1,
+    "total": 1,
+    "accuracy": 1.0
+   },
+   "recurrence_days": {
+    "correct": 3,
+    "total": 3,
+    "accuracy": 1.0
+   },
+   "recurrence_freq": {
+    "correct": 7,
+    "total": 7,
+    "accuracy": 1.0
+   },
+   "recurrence_interval": {
+    "correct": 1,
+    "total": 1,
+    "accuracy": 1.0
+   },
+   "start_date": {
+    "correct": 20,
+    "total": 20,
+    "accuracy": 1.0
+   },
+   "start_time": {
+    "correct": 20,
+    "total": 20,
+    "accuracy": 1.0
+   },
+   "title": {
+    "correct": 13,
+    "total": 20,
+    "accuracy": 0.65
+   }
+  },
+  "per_tag": {
+   "natural": {
+    "n": 32,
+    "pass": 22,
+    "rate": 0.6875,
+    "ci95": [
+     0.5143,
+     0.8205
+    ]
+   },
+   "reject": {
+    "n": 9,
+    "pass": 9,
+    "rate": 1.0,
+    "ci95": [
+     0.7008,
+     1.0
+    ]
+   }
+  },
+  "mean_latency_ms": 768.3
+ },
+ "results": [
+  {
+   "index": 0,
+   "user": "dentist tomorrow at 3pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:1d<escape>,time:<escape>15:00<escape>,title:<escape>Dentist appointment<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:1d",
+    "time": "15:00",
+    "title": "Dentist appointment"
+   },
+   "event": {
+    "title": "Dentist appointment",
+    "start": "2026-10-15T15:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Dentist",
+    "start": "2026-10-15T15:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1268.9
+  },
+  {
+   "index": 1,
+   "user": "Can you put lunch with Sam on my calendar for Friday at noon?",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Lunch with Sam",
+    "start": "2026-10-16T12:00"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 34.6
+  },
+  {
+   "index": 2,
+   "user": "team standup every weekday at 9:30am",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>MO,TU,WE,TH,FR<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>09:30<escape>,title:<escape>Team standup<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "MO,TU,WE,TH,FR",
+    "recurrence_freq": "weekly",
+    "time": "09:30",
+    "title": "Team standup"
+   },
+   "event": {
+    "title": "Team standup",
+    "start": "2026-10-15T09:30",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TU,WE,TH,FR"
+   },
+   "error": null,
+   "gold": {
+    "title": "Team standup",
+    "start": "2026-10-15T09:30",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TU,WE,TH,FR"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1287.2
+  },
+  {
+   "index": 3,
+   "user": "remind me to call mom on Sunday at 6pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:SU<escape>,time:<escape>18:00<escape>,title:<escape>Call mom<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:SU",
+    "time": "18:00",
+    "title": "Call mom"
+   },
+   "event": {
+    "title": "Call mom",
+    "start": "2026-10-18T18:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call mom",
+    "start": "2026-10-18T18:00"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 829.4
+  },
+  {
+   "index": 4,
+   "user": "book a haircut next Monday 10am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:MO<escape>,time:<escape>10:00<escape>,title:<escape>Book a haircut<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:MO",
+    "time": "10:00",
+    "title": "Book a haircut"
+   },
+   "event": {
+    "title": "Book a haircut",
+    "start": "2026-10-19T10:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Haircut",
+    "start": "2026-10-19T10:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 829.0
+  },
+  {
+   "index": 5,
+   "user": "yoga every Tuesday and Thursday at 6:30pm",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>TU,TH<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>18:30<escape>,title:<escape>Yoga<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "TU,TH",
+    "recurrence_freq": "weekly",
+    "time": "18:30",
+    "title": "Yoga"
+   },
+   "event": {
+    "title": "Yoga",
+    "start": "2026-10-15T18:30",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU,TH"
+   },
+   "error": null,
+   "gold": {
+    "title": "Yoga",
+    "start": "2026-10-15T18:30",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU,TH"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1082.3
+  },
+  {
+   "index": 6,
+   "user": "dinner with the Hendersons October 24 at 7",
+   "raw_output": "I need to know whether that's morning or evening.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 322.0
+  },
+  {
+   "index": 7,
+   "user": "meeting with Priya on the 20th at 2:30 pm for 45 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:20<escape>,duration_minutes:45,time:<escape>14:30<escape>,title:<escape>A meeting with Priya<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:20",
+    "duration_minutes": 45,
+    "time": "14:30",
+    "title": "A meeting with Priya"
+   },
+   "event": {
+    "title": "A meeting with Priya",
+    "start": "2026-10-20T14:30",
+    "duration_minutes": 45
+   },
+   "error": null,
+   "gold": {
+    "title": "Meeting with Priya",
+    "start": "2026-10-20T14:30",
+    "duration_minutes": 45
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1065.6
+  },
+  {
+   "index": 8,
+   "user": "pick up the kids at 3:15 today",
+   "raw_output": "I need an exact date and time, not 'sometime'.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Pick up the kids",
+    "start": "2026-10-14T15:15"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 344.4
+  },
+  {
+   "index": 9,
+   "user": "Doctor's appointment Thursday Oct 22 at 11am",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Doctor's appointment",
+    "start": "2026-10-22T11:00"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 33.1
+  },
+  {
+   "index": 10,
+   "user": "weekly sync Mondays at 10am starting Oct 26",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-26<escape>,recurrence_days:<escape>MO<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>10:00<escape>,title:<escape>Weekly sync<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-26",
+    "recurrence_days": "MO",
+    "recurrence_freq": "weekly",
+    "time": "10:00",
+    "title": "Weekly sync"
+   },
+   "event": {
+    "title": "Weekly sync",
+    "start": "2026-10-26T10:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO"
+   },
+   "error": null,
+   "gold": {
+    "title": "Weekly sync",
+    "start": "2026-10-26T10:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1315.0
+  },
+  {
+   "index": 11,
+   "user": "Book club the first Wednesday of next month at 7:30pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:1:WE:1<escape>,time:<escape>19:30<escape>,title:<escape>Book club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:1:WE:1",
+    "time": "19:30",
+    "title": "Book club"
+   },
+   "event": {
+    "title": "Book club",
+    "start": "2026-11-04T19:30"
+   },
+   "error": null,
+   "gold": {
+    "title": "Book club",
+    "start": "2026-11-04T19:30"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 914.1
+  },
+  {
+   "index": 12,
+   "user": "mom's birthday every year on March 3rd at 9am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:03-03<escape>,recurrence_freq:<escape>yearly<escape>,time:<escape>09:00<escape>,title:<escape>Mom's birthday<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:03-03",
+    "recurrence_freq": "yearly",
+    "time": "09:00",
+    "title": "Mom's birthday"
+   },
+   "event": {
+    "title": "Mom's birthday",
+    "start": "2027-03-03T09:00",
+    "recurrence_freq": "yearly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Mom's birthday",
+    "start": "2027-03-03T09:00",
+    "recurrence_freq": "yearly"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1180.4
+  },
+  {
+   "index": 13,
+   "user": "tell me a joke",
+   "raw_output": "That isn't an event to create. Describe an event with a date and time.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 469.7
+  },
+  {
+   "index": 14,
+   "user": "what's on my calendar tomorrow?",
+   "raw_output": "I can only create calendar events. Tell me what to schedule and when.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 390.6
+  },
+  {
+   "index": 15,
+   "user": "schedule a call with the plumber sometime next week",
+   "raw_output": "I need an exact date and time, not 'sometime'.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 351.4
+  },
+  {
+   "index": 16,
+   "user": "gym tomorrow morning",
+   "raw_output": "That's too vague. Give me a specific date and time.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 372.6
+  },
+  {
+   "index": 17,
+   "user": "Thanksgiving dinner Nov 26 at 4pm at Aunt Rosa's",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-26<escape>,location:<escape>Aunt Rosa's kitchen<escape>,time:<escape>16:00<escape>,title:<escape>Dinner with Auntina<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-26",
+    "location": "Aunt Rosa's kitchen",
+    "time": "16:00",
+    "title": "Dinner with Auntina"
+   },
+   "event": {
+    "title": "Dinner with Auntina",
+    "start": "2026-11-26T16:00",
+    "location": "Aunt Rosa's kitchen"
+   },
+   "error": null,
+   "gold": {
+    "title": "Thanksgiving dinner",
+    "start": "2026-11-26T16:00",
+    "location": "Aunt Rosa's"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1223.8
+  },
+  {
+   "index": 18,
+   "user": "Flight to Denver Friday at 6:45am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:FR<escape>,time:<escape>06:45<escape>,title:<escape>Flight to Denver<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:FR",
+    "time": "06:45",
+    "title": "Flight to Denver"
+   },
+   "event": {
+    "title": "Flight to Denver",
+    "start": "2026-10-16T06:45"
+   },
+   "error": null,
+   "gold": {
+    "title": "Flight to Denver",
+    "start": "2026-10-16T06:45"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 850.9
+  },
+  {
+   "index": 19,
+   "user": "1:1 with Jordan on Tuesday at 2pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:TU<escape>,time:<escape>14:00<escape>,title:<escape>1:1 with Jordan<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:TU",
+    "time": "14:00",
+    "title": "1:1 with Jordan"
+   },
+   "event": {
+    "title": "1:1 with Jordan",
+    "start": "2026-10-20T14:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "1:1 with Jordan",
+    "start": "2026-10-20T14:00"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 867.4
+  },
+  {
+   "index": 20,
+   "user": "pay rent on the 1st at 8am every month",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:1<escape>,recurrence_freq:<escape>monthly<escape>,time:<escape>08:00<escape>,title:<escape>Pay rent<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:1",
+    "recurrence_freq": "monthly",
+    "time": "08:00",
+    "title": "Pay rent"
+   },
+   "event": {
+    "title": "Pay rent",
+    "start": "2026-11-01T08:00",
+    "recurrence_freq": "monthly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Pay rent",
+    "start": "2026-11-01T08:00",
+    "recurrence_freq": "monthly"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1007.3
+  },
+  {
+   "index": 21,
+   "user": "coffee with Maria at 10 tomorrow",
+   "raw_output": "I need a start time to create this event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 256.6
+  },
+  {
+   "index": 22,
+   "user": "Parent teacher conference Oct 29 from 4pm to 5:30pm in Room 12",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-29<escape>,end:<escape>17:30<escape>,location:<escape>Room 12<escape>,time:<escape>16:00<escape>,title:<escape>Parent teacher conference<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-29",
+    "end": "17:30",
+    "location": "Room 12",
+    "time": "16:00",
+    "title": "Parent teacher conference"
+   },
+   "event": {
+    "title": "Parent teacher conference",
+    "start": "2026-10-29T16:00",
+    "duration_minutes": 90,
+    "location": "Room 12"
+   },
+   "error": null,
+   "gold": {
+    "title": "Parent teacher conference",
+    "start": "2026-10-29T16:00",
+    "duration_minutes": 90,
+    "location": "Room 12"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1314.5
+  },
+  {
+   "index": 23,
+   "user": "Dentist Friday",
+   "raw_output": "I need an exact date and time, not 'sometime'.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 328.6
+  },
+  {
+   "index": 24,
+   "user": "daily standup at 9:15am for 10 days",
+   "raw_output": "<start_function_call>call:create_event{recurrence_count:10,recurrence_freq:<escape>daily<escape>,time:<escape>09:15<escape>,title:<escape>Standup<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_count": 10,
+    "recurrence_freq": "daily",
+    "time": "09:15",
+    "title": "Standup"
+   },
+   "event": {
+    "title": "Standup",
+    "start": "2026-10-15T09:15",
+    "recurrence_freq": "daily",
+    "recurrence_count": 10
+   },
+   "error": null,
+   "gold": {
+    "title": "Daily standup",
+    "start": "2026-10-15T09:15",
+    "recurrence_freq": "daily",
+    "recurrence_count": 10
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 974.6
+  },
+  {
+   "index": 25,
+   "user": "Dinner at 7pm",
+   "raw_output": "I need a date as well as a time to create this event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 350.9
+  },
+  {
+   "index": 26,
+   "user": "walk the dog every other day at 7am",
+   "raw_output": "<start_function_call>call:create_event{recurrence_freq:<escape>daily<escape>,recurrence_interval:2,time:<escape>07:00<escape>,title:<escape>Walk the dog<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "time": "07:00",
+    "title": "Walk the dog"
+   },
+   "event": {
+    "title": "Walk the dog",
+    "start": "2026-10-15T07:00",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2
+   },
+   "error": null,
+   "gold": {
+    "title": "Walk the dog",
+    "start": "2026-10-15T07:00",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 973.0
+  },
+  {
+   "index": 27,
+   "user": "Zoom call with the client Wed Oct 21 at 3pm for an hour",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-21<escape>,duration_minutes:60,time:<escape>15:00<escape>,title:<escape>Zoom call with the client<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-21",
+    "duration_minutes": 60,
+    "time": "15:00",
+    "title": "Zoom call with the client"
+   },
+   "event": {
+    "title": "Zoom call with the client",
+    "start": "2026-10-21T15:00",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "Zoom call with the client",
+    "start": "2026-10-21T15:00",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1103.9
+  },
+  {
+   "index": 28,
+   "user": "Piano recital December 12th at 2pm at the community center",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:12-12<escape>,location:<escape>the community center<escape>,time:<escape>14:00<escape>,title:<escape>Piano recital<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:12-12",
+    "location": "the community center",
+    "time": "14:00",
+    "title": "Piano recital"
+   },
+   "event": {
+    "title": "Piano recital",
+    "start": "2026-12-12T14:00",
+    "location": "the community center"
+   },
+   "error": null,
+   "gold": {
+    "title": "Piano recital",
+    "start": "2026-12-12T14:00",
+    "location": "the community center"
+   },
+   "match": "exact",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 1102.6
+  },
+  {
+   "index": 29,
+   "user": "water the plants every Sunday evening",
+   "raw_output": "I need a start time to create this event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "natural",
+    "reject"
+   ],
+   "latency_ms": 271.1
+  },
+  {
+   "index": 30,
+   "user": "Lunch w/ Dad in 2 weeks at 12:30pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:2w<escape>,time:<escape>12:30<escape>,title:<escape>Lunch with Dad<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:2w",
+    "time": "12:30",
+    "title": "Lunch with Dad"
+   },
+   "event": {
+    "title": "Lunch with Dad",
+    "start": "2026-10-28T12:30"
+   },
+   "error": null,
+   "gold": {
+    "title": "Lunch w/ Dad",
+    "start": "2026-10-28T12:30"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 879.2
+  },
+  {
+   "index": 31,
+   "user": "Make a reminder for the 5k race on November 7th at 8am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-07<escape>,time:<escape>08:00<escape>,title:<escape>The 5k race<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-07",
+    "time": "08:00",
+    "title": "The 5k race"
+   },
+   "event": {
+    "title": "The 5k race",
+    "start": "2026-11-07T08:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "5k race",
+    "start": "2026-11-07T08:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "natural"
+   ],
+   "latency_ms": 991.3
+  }
+ ]
+}

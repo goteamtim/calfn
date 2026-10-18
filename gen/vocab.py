@@ -214,3 +214,140 @@ REJECTION_TEXT = {
     "baddate": ["That date doesn't exist. Please check the date.",
                 "There's no such date. Give me a valid date and time."],
 }
+
+
+# ------------------------------------------------------------------ train-only extensions (D10)
+# More titles and sentence frames, used ONLY when generating train.jsonl. The eval and test "ind"
+# share still draws from the TRAIN_* lists above, so eval_v1 / test_v1 stay byte-identical.
+# Nothing here may overlap HELDOUT_* (tests/test_generate.py checks titles and frames).
+
+def _compose_titles() -> list:
+    """Titles built from small parts, a fixed sample per pattern so no pattern dominates."""
+    import random
+    rng = random.Random(10)
+    people = ["Ben", "Chloe", "Dana", "Eli", "Farah", "Gus", "Hana", "Ivan", "Jules", "Kofi", "Lena",
+              "Mateo", "Nora", "Omar", "Pia", "Quinn", "Ravi", "Sofia", "Theo", "Uma", "Uncle Mike",
+              "Grandpa", "my sister", "my brother", "Coach Dale", "the Nguyens"]
+    out = []
+
+    def add(patterns, kind, n):
+        texts = sorted(set(patterns))
+        out.extend((t, kind) for t in rng.sample(texts, min(n, len(texts))))
+
+    add([f"{m} with {p}" for m in ("lunch", "coffee", "dinner", "drinks", "breakfast", "a walk", "a catch-up")
+         for p in people], "noun", 30)
+    add([f"{a} {s}" for a in ("tennis", "ballet", "chess", "cooking", "painting", "Spanish", "drumming",
+                              "salsa", "boxing", "rowing", "archery", "knitting", "judo")
+         for s in ("lesson", "class", "practice", "club")], "noun", 30)
+    add([f"{p} {w}" for p in ("dermatologist", "accountant", "chiropractor", "pediatrician", "audiologist",
+                              "mechanic", "tailor", "optometrist", "podiatrist", "vet", "landlord")
+         for w in ("appointment", "visit", "fitting", "meeting")], "noun", 20)
+    add([f"{a} {b}" for a in ("marketing", "hiring", "vendor", "security", "product", "sales", "finance",
+                              "design", "support", "ops", "legal")
+         for b in ("sync", "review", "committee", "check-in", "standup", "offsite")], "noun", 25)
+    add([f"{p} {w}" for p in ("wedding", "graduation", "retirement", "anniversary", "housewarming", "baby shower")
+         for w in ("rehearsal", "party", "dinner", "planning")], "noun", 12)
+    add([f"{v} {p}" for v in ("call", "email", "text", "message", "ring")
+         for p in people], "verb", 25)
+    add([f"{v} {n} {t}" for v in ("buy", "order", "pick up", "print", "return", "grab")
+         for n in (2, 4, 6, 12, 20) for t in ("notebooks", "cupcakes", "copies of the agenda", "packages",
+                                              "light bulbs", "tickets", "bagels", "name tags")], "verb", 25)
+    add([f"{v} the {t}" for v in ("clean", "vacuum", "wash", "organize", "empty", "sweep")
+         for t in ("kitchen", "bathroom", "fridge", "car", "stairs", "porch", "closet", "attic", "pantry")],
+        "verb", 20)
+    add([f"pay the {b}" for b in ("electric bill", "credit card", "parking ticket", "water bill", "tuition",
+                                 "gym membership", "internet bill")] +
+        [f"renew {d}" for d in ("my license", "the car registration", "my gym membership", "the lease",
+                                "my parking permit", "my insurance")], "verb", 12)
+    add([f"{v} the {t}" for v in ("share", "post", "finalize", "proofread", "print", "forward")
+         for t in ("newsletter", "slides", "proposal", "agenda", "minutes", "contract", "flyer")], "verb", 15)
+    add([f"{v} {t}" for v in ("replace", "restock", "reorder")
+         for t in ("the bird feeder", "the printer paper", "the first aid kit", "the coffee beans",
+                   "my contact lenses", "the dog food")], "verb", 10)
+    return out
+
+
+TRAIN_TITLES_EXTRA = _compose_titles() + [
+    ("graduation ceremony", "noun"), ("open house", "noun"), ("book launch", "noun"),
+    ("jury duty", "noun"), ("car service", "noun"), ("daycare pickup", "noun"), ("team offsite", "noun"),
+    ("tennis match", "noun"), ("cooking with Grandma June", "noun"), ("volunteer shift", "noun"),
+    ("blood donation", "noun"), ("flu shot", "noun"), ("school pickup", "noun"), ("piano recital", "noun"),
+    ("parent night", "noun"), ("fantasy football draft", "noun"), ("karaoke night", "noun"),
+    ("trail run", "noun"), ("beach day", "noun"), ("family photo shoot", "noun"),
+    ("take the bins out", "verb"), ("take the dog to the vet", "verb"), ("update my resume", "verb"),
+    ("update the budget sheet", "verb"), ("change the bed sheets", "verb"),
+    ("change the smoke detector batteries", "verb"), ("reserve a table for 6", "verb"),
+    ("call the insurance company", "verb"), ("call the school", "verb"), ("call the vet", "verb"),
+    ("check the mail", "verb"), ("rotate the tires", "verb"), ("defrost the freezer", "verb"),
+    ("meditate", "verb"), ("journal", "verb"), ("do the dishes", "verb"), ("study for the exam", "verb"),
+    ("finish chapter 3", "verb"), ("submit the timesheet", "verb"), ("book a haircut", "verb"),
+    ("sign the permission slip", "verb"), ("return the library books", "verb"),
+]
+
+# Sentence frames. None of these reuses a held-out lead-in (Throw, Pencil in, Mark my calendar,
+# Please put ... in for, I'd like, Could you add an entry called, Need, Set a reminder to).
+TRAIN_FRAMES_EXTRA = [
+    ("Jot down {title} for {date} {time}", "any"),
+    ("Slot in {title} {on_date} {time}", "any"),
+    ("Log {title} {on_date} {time}", "any"),
+    ("Block off time for {title} {on_date} {time}", "any"),
+    ("Hey, can you add {title} {on_date} {time}?", "any"),
+    ("I've got {title} {on_date} {time}", "noun"),
+    ("Add a calendar entry for {title}, {date} {time}", "any"),
+    ("Reserve {date} {time} for {title}", "any"),
+    ("{Title} @ {date} {time}", "any"),
+    ("Remember: {title} {on_date} {time}", "any"),
+    ("Hold {on_date} {time} for {title}", "any"),
+    ("Can you put {title} down for {date} {time}?", "any"),
+    ("Don't forget {title} {on_date} {time}", "any"),
+    ("Heads up: {title} {on_date} {time}", "any"),
+    ("Get {title} on the calendar for {date} {time}", "any"),
+    ("I want to {title} {on_date} {time}", "verb"),
+    ("Time to {title} {on_date} {time}", "verb"),
+    ("Ping me to {title} {on_date} {time}", "verb"),
+    ("Appointment: {title} {date} {time}", "noun"),
+    ("Enter {title} for {date} {time}", "any"),
+    ("Pop {title} into my calendar {on_date} {time}", "any"),
+    ("Yo, {title} {on_date} {time}", "any"),
+    ("Make a note: {title} {on_date} {time}", "any"),
+    ("Calendar entry - {title} - {date} {time}", "any"),
+    ("Would you mind adding {title} {on_date} {time}?", "any"),
+    ("Can you fit in {title} {on_date} {time}?", "any"),
+    ("Add to calendar: {title} {date} {time}", "any"),
+    ("Set {title} for {date} {time}", "any"),
+    ("Lock in {title} {on_date} {time}", "any"),
+    ("I'm planning {title} {on_date} {time}", "noun"),
+    ("Sign me up for {title} {on_date} {time}", "noun"),
+    ("Remind me about {title} {on_date} {time}", "noun"),
+    ("{date} {time} - {title}", "any"),
+    ("Got {title} {on_date} {time}", "noun"),
+    ("Please schedule {title} for {date} {time}", "any"),
+    ("Add {title} for me {on_date} {time}", "any"),
+    ("Put a hold on the calendar for {title}, {date} {time}", "any"),
+    ("Note to self: {title} {on_date} {time}", "any"),
+]
+
+TRAIN_REC_FRAMES_EXTRA = [
+    ("Repeat {title} {rec} {time}", "any"),
+    ("Add {title} as a repeating event, {rec} {time}", "any"),
+    ("Keep {title} on my calendar {rec} {time}", "any"),
+    ("{Title} should happen {rec} {time}", "noun"),
+    ("Regular event - {title} {rec} {time}", "any"),
+    ("Remember to {title} {rec} {time}", "verb"),
+    ("Hold a slot for {title} {rec} {time}", "any"),
+    ("Put {title} down {rec} {time}", "any"),
+    ("Log {title} {rec} {time}", "any"),
+    ("Ongoing: {title} {rec} {time}", "any"),
+    ("Can you set {title} up {rec} {time}?", "any"),
+    ("I do {title} {rec} {time}", "noun"),
+    ("Ping me to {title} {rec} {time}", "verb"),
+]
+
+TRAIN_SHORT_FRAMES_EXTRA = [
+    ("Jot down {title} {when}", "any"), ("Log {title} {when}", "any"),
+    ("Hold time for {title} {when}", "any"), ("Could {title} go on the calendar {when}?", "any"),
+    ("{Title}, {when}", "any"), ("Add a note for {title} {when}", "any"),
+    ("Enter {title} {when}", "any"), ("Get {title} on the books {when}", "any"),
+    ("Plan on {title} {when}", "any"), ("Don't forget to {title} {when}", "verb"),
+    ("Remember to {title} {when}", "verb"), ("Can you fit in {title} {when}?", "any"),
+]

@@ -153,12 +153,64 @@ on `eval_v1` is optimistic. `test_v1` has never been scored or analyzed; it is t
 choosing the wrong date *kind* (`wd:` vs `nw:`). If date accuracy is not close to 90%, the problem is
 the expression language or the data, not arithmetic, and this decision needs revisiting.
 
+**Result (calfn-v2, `eval_v1`, 2026-10-18).** 74.3% (223/300). Date accuracy 100% (253/253), rejections 41/41 with
+no false positives. The prediction held. 65 of the 71 wrong calls were wrong only in the title (details in
+`docs/experiments.md`), so the next lever is title and frame diversity (Ideas below), not the date language.
+
 **Costs.** The tool declaration is longer (826 tokens for the longest training example, up from 701),
 and the language has to be learned. It can only express what the language can: a phrase outside it
 ("the Tuesday after Thanksgiving") has no expression. Extending the language means a new `eval` version.
 
 **Revisit if** dates stay under 90% after the first run, or the language turns out too small for the
 phrasings people use.
+
+## D10: Wider train vocabulary for titles (2026-10-18)
+
+**Why.** calfn-v2 got dates right (100%) and every rejection, but 65 of its 71 wrong calls were wrong only
+in the title, and all of them were on held-out wording (`ood` 65%, `ind` 98%). Of 69 title errors, about 54 had
+the sentence frame leaking into the title ("Throw buy 3 gift cards", "Make change", "Pencil in breakfast with
+Alex"), 9 were titles invented or recalled from training ("File my expenses", "Walk the dog" for unseen
+titles) and 6 were cut short ("Take the car"). The training set had 20 single-event frames and 80 titles.
+
+**What changed.**
+- `gen/vocab.py` gains `TRAIN_TITLES_EXTRA` (266 titles: small hand-written parts composed with a fixed-seed
+  sample per pattern, plus a hand-written list), `TRAIN_FRAMES_EXTRA` (+38), `TRAIN_REC_FRAMES_EXTRA` (+13)
+  and `TRAIN_SHORT_FRAMES_EXTRA` (+12). Train now has 346 titles and 58 / 23 / 20 frames.
+- `gen/generate.py`: `train` draws from `TRAIN_GEN_VOCAB` (original + extra). `TRAIN_VOCAB` is untouched and
+  is still what the eval and test `ind` share draws from, so `eval_v1` and `test_v1` reproduce byte for byte
+  (the generator checks, and `tests/test_generate.py` does too).
+- Nothing in the extension may overlap the held-out titles or frames (test added). On purpose it does not
+  reuse held-out lead-ins (Throw, Pencil in, Mark my calendar, Please put .. in for, I'd like, Could you add an
+  entry called, Need, Set a reminder to) or held-out title verbs (send, refill) so `ood` stays unseen.
+- Same 3000 rows, same recipe (D2): diversity is the only thing that changed. Labels are still computed; the
+  new titles are vocabulary values the generator turns into sentences, like the existing ones.
+
+**Rejected.**
+- *Growing `TRAIN_TITLES` in place.* It changes the eval draws and breaks the frozen files.
+- *More rows or epochs instead of more vocabulary.* The errors are on words the model hasn't seen, not on
+  too little practice with the words it has.
+- *Scoring the new model first on a fresh eval.* A new held-out set (eval v2) is the cleaner test and is
+  still wanted, but `test_v1` has never been scored, so it is still a clean number to report.
+
+**Honesty about the dev set.** I wrote this vocabulary after reading calfn-v2's errors on `eval_v1`, and I know
+the held-out words, so the distance to them is a judgment call and any gain on `eval_v1` is optimistic. The
+test for exact overlap is mechanical; "similar in spirit" is not.
+
+**Prediction, written before the first run.** Title accuracy rises from 72.7% to at least 85%, `ood` pass from
+65% to at least 78%, and overall pass on `eval_v1` from 74.3% to 80-90%. Date accuracy stays 100% and
+rejections stay above 95%. If title accuracy stays under 80%, vocabulary breadth is not what limits a 270M
+model here; the next candidates are response-only loss and more rows.
+
+**Result (calfn-v3, `eval_v1`, 2026-10-18).** 84.7% (254/300, CI 80.2%-88.3%). Title accuracy 88.5% (v2 72.7%), `ood` 80% (65%),
+`ind` 96% (98%), dates 100%, rejections 41/41. The prediction held. Title-only errors fell from 65 to 26, and what
+is left is mostly the held-out lead-ins ("Pencil in", "Throw") that were kept out of training on purpose.
+
+**natural_v1 check.** v2 71.9%, v3 68.8% (32 rows, labels unreviewed): no detectable difference, in either direction.
+It does not confirm the `eval_v1` gain and does not contradict it; see `docs/experiments.md`. An eval v2 with fresh
+held-out vocabulary is the test that would.
+
+**Revisit if** `ind` drops (the wider vocabulary dilutes what the model memorized), or titles improve on
+`eval_v1` but not on `natural_v1` or an eval v2.
 
 ## Ideas, not decisions
 

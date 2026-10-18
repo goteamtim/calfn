@@ -50,6 +50,10 @@ class Vocab:
 
 TRAIN_VOCAB = Vocab("ind", V.TRAIN_TITLES, V.TRAIN_LOCATIONS, V.TRAIN_FRAMES, V.TRAIN_REC_FRAMES,
                     V.TRAIN_SHORT_FRAMES, V.TRAIN_OFFTOPIC)
+# train.jsonl draws from a wider vocabulary (D10); eval/test "ind" rows keep TRAIN_VOCAB so they don't move
+TRAIN_GEN_VOCAB = Vocab("ind", V.TRAIN_TITLES + V.TRAIN_TITLES_EXTRA, V.TRAIN_LOCATIONS,
+                        V.TRAIN_FRAMES + V.TRAIN_FRAMES_EXTRA, V.TRAIN_REC_FRAMES + V.TRAIN_REC_FRAMES_EXTRA,
+                        V.TRAIN_SHORT_FRAMES + V.TRAIN_SHORT_FRAMES_EXTRA, V.TRAIN_OFFTOPIC)
 HELDOUT_VOCAB = Vocab("ood", V.HELDOUT_TITLES, V.HELDOUT_LOCATIONS, V.HELDOUT_FRAMES, V.HELDOUT_REC_FRAMES,
                       V.HELDOUT_SHORT_FRAMES, V.HELDOUT_OFFTOPIC)
 
@@ -370,7 +374,7 @@ def generate_split(split: str, n: int, forbidden: set[str]) -> list[dict]:
             raise RuntimeError(f"could not generate {n} unique {split} rows")
         now = sample_now(rng)
         if split == "train":
-            vocab = TRAIN_VOCAB
+            vocab = TRAIN_GEN_VOCAB
         else:
             vocab = HELDOUT_VOCAB if rng.random() < 0.7 else TRAIN_VOCAB
 

@@ -1,50 +1,53 @@
 # Results (results/dev)
 
-| run | eval file | pass | 95% CI | rejections ok | false pos | missed calls | start | ms |
-|---|---|---|---|---|---|---|---|---|
-| base | eval_v1.jsonl | 13.3% | 10%-18% | 40/41 | 1 | 191/259 |  | 1088 |
-| calfn-v1 | eval_v1.jsonl | 48.3% | 43%-54% | 38/41 | 3 | 10/259 | 65% | 1040 |
-| ollama-gemma4-12b | eval_v1.jsonl | 62.7% | 57%-68% | 14/41 | 27 | 0/259 | 85% | 2928 |
+| run | task | eval file | pass | 95% CI | rejections ok | false pos | missed calls | date | time | ms |
+|---|---|---|---|---|---|---|---|---|---|---|
+| base-extract | extract | eval_v1.jsonl | 11.7% | 9%-16% | 35/41 | 6 | 157/259 |  |  | 1209 |
+| base | direct | eval_v1.jsonl | 13.3% | 10%-18% | 40/41 | 1 | 191/259 |  |  | 1088 |
+| calfn-v1 | direct | eval_v1.jsonl | 48.3% | 43%-54% | 38/41 | 3 | 10/259 | 65% |  | 1040 |
+| calfn-v2 | extract | eval_v1.jsonl | 74.3% | 69%-79% | 41/41 | 0 | 4/259 | 100% | 99% | 1041 |
+| calfn-v3 | extract | eval_v1.jsonl | 84.7% | 80%-88% | 41/41 | 0 | 4/259 | 100% | 98% | 1044 |
+| ollama-gemma4-12b | direct | eval_v1.jsonl | 62.7% | 57%-68% | 14/41 | 27 | 0/259 | 85% |  | 2928 |
 
 ## Pass rate by tag
 
-| tag | n | base | calfn-v1 | ollama-gemma4-12b |
-|---|---|---|---|---|
-| date_abs | 84 | 0% | 56% | 85% |
-| date_dom | 12 | 0% | 67% | 67% |
-| date_monthrel | 20 | 0% | 35% | 70% |
-| date_rel | 38 | 0% | 29% | 89% |
-| date_today | 1 | 0% | 100% | 100% |
-| date_weekday | 29 | 0% | 14% | 52% |
-| distractor | 20 | 0% | 20% | 85% |
-| dur | 103 | 0% | 51% | 73% |
-| dur_range | 24 | 0% | 21% | 67% |
-| dur_until | 22 | 0% | 41% | 59% |
-| ind | 85 | 16% | 62% | 64% |
-| loc | 61 | 0% | 31% | 43% |
-| ood | 215 | 12% | 43% | 62% |
-| rec_count | 14 | 0% | 36% | 36% |
-| rec_daily | 9 | 0% | 78% | 56% |
-| rec_dated | 20 | 0% | 55% | 50% |
-| rec_interval | 17 | 0% | 29% | 6% |
-| rec_monthly | 17 | 0% | 65% | 35% |
-| rec_undated | 55 | 0% | 33% | 38% |
-| rec_until | 17 | 0% | 53% | 35% |
-| rec_weekly | 41 | 0% | 22% | 41% |
-| rec_yearly | 8 | 0% | 25% | 38% |
-| recurring | 75 | 0% | 39% | 41% |
-| reject | 41 | 98% | 93% | 34% |
-| reject_ambiguous | 9 | 100% | 89% | 0% |
-| reject_baddate | 2 | 100% | 100% | 50% |
-| reject_nodate | 7 | 100% | 100% | 0% |
-| reject_notime | 7 | 86% | 86% | 14% |
-| reject_offtopic | 9 | 100% | 100% | 100% |
-| reject_past | 1 | 100% | 0% | 100% |
-| reject_vague | 6 | 100% | 100% | 33% |
-| time_12h | 166 | 0% | 43% | 72% |
-| time_24h | 29 | 0% | 31% | 66% |
-| time_noon | 5 | 0% | 20% | 20% |
-| time_period | 18 | 0% | 67% | 72% |
-| time_range | 24 | 0% | 21% | 67% |
-| time_words | 17 | 0% | 47% | 29% |
-| year_explicit | 3 | 0% | 33% | 100% |
+| tag | n | base-extract | base | calfn-v1 | calfn-v2 | calfn-v3 | ollama-gemma4-12b |
+|---|---|---|---|---|---|---|---|
+| date_abs | 84 | 0% | 0% | 56% | 63% | 76% | 85% |
+| date_dom | 12 | 0% | 0% | 67% | 92% | 100% | 67% |
+| date_monthrel | 20 | 0% | 0% | 35% | 80% | 90% | 70% |
+| date_rel | 38 | 0% | 0% | 29% | 74% | 84% | 89% |
+| date_today | 1 | 0% | 0% | 100% | 100% | 100% | 100% |
+| date_weekday | 29 | 0% | 0% | 14% | 62% | 72% | 52% |
+| distractor | 20 | 0% | 0% | 20% | 50% | 80% | 85% |
+| dur | 103 | 0% | 0% | 51% | 78% | 87% | 73% |
+| dur_range | 24 | 0% | 0% | 21% | 54% | 83% | 67% |
+| dur_until | 22 | 0% | 0% | 41% | 77% | 73% | 59% |
+| ind | 85 | 16% | 16% | 62% | 98% | 96% | 64% |
+| loc | 61 | 0% | 0% | 31% | 67% | 80% | 43% |
+| ood | 215 | 10% | 12% | 43% | 65% | 80% | 62% |
+| rec_count | 14 | 0% | 0% | 36% | 79% | 93% | 36% |
+| rec_daily | 9 | 0% | 0% | 78% | 78% | 89% | 56% |
+| rec_dated | 20 | 0% | 0% | 55% | 75% | 75% | 50% |
+| rec_interval | 17 | 0% | 0% | 29% | 65% | 82% | 6% |
+| rec_monthly | 17 | 0% | 0% | 65% | 82% | 88% | 35% |
+| rec_undated | 55 | 0% | 0% | 33% | 73% | 91% | 38% |
+| rec_until | 17 | 0% | 0% | 53% | 76% | 76% | 35% |
+| rec_weekly | 41 | 0% | 0% | 22% | 78% | 90% | 41% |
+| rec_yearly | 8 | 0% | 0% | 25% | 25% | 62% | 38% |
+| recurring | 75 | 0% | 0% | 39% | 73% | 87% | 41% |
+| reject | 41 | 85% | 98% | 93% | 100% | 100% | 34% |
+| reject_ambiguous | 9 | 89% | 100% | 89% | 100% | 100% | 0% |
+| reject_baddate | 2 | 50% | 100% | 100% | 100% | 100% | 50% |
+| reject_nodate | 7 | 100% | 100% | 100% | 100% | 100% | 0% |
+| reject_notime | 7 | 86% | 86% | 86% | 100% | 100% | 14% |
+| reject_offtopic | 9 | 78% | 100% | 100% | 100% | 100% | 100% |
+| reject_past | 1 | 0% | 100% | 0% | 100% | 100% | 100% |
+| reject_vague | 6 | 100% | 100% | 100% | 100% | 100% | 33% |
+| time_12h | 166 | 0% | 0% | 43% | 72% | 84% | 72% |
+| time_24h | 29 | 0% | 0% | 31% | 72% | 79% | 66% |
+| time_noon | 5 | 0% | 0% | 20% | 80% | 60% | 20% |
+| time_period | 18 | 0% | 0% | 67% | 78% | 89% | 72% |
+| time_range | 24 | 0% | 0% | 21% | 54% | 83% | 67% |
+| time_words | 17 | 0% | 0% | 47% | 65% | 65% | 29% |
+| year_explicit | 3 | 0% | 0% | 33% | 100% | 100% | 100% |
