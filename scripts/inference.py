@@ -2,16 +2,23 @@
 Run a model on calfn prompts and score it.
 
     # score a fine-tuned model (or the untuned base) on the dev eval
-    python scripts/inference.py --model output/calfn-v1 --eval data/eval/eval_v1.jsonl --name calfn-v1
-    python scripts/inference.py --model unsloth/functiongemma-270m-it --eval data/eval/eval_v1.jsonl --name base
+    python scripts/inference.py --model output/calfn-v2 --eval data/eval/eval_v1.jsonl --name calfn-v2 --out-dir results/dev
+    python scripts/inference.py --model unsloth/functiongemma-270m-it --eval data/eval/eval_v1.jsonl --name base-extract --out-dir results/dev
+
+    # a v1 checkpoint (it wrote the event itself, told "Now: ..."): score it with the direct task
+    python scripts/inference.py --model output/calfn-v1 --task direct --eval data/eval/eval_v1.jsonl --name calfn-v1
 
     # one prompt (--now defaults to the current local time)
-    python scripts/inference.py --model output/calfn-v1 --prompt "lunch with Sam next Friday at noon"
+    python scripts/inference.py --model output/calfn-v2 --prompt "lunch with Sam next Friday at noon"
 
     # check the harness without a model: answers are the gold labels, so everything must pass
     python scripts/inference.py --oracle --eval data/eval/eval_v1.jsonl --name oracle
 
-Results are written to results/<name>.json. Greedy decoding, so scores are reproducible.
+Tasks (calfn/task.py): `extract` (default) the model writes the date and time as said and code resolves
+the real date; `direct` the model is told "Now: ..." and writes the event itself (the v1 approach).
+Either way the result is scored as an event against the frozen eval labels.
+
+Results are written to <out-dir>/<name>.json. Greedy decoding, so scores are reproducible.
 The test set (data/eval/test_v1.jsonl) is scored once, at the end. Never pick settings with it.
 
 torch and transformers are imported only when a model is loaded; scoring runs anywhere.
@@ -26,11 +33,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from calfn.parse import format_call, parse_tool_call  # noqa: E402
-from calfn.schema import TOOL, developer_message, validate  # noqa: E402
+from calfn.resolve import event_to_call  # noqa: E402
 from calfn.scoring import make_result, summarize  # noqa: E402
+from calfn.task import TASKS, Task, apply  # noqa: E402
 
 BASE_MODEL = "unsloth/functiongemma-270m-it"  # ungated copy of google/functiongemma-270m-it
-TOOLS = [{"type": "function", "function": TOOL}]
 
 
 def load_examples(path: str) -> list[dict]:
@@ -44,20 +51,21 @@ def load_examples(path: str) -> list[dict]:
 
 
 def split_example(ex: dict):
-    """(developer message, user text, gold arguments or None, tags)."""
+    """(user text, expected event or None, tags, now). Eval rows hold the resolved event as the answer."""
     msgs = ex["messages"]
-    dev = next(m["content"] for m in msgs if m["role"] == "developer")
     user = next(m["content"] for m in msgs if m["role"] == "user")
     asst = next(m for m in msgs if m["role"] == "assistant")
     gold = asst["tool_calls"][0]["function"]["arguments"] if asst.get("tool_calls") else None
-    return dev, user, gold, ex.get("meta", {}).get("tags", [])
+    meta = ex.get("meta", {})
+    now = datetime.strptime(meta["now"], "%Y-%m-%dT%H:%M")
+    return user, gold, meta.get("tags", []), now
 
 
-def build_prompt(tokenizer, developer: str, user: str) -> str:
+def build_prompt(tokenizer, developer: str, user: str, tools: list[dict]) -> str:
     """The exact prompt shape used in training: developer message, user turn, tool declaration."""
     text = tokenizer.apply_chat_template(
         [{"role": "developer", "content": developer}, {"role": "user", "content": user}],
-        tools=TOOLS, tokenize=False, add_generation_prompt=True,
+        tools=tools, tokenize=False, add_generation_prompt=True,
     )
     # The template already starts with <bos>; the tokenizer adds one too. Keep exactly one.
     return text.removeprefix("<bos>")
@@ -79,7 +87,7 @@ def load_model(path: str):
     return model.to(device).eval(), tokenizer
 
 
-def model_generator(model, tokenizer, max_new_tokens: int = 160):
+def model_generator(model, tokenizer, task: Task, max_new_tokens: int = 160):
     import torch
 
     # Stop at end of turn, or where the model would wait for the tool's reply
@@ -87,7 +95,7 @@ def model_generator(model, tokenizer, max_new_tokens: int = 160):
         ["<end_of_turn>", "<start_function_response>"])
 
     def generate(developer: str, user: str) -> tuple[str, float]:
-        prompt = build_prompt(tokenizer, developer, user)
+        prompt = build_prompt(tokenizer, developer, user, task.tools)
         inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
         t0 = time.perf_counter()
         with torch.no_grad():
@@ -100,24 +108,27 @@ def model_generator(model, tokenizer, max_new_tokens: int = 160):
     return generate
 
 
-def oracle_generator(examples: list[dict]):
-    """Answers with the gold label in the model's own output format. Exercises parse + score."""
-    gold = {(split_example(e)[0], split_example(e)[1]): split_example(e)[2] for e in examples}
+def oracle_generator(examples: list[dict], task: Task):
+    """Answers with a correct output in the model's own format. Exercises parse + resolve + score."""
+    gold = {split_example(e)[0]: split_example(e)[1] for e in examples}
 
     def generate(developer: str, user: str) -> tuple[str, float]:
-        g = gold[(developer, user)]
-        return (format_call(g) if g else "I need a date and time to create the event."), 0.0
+        g = gold[user]
+        if g is None:
+            return "I need a date and time to create the event.", 0.0
+        return format_call(event_to_call(g) if task.name == "extract" else g), 0.0
 
     return generate
 
 
-def evaluate(examples: list[dict], generate, limit: int | None = None, quiet: bool = False) -> list[dict]:
+def evaluate(examples: list[dict], task: Task, generate, limit: int | None = None, quiet: bool = False) -> list[dict]:
     results = []
     for i, ex in enumerate(examples[:limit]):
-        dev, user, gold, tags = split_example(ex)
-        raw, seconds = generate(dev, user)
+        user, gold, tags, now = split_example(ex)
+        raw, seconds = generate(task.developer(now), user)
         pred = parse_tool_call(raw)
-        results.append(make_result(i, user, raw, pred, gold, tags, seconds * 1000))
+        event, error = apply(task, pred, now)
+        results.append(make_result(i, user, raw, pred, gold, tags, seconds * 1000, event=event, error=error))
         if not quiet:
             n = sum(r["match"] in ("exact", "correct_rejection") for r in results)
             print(f"[{i + 1:>4}/{len(examples[:limit])}] {results[-1]['match']:18s} pass={n / (i + 1):.3f} | {user[:60]}")
@@ -143,41 +154,43 @@ def print_summary(summary: dict) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--model", help="model directory or hub id")
-    ap.add_argument("--oracle", action="store_true", help="answer with gold labels (harness check)")
+    ap.add_argument("--task", choices=sorted(TASKS), default="extract")
+    ap.add_argument("--oracle", action="store_true", help="answer with correct outputs (harness check)")
     ap.add_argument("--eval", help="JSONL file to score")
     ap.add_argument("--prompt", help="a single request to run")
     ap.add_argument("--now", help="local time for --prompt, YYYY-MM-DDTHH:MM (default: now)")
-    ap.add_argument("--name", help="results/<name>.json (default: model directory name)")
+    ap.add_argument("--name", help="<out-dir>/<name>.json (default: model directory name)")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--out-dir", default="results")
     args = ap.parse_args()
     if not (args.model or args.oracle):
         ap.error("give --model or --oracle")
+    task = TASKS[args.task]
 
     examples = load_examples(args.eval) if args.eval else []
     if args.oracle:
-        generate = oracle_generator(examples)
+        generate = oracle_generator(examples, task)
     else:
         print(f"Loading {args.model} ...")
         model, tokenizer = load_model(args.model)
-        generate = model_generator(model, tokenizer)
+        generate = model_generator(model, tokenizer, task)
 
     if args.prompt:
         now = datetime.strptime(args.now, "%Y-%m-%dT%H:%M") if args.now else datetime.now().replace(second=0, microsecond=0)
-        raw, seconds = generate(developer_message(now), args.prompt)
+        raw, seconds = generate(task.developer(now), args.prompt)
         print(f"Raw output ({seconds * 1000:.0f} ms):\n  {raw}")
         call = parse_tool_call(raw)
         if call is None:
             print("No tool call.")
-        else:
-            ok, msg = validate(call)
-            print(json.dumps(call, indent=2, ensure_ascii=False))
-            print(f"Schema valid: {ok} {'' if ok else msg}")
+            return
+        print("Call:", json.dumps(call, ensure_ascii=False))
+        event, error = apply(task, call, now)
+        print("Event:", json.dumps(event, ensure_ascii=False) if event else f"cannot resolve: {error}")
         return
 
     if not args.eval:
         ap.error("give --eval or --prompt")
-    results = evaluate(examples, generate, args.limit)
+    results = evaluate(examples, task, generate, args.limit)
     summary = summarize(results)
     print_summary(summary)
 
@@ -187,6 +200,7 @@ def main() -> None:
     out.write_text(json.dumps({
         "run_date": datetime.now().isoformat(timespec="seconds"),
         "model": "oracle" if args.oracle else args.model,
+        "task": task.name,
         "eval_file": args.eval,
         "summary": summary,
         "results": results,

@@ -1,5 +1,5 @@
 """
-Turn a create_event call into things a calendar understands. Pure functions, no model needed.
+Turn a resolved event into things a calendar understands. Pure functions, no model needed.
 
     python -m calfn.convert --args '{"title":"Yoga","start":"2026-10-20T18:00","recurrence_freq":"weekly","recurrence_days":"TU"}' --ics yoga.ics --links
 
@@ -21,7 +21,7 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 from urllib.parse import quote
 
-from .schema import DEFAULT_DURATION, normalize, parse_start, validate
+from .schema import DEFAULT_DURATION, normalize, parse_start, validate_event
 
 _FREQ = {"daily": "DAILY", "weekly": "WEEKLY", "monthly": "MONTHLY", "yearly": "YEARLY"}
 
@@ -88,7 +88,7 @@ def _fold(line: str) -> list[str]:
 
 def to_ics(args: dict, tz: str | None = None, stamp: datetime | None = None) -> str:
     """A complete .ics document (CRLF line endings) with one VEVENT."""
-    ok, msg = validate(args)
+    ok, msg = validate_event(args)
     if not ok:
         raise ValueError(msg)
     a = normalize(args)
@@ -161,7 +161,7 @@ def to_outlook_url(args: dict, kind: str = "live") -> str:
 
 def encode_share(args: dict) -> str:
     """Compact, URL-safe encoding of a call, for a future page.html#e=<this> share link."""
-    ok, msg = validate(args)
+    ok, msg = validate_event(args)
     if not ok:
         raise ValueError(msg)
     clean = {k: v for k, v in args.items() if v is not None}
@@ -176,7 +176,7 @@ def decode_share(token: str) -> dict:
         args = json.loads(raw.decode("utf-8"))
     except (ValueError, UnicodeDecodeError) as e:
         raise ValueError(f"not a share token: {e}") from e
-    ok, msg = validate(args)
+    ok, msg = validate_event(args)
     if not ok:
         raise ValueError(msg)
     return args
@@ -191,7 +191,7 @@ def main(argv=None) -> int:
     ns = p.parse_args(argv)
 
     args = json.loads(ns.args)
-    ok, msg = validate(args)
+    ok, msg = validate_event(args)
     if not ok:
         print(f"invalid call: {msg}", file=sys.stderr)
         return 1

@@ -93,8 +93,79 @@ unavailable on current models), and scores the result with the same strict rules
 **Why.** A baseline that isn't told the conventions would be graded against rules it couldn't know.
 The prompt is deliberately given to both.
 
+## D9: The model extracts, code computes (2026-10-18)
+
+**Decision.** The model no longer writes the event. It copies how the date and time were said into a
+short **date expression** (`wd:TH`, `in:30d`, `md:10-21`, `nth:L:FR:1`, ...; the full language is in
+`calfn/dates.py`), plus the clock time (`15:00`) and either a stated length (`duration_minutes`) or an
+end time (`end`). `calfn/resolve.py` turns that call into the real event given the current time. The
+model is not told what day it is. The v1 approach (told "Now: ...", writes the absolute event) survives
+as `--task direct`, used by the prompted baselines.
+
+**Why.** The first fine-tune (calfn-v1, direct, 48.3% on eval_v1) failed almost entirely at arithmetic,
+not understanding. Measured from `results/dev/calfn-v1.json`:
+
+| piece | accuracy | where it lives now |
+|---|---|---|
+| time of day | 98.4% (245/249 calls) | model (unchanged) |
+| stated duration ("for 90 minutes") | 100% (101/101) | model (unchanged) |
+| date | 64.7% (161/249) | **code** |
+| duration derived from a range or "until" | 52% (24/46) | **code** (model writes the end time) |
+
+86 of the 137 wrong calls had a wrong start date (79 were wrong in nothing else), mostly by a few days
+(-1d x16, -4d x13, +2d x11): "in 30 days" landed on day 28. Weekday-name prompts passed 14% of the time. A 270M model approximates
+calendar arithmetic and misses by small amounts; a resolver does it exactly. A prompted 12B model got
+85% on dates, so the skill is learnable at scale, but this project is about what a small model can do
+reliably, and the production-grade design is to not ask it for arithmetic at all.
+
+**What changed.**
+- `CALL` (what the model writes) and `EVENT` (what gets scored, converted and shared) are separate
+  schemas in `calfn/schema.py`. Scoring resolves the call with the example's `meta.now`, then compares
+  events exactly as before, so v1 and v2 numbers are comparable.
+- Generator: every date phrase carries the expression for it, and the generator **asserts for every row
+  that the call resolves to the expected event**. An independent parser checks phrase -> date and the
+  resolver checks expression -> date, so a phrase and its expression can't disagree
+  (`tests/test_dates_resolve.py`).
+- `data/train.jsonl` is regenerated with call labels (same 3000 prompts and events as v1, checked).
+  `eval_v1` / `test_v1` are untouched: still byte-identical to what the generator makes, and still hold
+  the resolved event as the answer.
+- A daily or weekly series with no stated start date has no `date` at all; the resolver finds its first
+  occurrence. Monthly and yearly series carry their day in `date` ("every month on the 15th" is `dom:15`).
+- `recurrence_until` is `MM-DD` or `YYYY-MM-DD`; `MM-DD` means its next occurrence, resolved in code.
+
+**Rejected.**
+- *More data, epochs or LoRA rank for the arithmetic.* Cheap to try, but it keeps asking a small model
+  for exact arithmetic and would still leave rare dates wrong. Better data diversity is still wanted
+  for the title errors (below); that is a separate change.
+- *Copy the date phrase verbatim and parse it in code (dateparser / parsedatetime).* Open-ended parsers
+  have their own conventions ("next Thursday") that don't match ours, and a verbatim copy hands the
+  hard part to a library we can't control. The expression language is small, closed, and ours.
+- *Let the model reason step by step before answering.* Slower, and the format (a bare tool call)
+  stays the same.
+
+**Honesty about the dev set.** The design came from reading calfn-v1's errors on `eval_v1`, so any gain
+on `eval_v1` is optimistic. `test_v1` has never been scored or analyzed; it is the number to report.
+(Comparing v2 with v1 on `eval_v1` is still apples to apples: same prompts, same labels, same metric.)
+
+**Prediction, written before the first v2 run.** Date accuracy >= 90% and overall pass 70-85% on
+`eval_v1`; rejection handling stays above 90%. The remaining misses should be mostly title wording
+(30 of v1's 137 wrong calls: the held-out sentence frame leaking into the title, invented titles) and
+choosing the wrong date *kind* (`wd:` vs `nw:`). If date accuracy is not close to 90%, the problem is
+the expression language or the data, not arithmetic, and this decision needs revisiting.
+
+**Costs.** The tool declaration is longer (826 tokens for the longest training example, up from 701),
+and the language has to be learned. It can only express what the language can: a phrase outside it
+("the Tuesday after Thanksgiving") has no expression. Extending the language means a new `eval` version.
+
+**Revisit if** dates stay under 90% after the first run, or the language turns out too small for the
+phrasings people use.
+
 ## Ideas, not decisions
 
+- More training diversity (sentence frames, event titles). calfn-v1 mixed the held-out frame into the title
+  ("Throw buy 3 gift cards") and invented titles ("Plummettruf"); 20 frames and 80 titles is thin. Adding
+  vocabulary changes the generator's random draws, so eval/test must be generated from separate vocab
+  streams first (or versioned as v2).
 - Response-only loss (don't train on the developer message and tool declaration). Untested; would be
   one ablation.
 - A browser demo via ONNX export (`onnx-community/functiongemma-270m-it-ONNX` exists for the base

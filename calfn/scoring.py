@@ -9,7 +9,7 @@ equal omitted ones, titles/locations compare ignoring case and punctuation).
 import math
 from collections import defaultdict
 
-from .schema import field_matches, same_event, spurious_fields, validate
+from .schema import field_matches, same_event, spurious_fields
 
 MATCH_TYPES = (
     "exact", "wrong_args", "invalid", "missed_tool_call", "correct_rejection", "false_positive",
@@ -17,15 +17,20 @@ MATCH_TYPES = (
 PASSING = {"exact", "correct_rejection"}
 
 
-def classify(pred: dict | None, gold: dict | None) -> str:
+def classify(pred: dict | None, event: dict | None, error: str | None, gold: dict | None) -> str:
+    """
+    pred   the arguments the model wrote (None = no call)
+    event  the event they resolve to (None if they didn't)
+    error  why they didn't resolve (schema violation, impossible date, ...)
+    gold   the expected event (None = the request should be rejected)
+    """
     if gold is None:
         return "correct_rejection" if pred is None else "false_positive"
     if pred is None:
         return "missed_tool_call"
-    ok, _ = validate(pred)
-    if not ok:
+    if error or event is None:
         return "invalid"
-    return "exact" if same_event(pred, gold) else "wrong_args"
+    return "exact" if same_event(event, gold) else "wrong_args"
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -39,13 +44,16 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
     return max(0.0, centre - half), min(1.0, centre + half)
 
 
-def make_result(index: int, user: str, raw: str, pred, gold, tags, latency_ms: float = 0.0) -> dict:
-    match = classify(pred, gold)
+def make_result(index: int, user: str, raw: str, pred, gold, tags, latency_ms: float = 0.0,
+                event: dict | None = None, error: str | None = None) -> dict:
+    match = classify(pred, event, error, gold)
     return {
         "index": index,
         "user": user,
         "raw_output": raw,
         "pred": pred,
+        "event": event,
+        "error": error,
         "gold": gold,
         "match": match,
         "tags": list(tags or []),
@@ -59,6 +67,11 @@ def _rate(results: list[dict]) -> dict:
     lo, hi = wilson(k, n)
     return {"n": n, "pass": k, "rate": round(k / n, 4) if n else 0.0,
             "ci95": [round(lo, 4), round(hi, 4)]}
+
+
+def _event(r: dict) -> dict:
+    """The resolved event of a result (older result files stored the event as `pred`)."""
+    return r.get("event") or r["pred"]
 
 
 def summarize(results: list[dict]) -> dict:
@@ -77,14 +90,14 @@ def summarize(results: list[dict]) -> dict:
     # `spurious` counts non-default fields the prediction added that the user never asked for
     field = defaultdict(lambda: [0, 0])
     for r in results:
-        if r["gold"] is not None and r["pred"] is not None and r["match"] in ("exact", "wrong_args"):
-            for k, ok in field_matches(r["pred"], r["gold"]).items():
+        if r["gold"] is not None and r["match"] in ("exact", "wrong_args"):
+            for k, ok in field_matches(_event(r), r["gold"]).items():
                 field[k][1] += 1
                 field[k][0] += int(ok)
     spurious = defaultdict(int)
     for r in results:
-        if r["gold"] is not None and r["pred"] is not None and r["match"] in ("exact", "wrong_args"):
-            for k in spurious_fields(r["pred"], r["gold"]):
+        if r["gold"] is not None and r["match"] in ("exact", "wrong_args"):
+            for k in spurious_fields(_event(r), r["gold"]):
                 spurious[k] += 1
     per_field = {k: {"correct": c, "total": t, "accuracy": round(c / t, 4)}
                  for k, (c, t) in sorted(field.items())}

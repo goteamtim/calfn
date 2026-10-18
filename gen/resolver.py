@@ -15,10 +15,12 @@ Conventions (also in data/eval/README.md and calfn/schema.py SYSTEM_PROMPT):
     (daily: tomorrow); monthly and yearly use the day-of-month rule above.
 """
 
-import calendar
 import random
 from dataclasses import dataclass
 from datetime import date, time, timedelta
+
+from calfn.dates import (add_months, first_occurrence, last_day, next_day_of_month,  # noqa: F401
+                         next_month_day, next_weekday, ordinal, week_start)
 
 WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 WEEKDAY_ABBR = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -32,56 +34,7 @@ ORD_WORDS = {1: "first", 2: "second", 3: "third", 4: "fourth"}
 
 
 # ---------------------------------------------------------------- date arithmetic
-
-def ordinal(n: int) -> str:
-    if 10 <= n % 100 <= 20:
-        suffix = "th"
-    else:
-        suffix = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
-    return f"{n}{suffix}"
-
-
-def week_start(d: date) -> date:
-    return d - timedelta(days=d.weekday())
-
-
-def last_day(year: int, month: int) -> int:
-    return calendar.monthrange(year, month)[1]
-
-
-def add_months(year: int, month: int, k: int) -> tuple[int, int]:
-    idx = year * 12 + (month - 1) + k
-    return idx // 12, idx % 12 + 1
-
-
-def next_weekday(today: date, wd: int) -> date:
-    """First date strictly after today that falls on weekday wd (0=Monday)."""
-    return today + timedelta(days=(wd - today.weekday()) % 7 or 7)
-
-
-def next_month_day(today: date, month: int, day: int) -> date:
-    """Next occurrence of month/day on or after today."""
-    for year in range(today.year, today.year + 9):
-        try:
-            cand = date(year, month, day)
-        except ValueError:
-            continue
-        if cand >= today:
-            return cand
-    raise ValueError(f"no occurrence of {month}/{day}")
-
-
-def next_day_of_month(today: date, day: int) -> date:
-    """Next date on or after today whose day of month is `day`."""
-    year, month = today.year, today.month
-    for _ in range(14):
-        if day <= last_day(year, month):
-            cand = date(year, month, day)
-            if cand >= today:
-                return cand
-        year, month = add_months(year, month, 1)
-    raise ValueError(f"no day {day}")
-
+# Shared with the product: the same functions resolve the expressions the generator writes.
 
 def num_text(n: int, rng: random.Random) -> str:
     """Digits, or a word for 1-10 about half the time."""
@@ -97,6 +50,7 @@ class DatePhrase:
     kind: str   # family: today, rel, weekday, abs, dom, monthrel
     text: str   # "next Thursday"
     on: str     # same, with "on " where English wants it: "on Thursday"
+    expr: str   # what the model writes for it: "wd:TH" (see calfn/dates.py)
 
 
 FAMILY_WEIGHT = {"today": 1.0, "rel": 3.0, "weekday": 4.0, "abs": 3.0, "dom": 1.0, "monthrel": 1.5}
@@ -109,38 +63,39 @@ def date_candidates(target: date, today: date, rng: random.Random) -> dict[str, 
         raise ValueError("target is in the past")
     out: dict[str, list[DatePhrase]] = {}
 
-    def add(kind, text, on=None):
-        out.setdefault(kind, []).append(DatePhrase(kind, text, on if on is not None else text))
+    def add(kind, text, expr, on=None):
+        out.setdefault(kind, []).append(DatePhrase(kind, text, on if on is not None else text, expr))
 
     wd = target.weekday()
     wname = WEEKDAYS[wd]
+    code = DAY_CODES[wd]
 
     if delta == 0:
-        add("today", "today")
+        add("today", "today", "in:0d")
     if delta == 1:
-        add("rel", "tomorrow")
+        add("rel", "tomorrow", "in:1d")
     if delta == 2:
-        add("rel", "the day after tomorrow")
+        add("rel", "the day after tomorrow", "in:2d")
     if 2 <= delta <= 30:
-        add("rel", f"in {num_text(delta, rng)} days")
+        add("rel", f"in {num_text(delta, rng)} days", f"in:{delta}d")
     if delta in (7, 14, 21, 28, 35, 42, 49, 56):
         weeks = delta // 7
-        add("rel", "in a week" if weeks == 1 else f"in {num_text(weeks, rng)} weeks")
+        add("rel", "in a week" if weeks == 1 else f"in {num_text(weeks, rng)} weeks", f"in:{weeks}w")
 
     if delta >= 1:
         first = next_weekday(today, wd)
         this_week = week_start(today)
         if target == first:
-            add("weekday", wname, f"on {wname}")
+            add("weekday", wname, f"wd:{code}", f"on {wname}")
             if week_start(first) == this_week:
-                add("weekday", f"this {wname}")
+                add("weekday", f"this {wname}", f"wd:{code}")
             if week_start(first) == this_week + timedelta(days=7):
-                add("weekday", f"next {wname}")
+                add("weekday", f"next {wname}", f"wd:{code}")
         if target == this_week + timedelta(days=7 + wd):
-            add("weekday", f"{wname} next week", f"on {wname} next week")
-            add("weekday", f"{wname} of next week", f"on {wname} of next week")
+            add("weekday", f"{wname} next week", f"nw:{code}", f"on {wname} next week")
+            add("weekday", f"{wname} of next week", f"nw:{code}", f"on {wname} of next week")
         if target == first + timedelta(days=7):
-            add("weekday", f"a week from {wname}")
+            add("weekday", f"a week from {wname}", f"wd:{code}:2")
 
     # month + day
     m, d = target.month, target.day
@@ -150,15 +105,15 @@ def date_candidates(target: date, today: date, rng: random.Random) -> dict[str, 
         y = target.year
         for text in (f"{mname} {d}, {y}", f"{mabbr} {d}, {y}", f"{mname} {ordinal(d)}, {y}",
                      f"{m}/{d}/{y}", f"{d} {mname} {y}"):
-            add("abs", text, f"on {text}")
+            add("abs", text, f"md:{y}-{m:02d}-{d:02d}", f"on {text}")
     if not needs_year:
         for text in (f"{mname} {d}", f"{mabbr} {d}", f"{mname} {ordinal(d)}", f"{d} {mname}",
                      f"the {ordinal(d)} of {mname}", f"{m}/{d}"):
-            add("abs", text, f"on {text}")
+            add("abs", text, f"md:{m:02d}-{d:02d}", f"on {text}")
 
     # day of the month
     if delta <= 31 and next_day_of_month(today, d) == target:
-        add("dom", f"the {ordinal(d)}", f"on the {ordinal(d)}")
+        add("dom", f"the {ordinal(d)}", f"dom:{d}", f"on the {ordinal(d)}")
 
     # month-relative
     eom = date(today.year, today.month, last_day(today.year, today.month))
@@ -166,10 +121,10 @@ def date_candidates(target: date, today: date, rng: random.Random) -> dict[str, 
     eonm = date(ny, nm, last_day(ny, nm))
     if target == eom:
         for text in ("the end of the month", "end of the month", "the last day of the month"):
-            add("monthrel", text, text)
+            add("monthrel", text, "eom:0")
     if target == eonm:
         for text in ("the end of next month", "the last day of next month"):
-            add("monthrel", text, text)
+            add("monthrel", text, "eom:1")
     scope = None
     if (target.year, target.month) == (today.year, today.month) and target > today:
         scope = "this"
@@ -179,13 +134,14 @@ def date_candidates(target: date, today: date, rng: random.Random) -> dict[str, 
         ords = []
         n = (d - 1) // 7 + 1
         if n <= 4:
-            ords.append(ORD_WORDS[n])
+            ords.append((ORD_WORDS[n], str(n)))
         if d + 7 > last_day(target.year, target.month):
-            ords.append("last")
-        for o in ords:
-            add("monthrel", f"the {o} {wname} of {scope} month")
+            ords.append(("last", "L"))
+        month_flag = 0 if scope == "this" else 1
+        for word, key in ords:
+            add("monthrel", f"the {word} {wname} of {scope} month", f"nth:{key}:{code}:{month_flag}")
         if scope == "next":
-            add("monthrel", f"the {ordinal(d)} of next month")
+            add("monthrel", f"the {ordinal(d)} of next month", f"dnm:{d}")
     return out
 
 
@@ -375,10 +331,8 @@ def recurrence_phrase(spec: RecurrenceSpec, rng: random.Random) -> str:
 
 def recurrence_first_date(spec: RecurrenceSpec, today: date) -> date:
     """Start date of an undated repeating event: its first occurrence under the conventions."""
-    if spec.freq == "daily":
-        return today + timedelta(days=1)
-    if spec.freq == "weekly":
-        return min(next_weekday(today, d) for d in spec.days)
+    if spec.freq in ("daily", "weekly"):
+        return first_occurrence(spec.freq, spec.days, today)
     if spec.freq == "monthly":
         return next_day_of_month(today, spec.day)
     return next_month_day(today, spec.month, spec.day)
@@ -393,5 +347,8 @@ def count_phrase(spec: RecurrenceSpec, count: int, rng: random.Random) -> str:
     return rng.choice([f"{count} times", f"for {count} occurrences", f"{num_text(count, rng)} times"])
 
 
-def until_date_phrase(until: date, today: date, rng: random.Random) -> str:
-    return f"{rng.choice(['until', 'through', 'ending'])} {abs_only(until, today, rng).text}"
+def until_date_phrase(until: date, today: date, rng: random.Random) -> tuple[str, str]:
+    """('until Dec 15', '12-15'): the phrase, and the recurrence_until value the model should write."""
+    word = rng.choice(["until", "through", "ending"])
+    ph = abs_only(until, today, rng)
+    return f"{word} {ph.text}", ph.expr.removeprefix("md:")

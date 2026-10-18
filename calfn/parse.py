@@ -12,9 +12,9 @@ Strings are wrapped in <escape>...<escape>; numbers and booleans are bare.
 import json
 import re
 
-from .schema import PROPS
+from .schema import CALL_PROPS, EVENT_PROPS
 
-_TYPES = {name: p["type"] for name, p in PROPS.items()}
+_TYPES = {name: p["type"] for name, p in {**EVENT_PROPS, **CALL_PROPS}.items()}
 _ESC = "<escape>"
 
 

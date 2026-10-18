@@ -4,6 +4,7 @@ Needs transformers and the FunctionGemma tokenizer (downloads ~5 MB once); skipp
 """
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import pytest
@@ -19,6 +20,7 @@ except Exception as e:  # offline, gated, etc.
 
 import finetune  # noqa: E402
 import inference  # noqa: E402
+from calfn.task import DIRECT, EXTRACT  # noqa: E402
 
 
 def rows(path, n=200):
@@ -27,16 +29,16 @@ def rows(path, n=200):
 
 def test_training_text_starts_with_inference_prompt():
     for ex in rows("data/train.jsonl"):
-        dev, user, gold, _ = inference.split_example(ex)
-        prompt = inference.build_prompt(TOK, dev, user)
+        user, _, _, now = inference.split_example({**ex, "messages": ex["messages"]})
+        prompt = inference.build_prompt(TOK, EXTRACT.developer(now), user, EXTRACT.tools)
         assert finetune.format_example(ex, TOK).startswith(prompt)
         assert prompt.endswith("<start_of_turn>model\n")
 
 
 def test_exactly_one_bos():
     ex = rows("data/train.jsonl", 1)[0]
-    dev, user, _, _ = inference.split_example(ex)
-    ids = TOK(inference.build_prompt(TOK, dev, user))["input_ids"]
+    user, _, _, now = inference.split_example(ex)
+    ids = TOK(inference.build_prompt(TOK, EXTRACT.developer(now), user, EXTRACT.tools))["input_ids"]
     assert ids[0] == TOK.bos_token_id and ids[1] != TOK.bos_token_id
 
 
@@ -46,10 +48,16 @@ def test_tool_call_ends_where_inference_stops():
     assert text.rstrip().endswith("<end_function_call><start_function_response>")
 
 
-def test_longest_example_fits_max_seq_len():
-    longest = 0
-    for path in ("data/train.jsonl", "data/eval/eval_v1.jsonl", "data/eval/test_v1.jsonl"):
-        for ex in rows(path, 100000):
-            longest = max(longest, len(TOK(finetune.format_example(ex, TOK))["input_ids"]))
-    print("longest example (tokens):", longest)
-    assert longest <= 1024     # the default --max_seq_len
+def test_the_model_never_sees_the_date():
+    ex = rows("data/train.jsonl", 1)[0]
+    user, _, _, now = inference.split_example(ex)
+    prompt = inference.build_prompt(TOK, EXTRACT.developer(now), user, EXTRACT.tools)
+    assert "Now:" not in prompt and now.strftime("%Y-%m-%d") not in prompt
+    direct = inference.build_prompt(TOK, DIRECT.developer(datetime(2026, 10, 14, 9, 0)), "x", DIRECT.tools)
+    assert "Now: 2026-10-14 Wed 09:00" in direct       # the v1 prompt still can
+
+
+def test_longest_training_example_fits_max_seq_len():
+    longest = max(len(TOK(finetune.format_example(ex, TOK))["input_ids"]) for ex in rows("data/train.jsonl", 100000))
+    print("longest training example (tokens):", longest)
+    assert longest <= 1024     # the default --max_seq_len; a longer one would have its tool call truncated

@@ -1,8 +1,14 @@
 """
 Seeded generator for train / eval / test data. No LLM involved: every label is computed.
 
-    python -m gen.generate                 # writes data/train.jsonl, data/eval/eval_v1.jsonl, data/eval/test_v1.jsonl
-    python -m gen.generate --force         # overwrite the frozen eval/test files (don't, unless eval_v2)
+    python -m gen.generate                 # rewrites data/train.jsonl; checks the frozen eval/test files still reproduce
+    python -m gen.generate --force         # also overwrites the frozen eval/test files (only for a new eval version)
+
+Row formats differ by split on purpose:
+  train       the model's training target: developer message without a date, and the CALL it should write
+              (date as an expression, see calfn/dates.py). meta.event holds the resolved event.
+  eval, test  the thing being scored: the resolved EVENT, with the v1 "direct" prompt. Any task can be scored
+              against it (the model's call is resolved to an event with meta.now first).
 
 Train uses TRAIN vocabulary only. Eval and test use 70% HELDOUT vocabulary (tag `ood`) and 30%
 TRAIN vocabulary with fresh dates and combinations (tag `ind`). No eval/test user text appears
@@ -20,7 +26,9 @@ from datetime import date, datetime, time, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from calfn.schema import DAY_CODES, PARAM_ORDER, developer_message, validate  # noqa: E402
+from calfn.resolve import resolve  # noqa: E402
+from calfn.schema import (CALL_ORDER, DAY_CODES, EVENT_ORDER, developer_message, direct_developer_message,  # noqa: E402
+                          validate_call, validate_event)
 from gen import resolver as R  # noqa: E402
 from gen import vocab as V  # noqa: E402
 
@@ -115,15 +123,17 @@ def plan_time(rng: random.Random, t: time) -> dict:
     if mode != "none" and mode != "dur" and start_min + dur > 23 * 60 + 45:
         mode = "none"
     if mode == "none":
-        return {"tp": R.pick_time(t, rng), "tails": [], "duration": None, "tags": []}
+        return {"tp": R.pick_time(t, rng), "tails": [], "duration": None, "tags": [], "call": {}}
     if mode == "dur":
         return {"tp": R.pick_time(t, rng), "tails": [R.duration_phrase(dur, rng)], "duration": dur,
-                "tags": ["dur"]}
+                "tags": ["dur"], "call": {"duration_minutes": dur}}
     end = time((start_min + dur) // 60, (start_min + dur) % 60)
+    call_end = {"end": f"{end.hour:02d}:{end.minute:02d}"}      # the model writes the end time; code subtracts
     if mode == "until":
         return {"tp": R.pick_time(t, rng), "tails": [R.until_phrase(end, rng)], "duration": dur,
-                "tags": ["dur_until"]}
-    return {"tp": R.range_phrase(t, end, rng), "tails": [], "duration": dur, "tags": ["dur_range"]}
+                "tags": ["dur_until"], "call": call_end}
+    return {"tp": R.range_phrase(t, end, rng), "tails": [], "duration": dur, "tags": ["dur_range"],
+            "call": call_end}
 
 
 def plan_location(rng: random.Random, vocab: Vocab):
@@ -171,8 +181,15 @@ def build_single(rng, now, vocab):
             gold["duration_minutes"] = plan["duration"]
         if loc:
             gold["location"] = loc
-        return text, gold, tags_for(vocab, dp, tp, plan, loc, title)
+        call = {"title": cap(title), "date": dp.expr, "time": f"{t.hour:02d}:{t.minute:02d}", **plan["call"]}
+        if loc:
+            call["location"] = loc
+        return text, gold, tags_for(vocab, dp, tp, plan, loc, title), _ordered(call)
     return None
+
+
+def _ordered(call: dict) -> dict:
+    return {k: call[k] for k in CALL_ORDER if k in call}
 
 
 def sample_spec(rng: random.Random) -> R.RecurrenceSpec:
@@ -212,31 +229,45 @@ def build_recurring(rng, now, vocab):
 
         tails = []
         tags = []
+        call = {}
         if explicit:
-            tails.append(f"starting {R.pick_date(explicit, today, rng).text}")
+            start_phrase = R.pick_date(explicit, today, rng)
+            tails.append(f"starting {start_phrase.text}")
+            call["date"] = start_phrase.expr
             tags.append("rec_dated")
         else:
             tags.append("rec_undated")
+            # daily/weekly series with no start date: no date at all, the app finds the first occurrence.
+            # monthly/yearly carry their day in the date ("every month on the 15th" -> dom:15)
+            if spec.freq == "monthly":
+                call["date"] = f"dom:{spec.day}"
+            elif spec.freq == "yearly":
+                call["date"] = f"md:{spec.month:02d}-{spec.day:02d}"
 
         gold = {"title": "", "start": datetime.combine(start_d, t).strftime("%Y-%m-%dT%H:%M"),
                 "recurrence_freq": spec.freq}
+        call["recurrence_freq"] = spec.freq
         if spec.interval > 1:
             gold["recurrence_interval"] = spec.interval
+            call["recurrence_interval"] = spec.interval
             tags.append("rec_interval")
         if spec.freq == "weekly":
             gold["recurrence_days"] = ",".join(DAY_CODES[d] for d in spec.days)
+            call["recurrence_days"] = gold["recurrence_days"]
 
         end = rng.choices(["none", "count", "until"], [55, 25, 20])[0]
         if end == "count":
             count = rng.randint(3, 14) if spec.freq == "daily" else rng.randint(2, 12)
             gold["recurrence_count"] = count
+            call["recurrence_count"] = count
             tails.append(R.count_phrase(spec, count, rng))
             tags.append("rec_count")
         elif end == "until":
             span = {"daily": (7, 120), "weekly": (14, 300), "monthly": (60, 700), "yearly": (400, 2000)}[spec.freq]
             until = start_d + timedelta(days=rng.randint(*span))
             gold["recurrence_until"] = until.isoformat()
-            tails.append(R.until_date_phrase(until, today, rng))
+            until_text, call["recurrence_until"] = R.until_date_phrase(until, today, rng)
+            tails.append(until_text)
             tags.append("rec_until")
 
         plan = plan_time(rng, t)
@@ -244,21 +275,25 @@ def build_recurring(rng, now, vocab):
         tails += plan["tails"]
         if plan["duration"]:
             gold["duration_minutes"] = plan["duration"]
+        call.update(plan["call"])
         loc_tail, loc = plan_location(rng, vocab)
         if loc:
             tails.append(loc_tail)
             gold["location"] = loc
+            call["location"] = loc
 
         title, kind = rng.choice(vocab.titles)
         gold["title"] = cap(title)
+        call["title"] = cap(title)
+        call["time"] = f"{t.hour:02d}:{t.minute:02d}"
         slots = {"title": title, "Title": cap(title), "rec": R.recurrence_phrase(spec, rng),
                  "time": tp.text, "tbare": tp.bare}
         text = attach(pick_frame(vocab.rec_frames, kind, rng), slots, tails, rng)
 
         base = tags_for(vocab, None, tp, plan, loc, title)
         base += ["recurring", f"rec_{spec.freq}"] + tags
-        gold = {k: gold[k] for k in sorted(gold, key=PARAM_ORDER.index)}
-        return text, gold, base
+        gold = {k: gold[k] for k in sorted(gold, key=EVENT_ORDER.index)}
+        return text, gold, base, _ordered(call)
     return None
 
 
@@ -305,18 +340,20 @@ def build_rejection(rng, now, vocab, allow_offtopic: bool = True):
 
 # ------------------------------------------------------------------ rows
 
-def make_row(split: str, idx: int, now: datetime, text: str, gold, tags, reject_cat=None, rng=None) -> dict:
-    messages = [
-        {"role": "developer", "content": developer_message(now)},
-        {"role": "user", "content": text},
-    ]
+def make_row(split: str, idx: int, now: datetime, text: str, gold, tags, reject_cat=None, rng=None,
+             call=None) -> dict:
+    train = split == "train"
+    dev = developer_message() if train else direct_developer_message(now)
+    messages = [{"role": "developer", "content": dev}, {"role": "user", "content": text}]
     if gold is None:
         messages.append({"role": "assistant", "content": rng.choice(V.REJECTION_TEXT[reject_cat])})
     else:
         messages.append({"role": "assistant", "content": None, "tool_calls": [{
-            "type": "function", "function": {"name": "create_event", "arguments": gold}}]})
-    return {"messages": messages,
-            "meta": {"id": f"{split}-{idx:04d}", "now": now.strftime("%Y-%m-%dT%H:%M"), "tags": tags}}
+            "type": "function", "function": {"name": "create_event", "arguments": call if train else gold}}]})
+    meta = {"id": f"{split}-{idx:04d}", "now": now.strftime("%Y-%m-%dT%H:%M"), "tags": tags}
+    if train and gold is not None:
+        meta["event"] = gold
+    return {"messages": messages, "meta": meta}
 
 
 def norm_text(s: str) -> str:
@@ -341,16 +378,19 @@ def generate_split(split: str, n: int, forbidden: set[str]) -> list[dict]:
             # held-out off-topic prompts are the only ones guaranteed unseen in train
             built = build_rejection(rng, now, vocab, allow_offtopic=(split == "train" or vocab.name == "ood"))
             text, cat, tags = built
-            gold = None
+            gold = call = None
         else:
             builder = build_recurring if rng.random() < RECURRING_RATE[split] else build_single
             built = builder(rng, now, vocab)
             if built is None:
                 continue
-            text, gold, tags = built
+            text, gold, tags, call = built
             cat = None
-            ok, msg = validate(gold)
-            assert ok, f"generator produced an invalid label: {msg} {gold}"
+            ok, msg = validate_event(gold)
+            assert ok, f"generator produced an invalid event: {msg} {gold}"
+            ok, msg = validate_call(call)
+            assert ok, f"generator produced an invalid call: {msg} {call}"
+            assert resolve(call, now) == gold, f"call does not resolve to its event: {call} -> {resolve(call, now)} != {gold}"
 
         text = style_text(text, rng)
         key = norm_text(text)
@@ -359,15 +399,17 @@ def generate_split(split: str, n: int, forbidden: set[str]) -> list[dict]:
         if key in seen or norm_text(text) in forbidden:
             continue
         seen.add(key)
-        rows.append(make_row(split, len(rows), now, text, gold, tags, cat, rng))
+        rows.append(make_row(split, len(rows), now, text, gold, tags, cat, rng, call))
     return rows
+
+
+def _jsonl_bytes(rows: list[dict]) -> bytes:
+    return "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows).encode("utf-8")
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8", newline="\n") as f:
-        for r in rows:
-            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    path.write_bytes(_jsonl_bytes(rows))
 
 
 def user_texts(rows: list[dict]) -> set[str]:
@@ -392,8 +434,7 @@ def main() -> None:
 
     out = Path(args.out)
     eval_path, test_path = out / "eval" / "eval_v1.jsonl", out / "eval" / "test_v1.jsonl"
-    if (eval_path.exists() or test_path.exists()) and not args.force:
-        sys.exit(f"{eval_path} / {test_path} exist and are frozen. Pass --force only to make a new eval version.")
+    frozen = eval_path.exists() or test_path.exists()
 
     train = generate_split("train", args.n_train, set())
     train_text = user_texts(train)
@@ -401,8 +442,15 @@ def main() -> None:
     test_rows = generate_split("test", args.n_test, train_text | user_texts(eval_rows))
 
     write_jsonl(out / "train.jsonl", train)
-    write_jsonl(eval_path, eval_rows)
-    write_jsonl(test_path, test_rows)
+    if frozen and not args.force:
+        for path, rows in ((eval_path, eval_rows), (test_path, test_rows)):
+            same = path.read_bytes() == _jsonl_bytes(rows)
+            print(f"{path.name}: frozen, {'reproduces exactly' if same else 'DIFFERS from the generator (do not overwrite; investigate)'}")
+            if not same:
+                sys.exit(1)
+    else:
+        write_jsonl(eval_path, eval_rows)
+        write_jsonl(test_path, test_rows)
     for name, rows in (("train", train), ("eval", eval_rows), ("test", test_rows)):
         describe(name, rows)
 

@@ -24,17 +24,21 @@ def main() -> None:
         sys.exit(f"no result files in {folder}")
 
     lines = [f"# Results ({folder})", "",
-             "| run | eval file | pass | 95% CI | rejections ok | false pos | missed calls | start | ms |",
-             "|---|---|---|---|---|---|---|---|---|"]
+             "| run | task | eval file | pass | 95% CI | rejections ok | false pos | missed calls | date | time | ms |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for name, d in runs:
         s = d["summary"]
         o, r = s["overall"], s["rejection"]
-        start = s["per_field"].get("start", {}).get("accuracy")
+        pf = s["per_field"]
+        # v1 result files predate the split of `start` into date and time (and the `task` key)
+        date_acc = (pf.get("start_date") or pf.get("start") or {}).get("accuracy")
+        time_acc = (pf.get("start_time") or {}).get("accuracy")
+        pct = lambda v: "" if v is None else f"{v:.0%}"  # noqa: E731
         lat = s["mean_latency_ms"]
         lines.append(
-            f"| {name} | {Path(d['eval_file']).name} | {o['rate']:.1%} | {o['ci95'][0]:.0%}-{o['ci95'][1]:.0%} | "
-            f"{r['correct']}/{r['gold_rejections']} | {r['false_positives']} | {r['missed_calls']}/{r['gold_calls']} | "
-            f"{'' if start is None else f'{start:.0%}'} | {'' if not lat else f'{lat:.0f}'} |")
+            f"| {name} | {d.get('task', 'direct')} | {Path(d['eval_file']).name} | {o['rate']:.1%} | "
+            f"{o['ci95'][0]:.0%}-{o['ci95'][1]:.0%} | {r['correct']}/{r['gold_rejections']} | {r['false_positives']} | "
+            f"{r['missed_calls']}/{r['gold_calls']} | {pct(date_acc)} | {pct(time_acc)} | {'' if not lat else f'{lat:.0f}'} |")
 
     tags = sorted({t for _, d in runs for t in d["summary"]["per_tag"]})
     lines += ["", "## Pass rate by tag", "",

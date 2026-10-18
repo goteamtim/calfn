@@ -18,7 +18,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from calfn.schema import developer_message, parse_start, validate  # noqa: E402
+from calfn.schema import direct_developer_message, parse_start, validate_event  # noqa: E402
 
 REVIEWED = False
 NOW = datetime(2026, 10, 14, 9, 0)
@@ -92,7 +92,7 @@ def build() -> list[dict]:
     rows = []
     for i, (text, gold) in enumerate(ROWS):
         if gold is not None:
-            ok, msg = validate(gold)
+            ok, msg = validate_event(gold)
             assert ok, (text, msg)
             assert parse_start(gold["start"]) > NOW, text
             asst = {"role": "assistant", "content": None, "tool_calls": [{
@@ -100,7 +100,7 @@ def build() -> list[dict]:
         else:
             asst = {"role": "assistant", "content": REJECTION_TEXT}
         rows.append({
-            "messages": [{"role": "developer", "content": developer_message(NOW)},
+            "messages": [{"role": "developer", "content": direct_developer_message(NOW)},
                          {"role": "user", "content": text}, asst],
             "meta": {"id": f"natural-{i:03d}", "now": NOW.strftime("%Y-%m-%dT%H:%M"),
                      "tags": ["natural"] + (["reject"] if gold is None else []), "reviewed": REVIEWED},

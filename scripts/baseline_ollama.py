@@ -20,16 +20,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from inference import load_examples, print_summary, split_example  # noqa: E402
 
-from calfn.schema import TOOL  # noqa: E402
 from calfn.scoring import make_result, summarize  # noqa: E402
+from calfn.task import TASKS, apply  # noqa: E402
 
-OLLAMA_TOOL = {"type": "function", "function": TOOL}
 
-
-def ask(url: str, model: str, think: bool, num_ctx: int, dev: str, user: str):
+def ask(url: str, model: str, think: bool, num_ctx: int, dev: str, user: str, tools: list[dict]):
     """Returns (pred or None, raw text, seconds, (prompt tokens, output tokens))."""
     body = {
-        "model": model, "stream": False, "think": think, "tools": [OLLAMA_TOOL],
+        "model": model, "stream": False, "think": think, "tools": tools,
         "messages": [{"role": "system", "content": dev}, {"role": "user", "content": user}],
         "options": {"temperature": 0, "num_ctx": num_ctx},
     }
@@ -51,20 +49,26 @@ def main() -> None:
     ap.add_argument("--model", required=True)
     ap.add_argument("--name")
     ap.add_argument("--limit", type=int)
+    ap.add_argument("--task", choices=sorted(TASKS), default="direct",
+                    help="direct: the model is told 'Now: ...' and writes the event (the v1 baseline); "
+                         "extract: it writes the date as an expression, as the fine-tuned model does")
     ap.add_argument("--think", action="store_true", help="let a reasoning model think before answering")
     ap.add_argument("--num-ctx", type=int, default=4096)
     ap.add_argument("--url", default="http://localhost:11434")
     ap.add_argument("--out-dir", default="results")
     args = ap.parse_args()
 
+    task = TASKS[args.task]
     examples = load_examples(args.eval)[: args.limit]
     results, tokens_in, tokens_out = [], 0, 0
     for i, ex in enumerate(examples):
-        dev, user, gold, tags = split_example(ex)
-        pred, raw, seconds, (t_in, t_out) = ask(args.url, args.model, args.think, args.num_ctx, dev, user)
+        user, gold, tags, now = split_example(ex)
+        pred, raw, seconds, (t_in, t_out) = ask(args.url, args.model, args.think, args.num_ctx,
+                                                task.developer(now), user, task.tools)
         tokens_in += t_in
         tokens_out += t_out
-        results.append(make_result(i, user, raw, pred, gold, tags, seconds * 1000))
+        event, error = apply(task, pred, now)
+        results.append(make_result(i, user, raw, pred, gold, tags, seconds * 1000, event=event, error=error))
         print(f"[{i + 1:>3}/{len(examples)}] {results[-1]['match']:<18} | {user[:60]}", flush=True)
 
     summary = summarize(results)
@@ -75,7 +79,7 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({
         "run_date": datetime.now().isoformat(timespec="seconds"),
-        "model": args.model, "think": args.think, "eval_file": args.eval,
+        "model": args.model, "task": task.name, "think": args.think, "eval_file": args.eval,
         "tokens": {"input": tokens_in, "output": tokens_out},
         "summary": summary, "results": results,
     }, indent=1, ensure_ascii=False), encoding="utf-8")

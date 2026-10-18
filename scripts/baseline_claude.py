@@ -4,9 +4,10 @@ Score a prompted Claude model on the same eval, with the same developer message 
     python scripts/baseline_claude.py --eval data/eval/eval_v1.jsonl --name claude-opus-5-5
     python scripts/baseline_claude.py --eval data/eval/eval_v1.jsonl --model claude-haiku-5-5 --name claude-haiku-5-5
 
-Needs ANTHROPIC_API_KEY (or an `ant auth login` profile). Every request carries the same
-SYSTEM_PROMPT conventions and Now line the fine-tuned model sees, so the comparison is fair.
-Scoring is just as strict: an extra argument or a wrong type counts as invalid.
+Needs ANTHROPIC_API_KEY (or an `ant auth login` profile). --task direct (default) tells the model the
+current time and has it write the event itself, the best a prompted model can do without our date
+language; --task extract gives it the same prompt and tool as the fine-tuned model. Scoring is the
+same strict event match either way: an extra argument or a wrong type counts as invalid.
 
 Forced tool use is not available on current models, so tool_choice stays "auto" and the
 system prompt tells the model to skip the tool when the request can't be completed.
@@ -24,20 +25,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from inference import load_examples, print_summary, split_example  # noqa: E402
 
-from calfn.schema import TOOL  # noqa: E402
 from calfn.scoring import make_result, summarize  # noqa: E402
+from calfn.task import TASKS, apply  # noqa: E402
 
-CLAUDE_TOOL = {"name": TOOL["name"], "description": TOOL["description"], "input_schema": TOOL["parameters"]}
+
+def claude_tool(tool: dict) -> dict:
+    return {"name": tool["name"], "description": tool["description"], "input_schema": tool["parameters"]}
 
 
-def ask(client, model: str, effort: str | None, dev: str, user: str):
+def ask(client, model: str, effort: str | None, dev: str, user: str, tool: dict):
     """Returns (pred or None, raw text, seconds, usage)."""
     kwargs = {}
     if effort:
         kwargs["extra_body"] = {"output_config": {"effort": effort}}
     t0 = time.perf_counter()
     resp = client.messages.create(
-        model=model, max_tokens=4096, system=dev, tools=[CLAUDE_TOOL],
+        model=model, max_tokens=4096, system=dev, tools=[claude_tool(tool)],
         messages=[{"role": "user", "content": user}], **kwargs,
     )
     seconds = time.perf_counter() - t0
@@ -51,6 +54,9 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--eval", required=True)
     ap.add_argument("--model", default="claude-opus-5-5")
+    ap.add_argument("--task", choices=sorted(TASKS), default="direct",
+                    help="direct: told 'Now: ...', writes the event itself (the strongest prompted alternative); "
+                         "extract: writes the date as an expression, like the fine-tuned model")
     ap.add_argument("--effort", choices=["low", "medium", "high"], default=None,
                     help="thinking effort; omit for the model's default")
     ap.add_argument("--name")
@@ -61,13 +67,15 @@ def main() -> None:
 
     import anthropic
     client = anthropic.Anthropic()
+    task = TASKS[args.task]
     examples = load_examples(args.eval)[: args.limit]
 
     def one(i_ex):
         i, ex = i_ex
-        dev, user, gold, tags = split_example(ex)
-        pred, raw, seconds, usage = ask(client, args.model, args.effort, dev, user)
-        return make_result(i, user, raw, pred, gold, tags, seconds * 1000), usage
+        user, gold, tags, now = split_example(ex)
+        pred, raw, seconds, usage = ask(client, args.model, args.effort, task.developer(now), user, task.tool)
+        event, error = apply(task, pred, now)
+        return make_result(i, user, raw, pred, gold, tags, seconds * 1000, event=event, error=error), usage
 
     with ThreadPoolExecutor(args.workers) as pool:
         done = list(pool.map(one, enumerate(examples)))
@@ -83,7 +91,7 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({
         "run_date": datetime.now().isoformat(timespec="seconds"),
-        "model": args.model, "effort": args.effort, "eval_file": args.eval,
+        "model": args.model, "task": task.name, "effort": args.effort, "eval_file": args.eval,
         "tokens": {"input": tokens_in, "output": tokens_out},
         "summary": summary, "results": results,
     }, indent=1, ensure_ascii=False), encoding="utf-8")

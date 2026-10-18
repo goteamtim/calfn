@@ -9,6 +9,17 @@
 `eval_v1` and `test_v1` are frozen. `python -m gen.generate` refuses to overwrite them. If a
 labeling mistake turns up, fix it in an `eval_v2` / `test_v2` and re-score everything; don't edit v1.
 
+## What a row holds
+
+The answer in every eval row is the **resolved event** (absolute start, duration, recurrence), whichever
+task a model is solving. A model's output is turned into an event with the row's `meta.now` before it
+is compared (`calfn/resolve.py`), so a model that writes date expressions (`--task extract`, the
+default) and one that writes the event itself (`--task direct`, the v1 approach and the prompted
+baselines) are scored by the same rule against the same labels. The developer message stored in these
+rows is the direct task's ("Now: ..."); the scripts build the right prompt per task and ignore it.
+`train.jsonl` is different: its answers are the model's training target (the call), and `meta.event`
+holds the resolved event.
+
 ## How they are built
 
 - Every label is **computed**: the generator picks a date, time, duration, recurrence, title and
@@ -28,8 +39,24 @@ labeling mistake turns up, fix it in an `eval_v2` / `test_v2` and re-score every
 
 ## Labeling conventions
 
-These are the rules every expected answer follows. They are also in `calfn/schema.py` `SYSTEM_PROMPT`,
-so a prompted baseline is told the same things the fine-tuned model learns from data.
+These are the rules every expected answer follows. `calfn/dates.py` implements them (the model never
+does this arithmetic, see `docs/decisions.md` D9) and `calfn/schema.py` `DIRECT_SYSTEM_PROMPT` states
+them for the `direct` baselines.
+
+The date language the model writes, with what each means on a Wednesday, 2026-10-14:
+
+| expression | means | example phrases |
+|---|---|---|
+| `in:0d` `in:1d` `in:30d` `in:3w` | N days or weeks from today | today (2026-10-14), tomorrow, in 30 days, in three weeks |
+| `wd:TH` | first Thursday strictly after today (2026-10-15) | Thursday, this Thursday, next Thursday |
+| `wd:TH:2` | the one after that (2026-10-22) | a week from Thursday |
+| `nw:FR` | Friday in the next Mon-Sun week (2026-10-23) | Friday next week, Friday of next week |
+| `md:10-21` | next 10/21 on or after today (2026-10-21) | Oct 21, 10/21, the 21st of October |
+| `md:2027-10-21` | that exact date | October 21, 2027, 10/21/2027 |
+| `dom:21` | next 21st on or after today (2026-10-21) | the 21st |
+| `eom:0` `eom:1` | last day of this / next month (2026-10-31 / 2026-11-30) | the end of the month, end of next month |
+| `nth:2:TU:1` `nth:L:FR:0` | 2nd Tuesday of next month / last Friday of this month | the second Tuesday of next month |
+| `dnm:15` | the 15th of next month (2026-11-15) | the 15th of next month |
 
 **Dates**
 - A weekday name means the first such day **strictly after today**: `Thursday`, `this Thursday` and
@@ -49,6 +76,8 @@ so a prompted baseline is told the same things the fine-tuned model learns from 
 **Duration**
 - `duration_minutes` only when the request gives a length (`for 90 minutes`), an end time
   (`until 4pm`) or a range (`from 3pm to 4:30pm`). Otherwise omit it (the converter assumes 60).
+  The model writes a stated length as `duration_minutes` and an end time or range as `end`
+  (`"end": "16:30"`); code computes the duration, so the event is the same either way.
 
 **Repeating events**
 - `recurrence_freq` is one of daily, weekly, monthly, yearly. `recurrence_interval` only when it isn't 1
@@ -73,8 +102,9 @@ so a prompted baseline is told the same things the fine-tuned model learns from 
 
 ## Scoring
 
-`scripts/inference.py` reports **pass rate** = the prediction describes the same event (after
-`normalize()`: an explicit default equals an omitted one), or the model correctly makes no call. It
-also reports per-field accuracy for fields the request states, the count of *spurious* extra
-fields, rejection precision/recall, and a 95% Wilson interval. An invalid call (unknown key, wrong
-type, out of range) fails.
+`scripts/inference.py` reports **pass rate** = the call resolves to the same event as the expected one
+(after `normalize()`: an explicit default equals an omitted one), or the model correctly makes no
+call. It also reports per-field accuracy for fields the request states (`start_date` and `start_time`
+separately, so a wrong date can't hide behind a right time), the count of *spurious* extra fields,
+rejection precision/recall, and a 95% Wilson interval. A call that is malformed, impossible (Feb 30),
+or resolves to an invalid event (a series ending before it starts) fails as `invalid`.
