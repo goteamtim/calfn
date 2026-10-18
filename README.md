@@ -8,13 +8,14 @@ Plain code (`calfn/convert.py`) turns that call into an `.ics` file and Google/O
 
 ## Results
 
-Not run yet. The harness is verified with oracle answers (300/300 on `eval_v1`); the model runs need the GPU machine and an API key. See `docs/experiments.md` for the commands and the table to fill in.
+Base model and calfn v1 scored on `eval_v1`; the Claude baseline is not run yet (needs an API key). The harness is verified with oracle answers (300/300 on `eval_v1`). The base model's 40 passes are all correct rejections: it made no correct tool call. See `docs/experiments.md` for the commands and the table to fill in.
 
 | model | dev pass (eval_v1) | 95% CI | held-out vocab (`ood`) | test (once) |
 |---|---|---|---|---|
-| base FunctionGemma 270M | | | | |
+| base FunctionGemma 270M | 13.3% (40/300) | 10.0%-17.6% | 12% | |
 | Claude (prompted) | | | | |
-| calfn v1 (fine-tuned) | | | | |
+| gemma4:12b (prompted, local) | 62.7% (188/300) | 57.1%-68.0% | 62% | |
+| calfn v1 (fine-tuned) | 48.3% (145/300) | 42.7%-54.0% | 43% | |
 
 ## How it works
 
@@ -25,7 +26,7 @@ calfn/schema.py     the create_event tool, system prompt, validation, normalizat
 calfn/parse.py      FunctionGemma output -> arguments
 calfn/scoring.py    exact-event metric, per-field accuracy, Wilson intervals
 calfn/convert.py    call -> .ics, Google / Outlook links, share token
-scripts/            finetune.py, inference.py (score a model), baseline_claude.py, summarize.py
+scripts/            finetune.py, inference.py (score a model), baseline_claude.py, baseline_ollama.py, summarize.py
 data/               train.jsonl, eval/{eval_v1,test_v1,natural_v1}.jsonl  (see data/eval/README.md)
 tests/              labeler checked by an independent parser, scorer, converter, prompt format
 docs/               decisions.md, experiments.md
@@ -37,7 +38,7 @@ The model sees a developer message (conventions + `Now: 2026-10-14 Wed 09:00`), 
 
 ```bash
 uv venv .venv && uv pip install --python .venv/bin/python -r requirements.txt   # Windows: .venv/Scripts/python.exe
-.venv/bin/python -m pytest                                                       # 55 tests, a few seconds
+.venv/bin/python -m pytest                                                       # 55 tests, a few seconds (59 with transformers installed)
 ```
 
 Scoring a model also needs `transformers`, `accelerate`, `peft` and a CUDA `torch`. Training uses its own pinned environment, copied from the Gridfinity project (newer unsloth/peft/torch diverged there):
@@ -57,6 +58,9 @@ python scripts/inference.py --model output/calfn-v1 --prompt "lunch with Sam nex
 
 # baseline: prompted Claude, same prompt, same strict scoring
 python scripts/baseline_claude.py --eval data/eval/eval_v1.jsonl --model claude-opus-5-5 --out-dir results/dev
+
+# baseline: a local Ollama model, same prompt and scoring (thinking off unless --think)
+python scripts/baseline_ollama.py --eval data/eval/eval_v1.jsonl --model gemma4:12b --name ollama-gemma4-12b --out-dir results/dev
 
 # train (pinned env; unload other GPU users first)
 python scripts/finetune.py --data data/train.jsonl --output output/calfn-v1

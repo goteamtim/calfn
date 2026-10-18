@@ -10,9 +10,9 @@ produced each is in the notes. Nothing below is filled in with a guess.
 | Schema, generator, scorer, converter, tests | done (55 tests pass; 4 more need transformers, see `tests/test_prompt_format.py`) |
 | Harness check with oracle answers | done: 300/300 on eval_v1 (`--oracle`), confirms parse + score path |
 | Model path smoke test (CPU) | done: base model on the first 8 eval rows loads, generates, stops at `<start_function_response>`, parses and scores (2/8, not a result: 8 rows, CPU, 24 s per row). It ignored the `Now:` line (answered 2024-03-30) and mostly refused, which fine-tuning should fix |
-| Base FunctionGemma 270M on eval_v1 | **to run** (needs the GPU machine) |
+| Base FunctionGemma 270M on eval_v1 | done: 13.3% (40/300), see Runs |
 | Claude baseline on eval_v1 | **to run** (needs `ANTHROPIC_API_KEY`) |
-| Fine-tune v1 (D2 recipe) on train.jsonl | **to run** (needs the GPU machine) |
+| Fine-tune v1 (D2 recipe) on train.jsonl | done: 48.3% on eval_v1, see Runs |
 | test_v1, once | after the dev number is settled |
 
 ## Data
@@ -32,6 +32,9 @@ never truncates a tool call (`tests/test_prompt_format.py`).
 | run | model | data | config | eval | pass | 95% CI | notes |
 |---|---|---|---|---|---|---|---|
 | oracle | none (gold answers) | | | eval_v1 | 100% (300/300) | 98.7%-100% | `inference.py --oracle`; harness check only |
+| base | unsloth/functiongemma-270m-it | none | greedy | eval_v1 | 13.3% (40/300) | 10.0%-17.6% | RTX 3060, `results/dev/base.json`. 0 exact; 191/259 real requests missed (no call), 68 invalid, 40/41 rejections correct, 1 false positive; 1088 ms mean. ood 12% / ind 16% |
+| calfn-v1 | functiongemma-270m-it, full FT | train.jsonl (3000) | defaults: lr 5e-5, 6 ep, bs 4 x accum 4, seed 42; final train loss 0.0577 | eval_v1 | 48.3% (145/300) | 42.7%-54.0% | RTX 3060, `results/dev/calfn-v1.json`, `runs/train_20261018_093640.json`. 107 exact, 137 wrong_args, 5 invalid, 10 missed; 38/41 rejections ok, 3 false positives. start 64.8%, title 79.1%, duration 84.8%. ood 43% / ind 62%. Weakest: date_weekday 14%, date_rel 29%, time_range 21% |
+| ollama-gemma4-12b | gemma4:12b via Ollama, prompted | none | temp 0, thinking off, num_ctx 4096 | eval_v1 | 62.7% (188/300) | 57.1%-68.0% | RTX 3060, `scripts/baseline_ollama.py`, `results/dev/ollama-gemma4-12b.json`. 174 exact, 70 wrong_args, 15 invalid, 0 missed; only 14/41 rejections ok (27 false positives). start 84.8%, title 96.3%. ood 62% / ind 64%. 2928 ms mean |
 
 Add runs here as they happen:
 

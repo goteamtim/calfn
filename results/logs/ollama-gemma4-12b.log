@@ -1,0 +1,318 @@
+[  1/300] wrong_args         | Create an event for call grandma Wednesday at 6pm for 45 min
+[  2/300] correct_rejection  | what's the date three weeks from today?
+[  3/300] exact              | Soccer practice - the 17th at 11AM for 1 hour
+[  4/300] wrong_args         | I'd like school concert each Saturday at 4:20PM at Blue Bott
+[  5/300] exact              | Please put violin lesson in for Apr 14 at 12:35pm for 1.5 ho
+[  6/300] exact              | could you add an entry called garden club for the 19th at 8a
+[  7/300] exact              | could you add an entry called call the electrician for septe
+[  8/300] correct_rejection  | give me a packing list for a beach trip
+[  9/300] exact              | Recurring: brunch with Alex, monthly on the 14th, 4:45pm for
+[ 10/300] wrong_args         | Put board meeting on my calendar on the 25th of every month 
+[ 11/300] false_positive     | mark my calendar for workshop prep the third Sunday of this 
+[ 12/300] exact              | Throw buy 3 gift cards on my schedule April 21 at 2:30pm for
+[ 13/300] exact              | Set a reminder to send the invoice tomorrow at 3 pm for 60 m
+[ 14/300] exact              | Pencil in brunch with Alex this Wednesday at 08:00 in the lo
+[ 15/300] exact              | Standing desk delivery is on the 27th of March at 6pm until 
+[ 16/300] exact              | throw violin lesson on my schedule saturday at 12 noon for a
+[ 17/300] exact              | Dinner with the Hendersons on Nov 14 at 8 a.m.
+[ 18/300] exact              | next tuesday at 16:30, buy 3 gift cards for two hours
+[ 19/300] exact              | Please add date night in 30 days at 10:30am
+[ 20/300] exact              | pencil in board meeting on February 2nd from 5PM to 7:30PM.
+[ 21/300] correct_rejection  | Create an event: call Aunt Rosa the day before yesterday at 
+[ 22/300] exact              | Make a reminder to renew my passport in 26 days at 13:15 for
+[ 23/300] exact              | need kickboxing on 11 january at 10:30am at the community ga
+[ 24/300] exact              | Throw kickboxing on my schedule in nine days from 1:15p.m. t
+[ 25/300] false_positive     | Pencil in fold the laundry soon
+[ 26/300] invalid            | Could you make change the air filter repeat every two weeks 
+[ 27/300] exact              | Book quarterly planning on Oct 29 from 11AM to 11:15AM.
+[ 28/300] exact              | mark my calendar: send the invoice in five days at 10 AM for
+[ 29/300] wrong_args         | please put call Aunt Rosa in for Saturday at 7a.m. in the lo
+[ 30/300] false_positive     | I have flight check-in at 6 pm
+[ 31/300] exact              | Create an event for flight check-in Jul 2 at 06:00 till 6:45
+[ 32/300] exact              | Calendar: email the landlord March 14th, 2026 at 8:30 pm til
+[ 33/300] exact              | Set up team retro on Jul 18, 2026 at 1:10pm at the train sta
+[ 34/300] exact              | Please put refill my prescription in for January 14th at 10 
+[ 35/300] exact              | Schedule take out the trash in 27 days at 6:00am.
+[ 36/300] invalid            | Recurring: recruiter call, every 3 weeks on Saturday, noon
+[ 37/300] false_positive     | Pencil in change the air filter tomorrow at 10.
+[ 38/300] exact              | Need orthodontist visit on 10/25 at 10am for two hours
+[ 39/300] correct_rejection  | Pencil in violin lesson on February 30 at 10 in the morning.
+[ 40/300] exact              | Please put mortgage signing in for a week from Wednesday fro
+[ 41/300] exact              | please put kickboxing in for in 6 days at quarter to 3pm
+[ 42/300] exact              | Could you add an entry called orthodontist visit for 4 May a
+[ 43/300] exact              | Make a reminder to back up my laptop this Friday at 12 pm fo
+[ 44/300] wrong_args         | Could you make orthodontist visit repeat every July 12th at 
+[ 45/300] exact              | I'd like to schedule checkup on January 1 at 8:45am
+[ 46/300] exact              | i have game night the second Wednesday of this month at 12p.
+[ 47/300] exact              | pencil in standing desk delivery on 6/30 at 3pm
+[ 48/300] exact              | File my expenses, in three days, 8pm.
+[ 49/300] exact              | I'd like to schedule roadmap review the 18th of next month a
+[ 50/300] exact              | Recurring: change the air filter, every year on April 30, 4:
+[ 51/300] exact              | Need update the website the first Friday of next month at 17
+[ 52/300] exact              | Throw checkup on my schedule 7/28 at 7:30 am
+[ 53/300] exact              | Mark my calendar: call the electrician Oct 2 at 4:30 pm for 
+[ 54/300] exact              | Please put recruiter call in for 15 March at 9 in the mornin
+[ 55/300] exact              | mark my calendar: workshop prep 25 January at 8:30am.
+[ 56/300] exact              | I need to call mom in three days 6:35-7:05pm.
+[ 57/300] wrong_args         | Mark my calendar: recruiter call the first Wednesday of next
+[ 58/300] false_positive     | Mark my calendar for massage on 8 December at 7.
+[ 59/300] wrong_args         | I have oil change on February 5th at 12:00pm at Luigi's for 
+[ 60/300] wrong_args         | Schedule neighborhood meeting the first Tuesday of this mont
+[ 61/300] wrong_args         | recurring: fold the laundry, every Thursday, 8AM until 8:15a
+[ 62/300] false_positive     | Create an event: book flights on Jul 12 at 12.
+[ 63/300] exact              | Can you set up call grandma for in seven days at 5:30 pm for
+[ 64/300] exact              | set up go for a run weekly on monday from 7:45pm to 9:15pm
+[ 65/300] wrong_args         | Could you add an entry called violin lesson for the fourth F
+[ 66/300] exact              | Could you make buy 3 gift cards repeat every Thursday from 1
+[ 67/300] invalid            | Recurring: tea with Nana, on Mondays and Sundays, 2pm seven 
+[ 68/300] exact              | Could you add an entry called brunch with Alex for the 22nd 
+[ 69/300] exact              | Throw book flights on my schedule 10/11 at 3:30p.m.
+[ 70/300] exact              | Could you add an entry called water the tomatoes for 15 July
+[ 71/300] invalid            | Could you make kickboxing repeat every other month on the 10
+[ 72/300] wrong_args         | Could you add an entry called workshop prep for the 5th of F
+[ 73/300] exact              | Could you add an entry called tea with Nana for July 26th at
+[ 74/300] exact              | Put mow the lawn on the calendar for in 17 days at 11:30am f
+[ 75/300] exact              | birthday party on apr 9 at 10:05am.
+[ 76/300] wrong_args         | Need recruiter call on Jul 9 at 2:40PM for 15 minutes
+[ 77/300] exact              | i'd like to schedule lunch with tomas in 30 days at 8am till
+[ 78/300] exact              | Could you add an entry called violin lesson for this Sunday 
+[ 79/300] exact              | remind me to pick up the kids on the 20th of every month at 
+[ 80/300] invalid            | I'd like supper with the Parkers every other Thursday at 16:
+[ 81/300] exact              | put swim practice on the calendar for in 2 days at 10:50am
+[ 82/300] exact              | Please put garden club in for Thursday at 10 am for 30 minut
+[ 83/300] invalid            | Make massage a regular thing, every two weeks on Friday at q
+[ 84/300] wrong_args         | Could you add an entry called roadmap review for the 1st at 
+[ 85/300] correct_rejection  | convert 10am Eastern to Pacific
+[ 86/300] exact              | I have team standup on Tuesday at 12:25pm
+[ 87/300] wrong_args         | can you set up design review for apr 11 at 3 pm at the commu
+[ 88/300] exact              | Pencil in fold the laundry on December 7 at 10am
+[ 89/300] wrong_args         | on Sunday 12:30-3PM, climbing session in the lobby
+[ 90/300] invalid            | Recurring: trivia night, every other day, half past 2pm star
+[ 91/300] false_positive     | please put trivia night in friday evening
+[ 92/300] wrong_args         | Please put climbing session in for Wednesday of next week fr
+[ 93/300] exact              | Please put kickboxing in for in 10 days at 11:45am for 1 hou
+[ 94/300] exact              | recurring: violin lesson, daily, 6 in the evening starting m
+[ 95/300] exact              | Set a reminder to call the electrician on 28 May at 17:00 fo
+[ 96/300] wrong_args         | renew my passport a week from friday at 9:30 p.m.
+[ 97/300] wrong_args         | Make standing desk delivery a regular thing, every June 30th
+[ 98/300] wrong_args         | Therapy session Sep 21 at 16:20 till 5:50pm
+[ 99/300] exact              | Pencil in roadmap review on 21 March at 3:30PM
+[100/300] exact              | Calendar: pay rent the second Thursday of this month at 10am
+[101/300] exact              | Garden club is a week from Saturday at 11:15am for four hour
+[102/300] exact              | Pencil in garden club on Nov 3 8:30-9:30PM
+[103/300] wrong_args         | Schedule dentist appointment the last Thursday of this month
+[104/300] wrong_args         | set up eye exam every month on the 20th 5-7:30pm at the gym
+[105/300] exact              | Lunch with Dad, the 30th, 12PM for 45 min
+[106/300] exact              | Please set brunch with Alex to repeat each Fri at 4:00p.m. a
+[107/300] exact              | Please set workshop prep to repeat on Wednesdays, Saturdays 
+[108/300] wrong_args         | Pencil in take the car in on Saturday at 2pm.
+[109/300] wrong_args         | Throw recruiter call on my schedule October 18th at 15:15 at
+[110/300] false_positive     | Schedule mow the lawn tomorrow afternoon
+[111/300] exact              | Add pay rent to my calendar every day at 9 am through Novemb
+[112/300] wrong_args         | i'd like to schedule pilates next monday at 7p.m. in the lob
+[113/300] exact              | Please put fold the laundry in for 12 June 2026 at 4pm
+[114/300] exact              | pencil in school concert on 4 August at 12pm
+[115/300] exact              | Recurring: violin lesson, daily, 7:30pm for 90 min
+[116/300] exact              | Can you set up swim practice for the third Friday of this mo
+[117/300] false_positive     | please put board meeting in at 15:00
+[118/300] wrong_args         | I'd like recruiter call every weekend at 5pm starting in 15 
+[119/300] wrong_args         | Book farmers market weekly on Tuesday at noon for 10 occurre
+[120/300] wrong_args         | pencil in workshop prep on January 10 at 10:30am in the lobb
+[121/300] invalid            | Recurring: poker night, every other Sunday, from 11AM to 12:
+[122/300] exact              | Create an event for breakfast with Priya December 14th at 2:
+[123/300] exact              | New event: coffee with Maria June 5th at 3:15pm for half an 
+[124/300] wrong_args         | Recurring: violin lesson, every weekend, 11:30AM in Room 12
+[125/300] exact              | Make massage a regular thing, on the 12th of every month at 
+[126/300] false_positive     | create an event: brunch with Alex every Monday, Thursday and
+[127/300] exact              | tomorrow at 19:00, pilates for 45 minutes
+[128/300] exact              | on Jul 12 at 1 pm, kickboxing for 1.5 hours
+[129/300] correct_rejection  | Schedule team standup at some point today
+[130/300] exact              | Book birthday party every Monday at 16:00 starting the 31st
+[131/300] exact              | Recurring: school concert, on Wednesdays and Fridays, 5:25 p
+[132/300] wrong_args         | recurring: call aunt rosa, on mondays, saturdays and sundays
+[133/300] false_positive     | mark my calendar for standing desk delivery on may 22, 2028 
+[134/300] exact              | Put sprint planning on the calendar for in 5 days at 6 PM un
+[135/300] exact              | Mark my calendar: checkup the 3rd of June at 10am for 1.5 ho
+[136/300] exact              | Throw book flights on my schedule in 16 days at 12:00pm
+[137/300] exact              | each Sunday at 4:15pm: physical therapy for 3 hours.
+[138/300] correct_rejection  | when does daylight saving time end?
+[139/300] exact              | Add dinner for 4 to my calendar the fourth Wednesday of this
+[140/300] false_positive     | I have dog grooming every Monday
+[141/300] correct_rejection  | Add language exchange later this week
+[142/300] exact              | throw supper with the parkers on my schedule in four days at
+[143/300] wrong_args         | Could you make tea with Nana repeat every 3 months on the 18
+[144/300] exact              | Could you add an entry called lunch with Tomas for the 7th a
+[145/300] invalid            | put call the electrician on my calendar every two weeks on m
+[146/300] false_positive     | Mark my calendar for tea with Nana on Wednesday next week at
+[147/300] wrong_args         | Could you make brunch with Alex repeat every Wednesday at 9:
+[148/300] exact              | Need fold the laundry in 30 days at 12 pm till 12:30pm
+[149/300] exact              | Please put recruiter call in for August 11 at 1pm.
+[150/300] exact              | new event: swim practice tomorrow at 16:00 for 2.5 hours in 
+[151/300] exact              | Can you set up renew my passport for May 25 at 3:45pm at the
+[152/300] exact              | Please put send the invoice in for 29 March at 09:00
+[153/300] exact              | Set a reminder to update the website in 3 days at 9am at Blu
+[154/300] exact              | Make supper with the Parkers a regular thing, every Monday a
+[155/300] invalid            | please set take the car in to repeat every 3 days 5:45-9:45p
+[156/300] exact              | throw trivia night on my schedule Mar 22 at 8 a.m.
+[157/300] exact              | on September 6th at 12 pm, change the air filter for 60 minu
+[158/300] exact              | Pencil in buy 3 gift cards on 3/28 at 14:00.
+[159/300] exact              | could you make garden club repeat every Wednesday at 9:30 in
+[160/300] exact              | could you add an entry called brunch with Alex for in five d
+[161/300] exact              | Please put workshop prep in for 29 August at 12:10pm for 1 h
+[162/300] exact              | Please put poker night in for 10/5 at 5:15pm.
+[163/300] exact              | Throw update the website on my schedule the 21st of next mon
+[164/300] exact              | Please put supper with the Parkers in for the 1st of next mo
+[165/300] exact              | Mark my calendar: call Aunt Rosa the 21st at half past 12pm
+[166/300] invalid            | Please set recruiter call to repeat every Tuesday, Friday an
+[167/300] exact              | Throw violin lesson on my schedule the last day of the month
+[168/300] correct_rejection  | what's a good name for a cat?
+[169/300] wrong_args         | i need to renew my passport every other month on the 1st at 
+[170/300] correct_rejection  | what meetings do I have on Wednesday?
+[171/300] wrong_args         | Mark my calendar: brunch with Alex Mar 10 2:30-6:30pm
+[172/300] false_positive     | Project kickoff at 11am.
+[173/300] exact              | Please put trivia night in for Apr 20 at 1PM on Teams
+[174/300] exact              | Set a reminder to fold the laundry on Apr 9 at 5:45pm.
+[175/300] false_positive     | Remind me to meal prep daily
+[176/300] false_positive     | Remind me to meal prep in 13 days at 3
+[177/300] exact              | Call grandma - March 15 at quarter past 4PM
+[178/300] wrong_args         | Please put roadmap review in for the 10th at 8:55am in the l
+[179/300] exact              | on April 21st at 9:30AM, take the car in at 88 Oak Ave
+[180/300] wrong_args         | checkup is in 28 days at half past 7pm at the community gard
+[181/300] exact              | pencil in school concert on jul 2 at 2pm for 90 min
+[182/300] exact              | book book signing on november 14 at 16:00 for two hours
+[183/300] exact              | Pencil in update the website tomorrow at 2:30p.m. for an hou
+[184/300] wrong_args         | Could you make update the website repeat every other Saturda
+[185/300] wrong_args         | Make call the electrician a regular thing, every month on th
+[186/300] exact              | Throw poker night on my schedule in 2 days from 8AM to 10:30
+[187/300] exact              | Standing desk delivery is in 21 days at 3pm
+[188/300] false_positive     | i'd like trivia night at 2:45pm
+[189/300] exact              | Please set fold the laundry to repeat every Monday at 18:30 
+[190/300] wrong_args         | Please set violin lesson to repeat each Thursday at 8:55pm f
+[191/300] exact              | Mark my calendar: brunch with Alex in 22 days at 3pm
+[192/300] exact              | on February 26 at 7am, trivia night
+[193/300] wrong_args         | Put roadmap review on my calendar Monday through Friday at q
+[194/300] wrong_args         | Throw water the tomatoes on my schedule the first Sunday of 
+[195/300] exact              | could you add an entry called take the car in for 4/2 at 4:3
+[196/300] wrong_args         | Orthodontist visit is a week from Friday at 2p.m.
+[197/300] exact              | Create an event for choir rehearsal the 7th of February at 5
+[198/300] wrong_args         | Set a reminder to water the tomatoes on Saturday next week a
+[199/300] exact              | Movie night on April 9 at 10am for 45 minutes
+[200/300] wrong_args         | on the 9th at 12pm, update the website for 60 minutes at the
+[201/300] false_positive     | Pencil in checkup on the 26th at 1
+[202/300] invalid            | Remind me to walk the dog on the 10th of every month at 6PM 
+[203/300] exact              | Mark my calendar: water the tomatoes this Tuesday at 7pm for
+[204/300] exact              | Please put call Aunt Rosa in for the 19th at 8:30am for 60 m
+[205/300] exact              | Need water the tomatoes on 16 July at 10am
+[206/300] false_positive     | Need to update the website on November 31 at 6pm.
+[207/300] exact              | Throw standing desk delivery on my schedule Sunday at 13:00 
+[208/300] exact              | i'd like to schedule send the invoice on Monday 6:15-10:15p.
+[209/300] wrong_args         | Pencil in buy 3 gift cards on Jul 20 at 9:15a.m. at the rec 
+[210/300] wrong_args         | Please put supper with the Parkers in for in two days from 8
+[211/300] exact              | Throw supper with the Parkers on my schedule in 13 days at 8
+[212/300] exact              | Schedule dentist appointment on the 5th from 12PM to 1:30PM.
+[213/300] wrong_args         | Need pilates on the 29th at 3 pm at the rec center for 2 hou
+[214/300] wrong_args         | Could you make book flights repeat each day at 13:00 until 2
+[215/300] exact              | Could you add an entry called fold the laundry for the third
+[216/300] exact              | new event: all hands may 16 at 18:00
+[217/300] false_positive     | Put language exchange on my calendar at 2:30PM
+[218/300] exact              | Please put call the electrician in for 21 February at 11:25a
+[219/300] invalid            | Could you make pilates repeat biweekly on Monday at quarter 
+[220/300] wrong_args         | Need refill my prescription a week from Wednesday at 12 noon
+[221/300] wrong_args         | Please set garden club to repeat on Fridays, Saturdays and S
+[222/300] exact              | Make kickboxing a regular thing, every Mon and Tue at 9:00am
+[223/300] exact              | i'd like to schedule pilates the 4th of next month at 6pm fo
+[224/300] exact              | pencil in call the electrician in five days at 09:00 for an 
+[225/300] wrong_args         | Could you add an entry called mortgage signing for the fourt
+[226/300] wrong_args         | Calendar: design review in 6 weeks at 7 pm
+[227/300] wrong_args         | Mark my calendar: brunch with Alex June 30th at quarter past
+[228/300] exact              | Pencil in water the tomatoes on Sunday at 1:00 PM.
+[229/300] exact              | on Aug 26 at 3:00PM, send the invoice for 45 min
+[230/300] exact              | choir rehearsal on 1/27 at 11AM for 1.5 hours
+[231/300] exact              | Recurring: checkup, every day, 7 in the evening for 2 hours 
+[232/300] false_positive     | set up choir rehearsal this Sunday at 3
+[233/300] wrong_args         | i need to go to the gym on Tuesdays, Wednesdays and Sundays 
+[234/300] exact              | Kickboxing is in 22 days at 3 in the afternoon for 15 min, a
+[235/300] wrong_args         | I'd like lunch with Tomas every Monday, Saturday and Sunday 
+[236/300] correct_rejection  | what is the date next Friday?
+[237/300] exact              | Pencil in buy 3 gift cards on 1 October at 1:40 pm till 2:25
+[238/300] wrong_args         | recurring: massage, daily, 18:30 for 2.5 hours at the rec ce
+[239/300] correct_rejection  | remind me what i did last tuesday
+[240/300] exact              | Recurring: checkup, annually on October 30, 7:30am 12 times 
+[241/300] exact              | Need standing desk delivery on November 7th at 10:45am at Bl
+[242/300] exact              | Mark my calendar: recruiter call in 12 days from 8:15am to 9
+[243/300] wrong_args         | pencil in water the tomatoes next monday at 8 in the evening
+[244/300] exact              | Throw take the car in on my schedule May 28th at quarter pas
+[245/300] exact              | Make fold the laundry a regular thing, every year on Septemb
+[246/300] correct_rejection  | Need to send the invoice on Wednesday
+[247/300] wrong_args         | I'd like massage annually on March 18 at 12pm
+[248/300] exact              | Please set mortgage signing to repeat every weekday at 9 in 
+[249/300] wrong_args         | could you add an entry called kickboxing for in five days at
+[250/300] exact              | Please add book club the 2nd of next month 1-2pm
+[251/300] exact              | Book birthday party monthly on the 9th at 6pm until 7:30pm
+[252/300] exact              | i'd like garden club every month on the 19th at 4:30pm for 6
+[253/300] exact              | put call the electrician on my calendar each day at 9am star
+[254/300] exact              | Mark my calendar: violin lesson Sep 15 at 11am for 30 min
+[255/300] exact              | please add take out the trash on the 18th at 3pm for 1.5 hou
+[256/300] exact              | Garden club is end of the month at 11 am
+[257/300] exact              | remind me to write thank you notes in three days at 7:00PM
+[258/300] false_positive     | at 9 a.m.: pay rent.
+[259/300] wrong_args         | Make school concert a regular thing, on the 25th of every mo
+[260/300] exact              | Please put tea with Nana in for the day after tomorrow at 2:
+[261/300] wrong_args         | New event: file my expenses next Wednesday at 8am.
+[262/300] wrong_args         | set up weekly sync every other month on the 13th at quarter 
+[263/300] exact              | Water the plants - in 5 days at 9 in the morning on Zoom for
+[264/300] false_positive     | mark my calendar for climbing session at 5pm
+[265/300] exact              | Recurring: board meeting, every Tue, 8AM starting June 9 at 
+[266/300] exact              | Pencil in checkup tomorrow at 7:30 am till 9:30AM
+[267/300] exact              | Don't let me forget to mow the lawn on 13 August at 6 in the
+[268/300] wrong_args         | Make take the car in a regular thing, yearly on Feb 22 at 11
+[269/300] wrong_args         | could you make lunch with tomas repeat every year on decembe
+[270/300] false_positive     | I'd like garden club the second Friday of this month
+[271/300] exact              | could you add an entry called workshop prep for 17 december 
+[272/300] exact              | Recurring: recruiter call, every three months on the 13th, 9
+[273/300] wrong_args         | on the 1st of April at 9am, refill my prescription.
+[274/300] exact              | Throw trivia night on my schedule July 25th at 2:15 pm for h
+[275/300] exact              | Please put trivia night in for a week from Tuesday at 12:00p
+[276/300] wrong_args         | Create an event for eye exam the 29th of March at 6:15pm
+[277/300] exact              | Therapy session June 2nd at 8:40am
+[278/300] exact              | Put order cat food on the calendar for 7/18 at 1 in the afte
+[279/300] invalid            | I'd like poker night every two weeks on Sunday at 08:00 till
+[280/300] wrong_args         | Make recruiter call a regular thing, each Sunday at 8am star
+[281/300] exact              | Order cat food - today at 4:30pm
+[282/300] correct_rejection  | how many weeks are left in the year?
+[283/300] exact              | Could you add an entry called change the air filter for the 
+[284/300] exact              | Calendar: team standup 18 July at 4 p.m.
+[285/300] wrong_args         | Please add quarterly planning next Friday at 5 in the aftern
+[286/300] exact              | Put submit the report on the calendar for Sunday at 5:30 pm
+[287/300] exact              | on 18 June at 6:10pm, violin lesson
+[288/300] invalid            | I have project kickoff monthly on the 16th at 4p.m. through 
+[289/300] false_positive     | Put coffee with Maria on my calendar in 23 days
+[290/300] exact              | Could you make violin lesson repeat every Sunday from 8pm to
+[291/300] wrong_args         | Mark my calendar: poker night Friday of next week at 5:35PM
+[292/300] exact              | Create a repeating event: movie night every Monday and Tuesd
+[293/300] wrong_args         | every 3 months on the 16th at 9:45AM: call the plumber at th
+[294/300] exact              | Mark my calendar: recruiter call Sep 29 at half past 10am fo
+[295/300] wrong_args         | on July 22 at 16:15, school concert in the lobby for 30 min
+[296/300] false_positive     | I have piano lesson this weekend
+[297/300] exact              | Pottery class, the 20th of next month, 1-5pm at Joe's Cafe
+[298/300] false_positive     | Add go for a run each Saturday
+[299/300] exact              | Make buy 3 gift cards a regular thing, every Saturday at 7:4
+[300/300] exact              | Could you make pilates repeat on Tue and Sat at 2:15 pm star
+
+============================================================
+Pass rate: 62.7%  (188/300)  95% CI 57.1%-68.0%
+Breakdown: {'exact': 174, 'wrong_args': 70, 'invalid': 15, 'missed_tool_call': 0, 'correct_rejection': 14, 'false_positive': 27}
+Rejections: 14/41 correct, 27 false positives; 0/259 real requests missed
+  duration_minutes        134/141  95.0%
+  location                 36/59   61.0%  (+1 spurious)
+  recurrence_count         13/13   100.0%
+  recurrence_days          25/31   80.7%
+  recurrence_freq          59/60   98.3%
+  recurrence_interval       6/6    100.0%
+  recurrence_until         12/13   92.3%  (+3 spurious)
+  start                   207/244  84.8%
+  title                   235/244  96.3%
+Mean latency: 2928 ms
+Tokens: 175,922 in, 15,115 out
+
+Wrote results/dev/ollama-gemma4-12b.json

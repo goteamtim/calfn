@@ -3,5 +3,8 @@ pytest
 icalendar      # .ics round-trip tests
 tzdata         # zoneinfo on Windows
 anthropic      # prompted-Claude baseline (scripts/baseline_claude.py)
-# transformers + torch are needed only to run scripts/inference.py against a model:
-#   install torch for your CUDA first, then: transformers accelerate peft
+# Needed only to run scripts/inference.py against a model (versions match requirements-train.txt).
+# Install a CUDA build of torch first (torch==2.10.0 there), then these:
+transformers==5.5.0
+accelerate==1.15.0
+peft==0.18.1
