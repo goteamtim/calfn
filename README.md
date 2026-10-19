@@ -24,7 +24,7 @@ All on `eval_v1` (300 prompts, 215 with held-out wording). Same prompts, same la
 | calfn v1 (fine-tuned) | direct | 48.3% (145/300) | 42.7%-54.0% | 43% | |
 | Claude (prompted) | direct | | | | |
 | calfn v2 (fine-tuned) | extract | 74.3% (223/300) | 69.1%-79.0% | 65% | |
-| **calfn v3 (wider vocabulary)** | **extract** | **84.7% (254/300)** | **80.2%-88.3%** | **80%** | |
+| **calfn v3 (wider vocabulary)** | **extract** | **84.7% (254/300)** | **80.2%-88.3%** | **80%** | **85.0% (170/200)**, CI 79.4%-89.3% |
 
 The base model's 40 passes are all correct rejections: it made no correct tool call. The harness is verified with oracle answers (300/300 on `eval_v1`, both tasks). Commands for the remaining rows are in `docs/experiments.md`.
 

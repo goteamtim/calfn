@@ -18,7 +18,7 @@ produced each is in the notes. Nothing below is filled in with a guess.
 | Base FunctionGemma 270M, `--task extract` | done: 11.7% (35/300), see Runs. The matching start line for v2 |
 | Fine-tune v3 (D10: wider train vocabulary, same recipe) | done: 84.7% on eval_v1, see Runs. D10 prediction (title >= 85%, ood >= 78%, overall 80-90%) held |
 | Claude / gemma4:12b with `--task extract` | optional: shows whether the expression language is learnable from a prompt alone |
-| test_v1, once | after the v2 dev number is settled |
+| test_v1, once | done 2026-10-18 for calfn-v3 only: 85.0% (170/200), see Runs. Not to be scored again for this model or used to choose anything (D4) |
 
 ## Data
 
@@ -42,6 +42,7 @@ never truncates a tool call (`tests/test_prompt_format.py`).
 | ollama-gemma4-12b | gemma4:12b via Ollama, prompted | none | temp 0, thinking off, num_ctx 4096 | eval_v1 | 62.7% (188/300) | 57.1%-68.0% | RTX 3060, `scripts/baseline_ollama.py`, `results/dev/ollama-gemma4-12b.json`. 174 exact, 70 wrong_args, 15 invalid, 0 missed; only 14/41 rejections ok (27 false positives). start 84.8%, title 96.3%. ood 62% / ind 64%. 2928 ms mean |
 | calfn-v2 (extract) | functiongemma-270m-it, full FT | train.jsonl (3000, call labels) | defaults: lr 5e-5, 6 ep, bs 4 x accum 4, seed 42; final train loss 0.0309 | eval_v1 | 74.3% (223/300) | 69.1%-79.0% | RTX 3060, `results/dev/calfn-v2.json`, `runs/train_20261018_130551.json`. 182 exact, 71 wrong_args, 2 invalid, 4 missed; 41/41 rejections ok, 0 false positives. start_date 100% (253/253), start_time 98.8%, title 72.7%, location 98.3%, duration 99.3%. ood 65% / ind 98%. 1041 ms mean |
 | calfn-v3 (extract) | functiongemma-270m-it, full FT | train.jsonl (3000, D10 vocabulary: 346 titles, 58/23/20 frames) | defaults, same as v2; final train loss 0.0332 | eval_v1 | 84.7% (254/300) | 80.2%-88.3% | RTX 3060, `results/dev/calfn-v3.json`, `runs/train_20261018_150939.json`. 213 exact, 40 wrong_args, 2 invalid, 4 missed; 41/41 rejections ok, 0 false positives. start_date 100%, start_time 97.6%, title 88.5%, location 95.1%, duration 98.0%. ood 80% (v2 65%) / ind 96% (v2 98%). 1044 ms mean |
+| calfn-v3 (extract), **test_v1, scored once** | same model as the calfn-v3 row | | | test_v1 | 85.0% (170/200) | 79.4%-89.3% | `results/test/calfn-v3-test.json`. 144 exact, 22 wrong_args, 0 invalid, 6 missed; 26/28 rejections ok, 2 false positives. start_date 100%, start_time 100%, title 87.9%, location 97.9%, duration 100%. ood 80% (109/136) / ind 95% (61/64). 1050 ms mean |
 | base-extract | unsloth/functiongemma-270m-it, `extract` prompt | none | greedy | eval_v1 | 11.7% (35/300) | 8.5%-15.8% | RTX 3060, `results/dev/base-extract.json`. 0 exact; 157/259 real requests missed, 102 invalid, 35/41 rejections ok, 6 false positives; 1209 ms mean. ood 10% / ind 16%. All 35 passes are rejections |
 
 **Task column.** Every row above is `task=direct` (D9): the v1 approach, where the model is told the current
@@ -81,6 +82,13 @@ n=32 this can neither confirm nor rule out the +10 points seen on eval_v1. Sever
 questions in an unreviewed set: "dentist" vs "Dentist appointment", "Lunch w/ Dad" vs "Lunch with Dad", "Daily standup"
 vs "Standup", "Meeting with Priya" vs "A meeting with Priya". Reviewing `natural_v1` (or an eval v2 with fresh held-out
 vocabulary) is needed before it can say anything about title wording.
+
+**calfn-v3 on test_v1** (read after scoring, not used for any decision): 22 wrong calls, 20 of them wrong only in the title,
+1 in location, 1 in recurrence days and frequency. Every date and time resolved correctly (166/166 each). The 6 misses
+are empty outputs on plain requests ("Set up dentist appointment on 10/1 at 8pm", "Need mortgage signing on Sunday next
+week at 14:00"). The 2 false positives are "I have design review on Feb 30 at 2pm" (a date that does not exist) and "supper
+with the Parkers at 09:45" (no date). This is close to the eval_v1 result (84.7%), so the dev number was not badly
+optimistic, but `eval_v1` and `test_v1` come from the same generator and vocabulary, so neither measures people's own phrasing.
 
 Add runs here as they happen:
 

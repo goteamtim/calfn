@@ -1,0 +1,6343 @@
+{
+ "run_date": "2026-10-18T17:47:23",
+ "model": "output/calfn-v3",
+ "task": "extract",
+ "eval_file": "data/eval/test_v1.jsonl",
+ "summary": {
+  "overall": {
+   "n": 200,
+   "pass": 170,
+   "rate": 0.85,
+   "ci95": [
+    0.7939,
+    0.8929
+   ]
+  },
+  "breakdown": {
+   "exact": 144,
+   "wrong_args": 22,
+   "invalid": 0,
+   "missed_tool_call": 6,
+   "correct_rejection": 26,
+   "false_positive": 2
+  },
+  "rejection": {
+   "gold_rejections": 28,
+   "correct": 26,
+   "false_positives": 2,
+   "gold_calls": 172,
+   "missed_calls": 6
+  },
+  "per_field": {
+   "duration_minutes": {
+    "correct": 86,
+    "total": 86,
+    "accuracy": 1.0
+   },
+   "location": {
+    "correct": 46,
+    "total": 47,
+    "accuracy": 0.9787
+   },
+   "recurrence_count": {
+    "correct": 12,
+    "total": 12,
+    "accuracy": 1.0
+   },
+   "recurrence_days": {
+    "correct": 29,
+    "total": 30,
+    "accuracy": 0.9667
+   },
+   "recurrence_freq": {
+    "correct": 56,
+    "total": 57,
+    "accuracy": 0.9825
+   },
+   "recurrence_interval": {
+    "correct": 12,
+    "total": 12,
+    "accuracy": 1.0
+   },
+   "recurrence_until": {
+    "correct": 13,
+    "total": 13,
+    "accuracy": 1.0
+   },
+   "start_date": {
+    "correct": 166,
+    "total": 166,
+    "accuracy": 1.0
+   },
+   "start_time": {
+    "correct": 166,
+    "total": 166,
+    "accuracy": 1.0
+   },
+   "title": {
+    "correct": 146,
+    "total": 166,
+    "accuracy": 0.8795
+   }
+  },
+  "per_tag": {
+   "date_abs": {
+    "n": 50,
+    "pass": 41,
+    "rate": 0.82,
+    "ci95": [
+     0.692,
+     0.9023
+    ]
+   },
+   "date_dom": {
+    "n": 11,
+    "pass": 11,
+    "rate": 1.0,
+    "ci95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "date_monthrel": {
+    "n": 12,
+    "pass": 10,
+    "rate": 0.8333,
+    "ci95": [
+     0.552,
+     0.953
+    ]
+   },
+   "date_rel": {
+    "n": 25,
+    "pass": 19,
+    "rate": 0.76,
+    "ci95": [
+     0.5657,
+     0.885
+    ]
+   },
+   "date_weekday": {
+    "n": 17,
+    "pass": 11,
+    "rate": 0.6471,
+    "ci95": [
+     0.413,
+     0.8269
+    ]
+   },
+   "distractor": {
+    "n": 13,
+    "pass": 11,
+    "rate": 0.8462,
+    "ci95": [
+     0.5776,
+     0.9567
+    ]
+   },
+   "dur": {
+    "n": 44,
+    "pass": 38,
+    "rate": 0.8636,
+    "ci95": [
+     0.7329,
+     0.936
+    ]
+   },
+   "dur_range": {
+    "n": 19,
+    "pass": 15,
+    "rate": 0.7895,
+    "ci95": [
+     0.5667,
+     0.9149
+    ]
+   },
+   "dur_until": {
+    "n": 23,
+    "pass": 21,
+    "rate": 0.913,
+    "ci95": [
+     0.732,
+     0.9758
+    ]
+   },
+   "ind": {
+    "n": 64,
+    "pass": 61,
+    "rate": 0.9531,
+    "ci95": [
+     0.871,
+     0.9839
+    ]
+   },
+   "loc": {
+    "n": 48,
+    "pass": 41,
+    "rate": 0.8542,
+    "ci95": [
+     0.7283,
+     0.9275
+    ]
+   },
+   "ood": {
+    "n": 136,
+    "pass": 109,
+    "rate": 0.8015,
+    "ci95": [
+     0.7266,
+     0.8598
+    ]
+   },
+   "rec_count": {
+    "n": 12,
+    "pass": 12,
+    "rate": 1.0,
+    "ci95": [
+     0.7575,
+     1.0
+    ]
+   },
+   "rec_daily": {
+    "n": 8,
+    "pass": 8,
+    "rate": 1.0,
+    "ci95": [
+     0.6756,
+     1.0
+    ]
+   },
+   "rec_dated": {
+    "n": 13,
+    "pass": 12,
+    "rate": 0.9231,
+    "ci95": [
+     0.6669,
+     0.9863
+    ]
+   },
+   "rec_interval": {
+    "n": 12,
+    "pass": 12,
+    "rate": 1.0,
+    "ci95": [
+     0.7575,
+     1.0
+    ]
+   },
+   "rec_monthly": {
+    "n": 12,
+    "pass": 10,
+    "rate": 0.8333,
+    "ci95": [
+     0.552,
+     0.953
+    ]
+   },
+   "rec_undated": {
+    "n": 44,
+    "pass": 40,
+    "rate": 0.9091,
+    "ci95": [
+     0.7884,
+     0.9641
+    ]
+   },
+   "rec_until": {
+    "n": 13,
+    "pass": 12,
+    "rate": 0.9231,
+    "ci95": [
+     0.6669,
+     0.9863
+    ]
+   },
+   "rec_weekly": {
+    "n": 30,
+    "pass": 27,
+    "rate": 0.9,
+    "ci95": [
+     0.7438,
+     0.9654
+    ]
+   },
+   "rec_yearly": {
+    "n": 7,
+    "pass": 7,
+    "rate": 1.0,
+    "ci95": [
+     0.6457,
+     1.0
+    ]
+   },
+   "recurring": {
+    "n": 57,
+    "pass": 52,
+    "rate": 0.9123,
+    "ci95": [
+     0.8105,
+     0.9619
+    ]
+   },
+   "reject": {
+    "n": 28,
+    "pass": 26,
+    "rate": 0.9286,
+    "ci95": [
+     0.7735,
+     0.9802
+    ]
+   },
+   "reject_ambiguous": {
+    "n": 9,
+    "pass": 9,
+    "rate": 1.0,
+    "ci95": [
+     0.7008,
+     1.0
+    ]
+   },
+   "reject_baddate": {
+    "n": 2,
+    "pass": 1,
+    "rate": 0.5,
+    "ci95": [
+     0.0945,
+     0.9055
+    ]
+   },
+   "reject_nodate": {
+    "n": 5,
+    "pass": 4,
+    "rate": 0.8,
+    "ci95": [
+     0.3755,
+     0.9638
+    ]
+   },
+   "reject_notime": {
+    "n": 6,
+    "pass": 6,
+    "rate": 1.0,
+    "ci95": [
+     0.6097,
+     1.0
+    ]
+   },
+   "reject_offtopic": {
+    "n": 3,
+    "pass": 3,
+    "rate": 1.0,
+    "ci95": [
+     0.4385,
+     1.0
+    ]
+   },
+   "reject_vague": {
+    "n": 3,
+    "pass": 3,
+    "rate": 1.0,
+    "ci95": [
+     0.4385,
+     1.0
+    ]
+   },
+   "time_12h": {
+    "n": 106,
+    "pass": 90,
+    "rate": 0.8491,
+    "ci95": [
+     0.7688,
+     0.9049
+    ]
+   },
+   "time_24h": {
+    "n": 21,
+    "pass": 17,
+    "rate": 0.8095,
+    "ci95": [
+     0.6,
+     0.9233
+    ]
+   },
+   "time_noon": {
+    "n": 2,
+    "pass": 2,
+    "rate": 1.0,
+    "ci95": [
+     0.3424,
+     1.0
+    ]
+   },
+   "time_period": {
+    "n": 16,
+    "pass": 13,
+    "rate": 0.8125,
+    "ci95": [
+     0.5699,
+     0.9341
+    ]
+   },
+   "time_range": {
+    "n": 19,
+    "pass": 15,
+    "rate": 0.7895,
+    "ci95": [
+     0.5667,
+     0.9149
+    ]
+   },
+   "time_words": {
+    "n": 8,
+    "pass": 7,
+    "rate": 0.875,
+    "ci95": [
+     0.5291,
+     0.9776
+    ]
+   },
+   "year_explicit": {
+    "n": 2,
+    "pass": 2,
+    "rate": 1.0,
+    "ci95": [
+     0.3424,
+     1.0
+    ]
+   }
+  },
+  "mean_latency_ms": 1050.0
+ },
+ "results": [
+  {
+   "index": 0,
+   "user": "Please put change the air filter in for February 22 at 9am for 30 min",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-22<escape>,duration_minutes:30,time:<escape>09:00<escape>,title:<escape>Change the air filter<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-22",
+    "duration_minutes": 30,
+    "time": "09:00",
+    "title": "Change the air filter"
+   },
+   "event": {
+    "title": "Change the air filter",
+    "start": "2026-02-22T09:00",
+    "duration_minutes": 30
+   },
+   "error": null,
+   "gold": {
+    "title": "Change the air filter",
+    "start": "2026-02-22T09:00",
+    "duration_minutes": 30
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1475.7
+  },
+  {
+   "index": 1,
+   "user": "Put spin class on the calendar for the 12th of next month at 14:00 till 2:15PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dnm:12<escape>,end:<escape>14:15<escape>,time:<escape>14:00<escape>,title:<escape>Spin class<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dnm:12",
+    "end": "14:15",
+    "time": "14:00",
+    "title": "Spin class"
+   },
+   "event": {
+    "title": "Spin class",
+    "start": "2027-09-12T14:00",
+    "duration_minutes": 15
+   },
+   "error": null,
+   "gold": {
+    "title": "Spin class",
+    "start": "2027-09-12T14:00",
+    "duration_minutes": 15
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_monthrel",
+    "time_24h",
+    "dur_until"
+   ],
+   "latency_ms": 1091.8
+  },
+  {
+   "index": 2,
+   "user": "please put kickboxing in for in five days at 3:00pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:5d<escape>,time:<escape>15:00<escape>,title:<escape>Kickboxing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:5d",
+    "time": "15:00",
+    "title": "Kickboxing"
+   },
+   "event": {
+    "title": "Kickboxing",
+    "start": "2027-10-24T15:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Kickboxing",
+    "start": "2027-10-24T15:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h"
+   ],
+   "latency_ms": 793.7
+  },
+  {
+   "index": 3,
+   "user": "Could you make call Aunt Rosa repeat on Mon and Thu at 12pm?",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>MO,TH<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>12:00<escape>,title:<escape>Call Aunt Rosa<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "MO,TH",
+    "recurrence_freq": "weekly",
+    "time": "12:00",
+    "title": "Call Aunt Rosa"
+   },
+   "event": {
+    "title": "Call Aunt Rosa",
+    "start": "2027-06-03T12:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TH"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call Aunt Rosa",
+    "start": "2027-06-03T12:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TH"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1075.4
+  },
+  {
+   "index": 4,
+   "user": "Make workshop prep a regular thing, every June 27th at 10am until June 20th, 2032",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:06-27<escape>,recurrence_freq:<escape>yearly<escape>,recurrence_until:<escape>2032-06-20<escape>,time:<escape>10:00<escape>,title:<escape>Workshop prep<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:06-27",
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2032-06-20",
+    "time": "10:00",
+    "title": "Workshop prep"
+   },
+   "event": {
+    "title": "Workshop prep",
+    "start": "2027-06-27T10:00",
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2032-06-20"
+   },
+   "error": null,
+   "gold": {
+    "title": "Workshop prep",
+    "start": "2027-06-27T10:00",
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2032-06-20"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_yearly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1533.9
+  },
+  {
+   "index": 5,
+   "user": "Need lunch with Tomas on 11/10 6-7PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-10<escape>,end:<escape>19:00<escape>,time:<escape>18:00<escape>,title:<escape>Lunch with Tomas<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-10",
+    "end": "19:00",
+    "time": "18:00",
+    "title": "Lunch with Tomas"
+   },
+   "event": {
+    "title": "Lunch with Tomas",
+    "start": "2027-11-10T18:00",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "Lunch with Tomas",
+    "start": "2027-11-10T18:00",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1160.4
+  },
+  {
+   "index": 6,
+   "user": "Set up dog grooming each day at 1:15pm for 14 days",
+   "raw_output": "<start_function_call>call:create_event{recurrence_count:14,recurrence_freq:<escape>daily<escape>,time:<escape>13:15<escape>,title:<escape>Dog grooming<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_count": 14,
+    "recurrence_freq": "daily",
+    "time": "13:15",
+    "title": "Dog grooming"
+   },
+   "event": {
+    "title": "Dog grooming",
+    "start": "2027-03-11T13:15",
+    "recurrence_freq": "daily",
+    "recurrence_count": 14
+   },
+   "error": null,
+   "gold": {
+    "title": "Dog grooming",
+    "start": "2027-03-11T13:15",
+    "recurrence_freq": "daily",
+    "recurrence_count": 14
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "recurring",
+    "rec_daily",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1041.0
+  },
+  {
+   "index": 7,
+   "user": "please put call the electrician in for in three weeks at 11:10am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:3w<escape>,time:<escape>11:10<escape>,title:<escape>Call the electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:3w",
+    "time": "11:10",
+    "title": "Call the electrician"
+   },
+   "event": {
+    "title": "Call the electrician",
+    "start": "2028-01-12T11:10"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2028-01-12T11:10"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h"
+   ],
+   "latency_ms": 838.1
+  },
+  {
+   "index": 8,
+   "user": "sometime Thursday: vet appointment",
+   "raw_output": "I need an exact date and time, not 'sometime'.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_vague"
+   ],
+   "latency_ms": 326.6
+  },
+  {
+   "index": 9,
+   "user": "Make change the air filter a regular thing, every weekday from 7:30pm to 9:30pm ending September 15th",
+   "raw_output": "<start_function_call>call:create_event{end:<escape>21:30<escape>,recurrence_days:<escape>MO,TU,WE,TH,FR<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_until:<escape>09-15<escape>,time:<escape>19:30<escape>,title:<escape>Make the air filter a regular thing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "end": "21:30",
+    "recurrence_days": "MO,TU,WE,TH,FR",
+    "recurrence_freq": "weekly",
+    "recurrence_until": "09-15",
+    "time": "19:30",
+    "title": "Make the air filter a regular thing"
+   },
+   "event": {
+    "title": "Make the air filter a regular thing",
+    "start": "2027-02-18T19:30",
+    "duration_minutes": 120,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TU,WE,TH,FR",
+    "recurrence_until": "2027-09-15"
+   },
+   "error": null,
+   "gold": {
+    "title": "Change the air filter",
+    "start": "2027-02-18T19:30",
+    "duration_minutes": 120,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TU,WE,TH,FR",
+    "recurrence_until": "2027-09-15"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "time_range",
+    "dur_range",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1877.7
+  },
+  {
+   "index": 10,
+   "user": "Could you add an entry called fold the laundry for the fourth Saturday of this month from 9am to 12pm in the lobby?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:4:SA:0<escape>,end:<escape>12:00<escape>,location:<escape>the lobby<escape>,time:<escape>09:00<escape>,title:<escape>Fold the laundry<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:4:SA:0",
+    "end": "12:00",
+    "location": "the lobby",
+    "time": "09:00",
+    "title": "Fold the laundry"
+   },
+   "event": {
+    "title": "Fold the laundry",
+    "start": "2027-06-26T09:00",
+    "duration_minutes": 180,
+    "location": "the lobby"
+   },
+   "error": null,
+   "gold": {
+    "title": "Fold the laundry",
+    "start": "2027-06-26T09:00",
+    "duration_minutes": 180,
+    "location": "the lobby"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_range",
+    "dur_range",
+    "loc"
+   ],
+   "latency_ms": 1315.5
+  },
+  {
+   "index": 11,
+   "user": "Set up dentist appointment on 10/1 at 8pm",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Dentist appointment",
+    "start": "2027-10-01T20:00"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 31.6
+  },
+  {
+   "index": 12,
+   "user": "Please set garden club to repeat on Wednesdays at 7 am ending the 28th of October for 60 minutes",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:60,recurrence_days:<escape>WE<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_until:<escape>10-28<escape>,time:<escape>07:00<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 60,
+    "recurrence_days": "WE",
+    "recurrence_freq": "weekly",
+    "recurrence_until": "10-28",
+    "time": "07:00",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2027-03-31T07:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "WE",
+    "recurrence_until": "2027-10-28"
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2027-03-31T07:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "WE",
+    "recurrence_until": "2027-10-28"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1487.6
+  },
+  {
+   "index": 13,
+   "user": "Need orthodontist visit on the 10th at 2:30PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:10<escape>,time:<escape>14:30<escape>,title:<escape>Orthodontist visit<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:10",
+    "time": "14:30",
+    "title": "Orthodontist visit"
+   },
+   "event": {
+    "title": "Orthodontist visit",
+    "start": "2026-03-10T14:30"
+   },
+   "error": null,
+   "gold": {
+    "title": "Orthodontist visit",
+    "start": "2026-03-10T14:30"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_12h"
+   ],
+   "latency_ms": 870.3
+  },
+  {
+   "index": 14,
+   "user": "I'd like to schedule recruiter call on September 21st at 10:55am until 2:55pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:09-21<escape>,end:<escape>14:55<escape>,time:<escape>10:55<escape>,title:<escape>Recruiter call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:09-21",
+    "end": "14:55",
+    "time": "10:55",
+    "title": "Recruiter call"
+   },
+   "event": {
+    "title": "Recruiter call",
+    "start": "2027-09-21T10:55",
+    "duration_minutes": 240
+   },
+   "error": null,
+   "gold": {
+    "title": "Recruiter call",
+    "start": "2027-09-21T10:55",
+    "duration_minutes": 240
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur_until"
+   ],
+   "latency_ms": 1163.1
+  },
+  {
+   "index": 15,
+   "user": "Recurring: workshop prep, yearly on Dec 10, noon for 30 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:12-10<escape>,duration_minutes:30,recurrence_freq:<escape>yearly<escape>,time:<escape>12:00<escape>,title:<escape>Workshop prep<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:12-10",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "time": "12:00",
+    "title": "Workshop prep"
+   },
+   "event": {
+    "title": "Workshop prep",
+    "start": "2027-12-10T12:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Workshop prep",
+    "start": "2027-12-10T12:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_noon",
+    "dur",
+    "recurring",
+    "rec_yearly",
+    "rec_undated"
+   ],
+   "latency_ms": 1287.1
+  },
+  {
+   "index": 16,
+   "user": "Pencil in tea with Nana on 11/3 at 06:00",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-03<escape>,time:<escape>06:00<escape>,title:<escape>Pencil in tea with Nana<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-03",
+    "time": "06:00",
+    "title": "Pencil in tea with Nana"
+   },
+   "event": {
+    "title": "Pencil in tea with Nana",
+    "start": "2026-11-03T06:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Tea with Nana",
+    "start": "2026-11-03T06:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_24h"
+   ],
+   "latency_ms": 1003.3
+  },
+  {
+   "index": 17,
+   "user": "make standing desk delivery a regular thing, monthly on the 9th at 4 pm for 3 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:9<escape>,duration_minutes:180,recurrence_freq:<escape>monthly<escape>,time:<escape>16:00<escape>,title:<escape>Standing desk<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:9",
+    "duration_minutes": 180,
+    "recurrence_freq": "monthly",
+    "time": "16:00",
+    "title": "Standing desk"
+   },
+   "event": {
+    "title": "Standing desk",
+    "start": "2027-10-09T16:00",
+    "duration_minutes": 180,
+    "recurrence_freq": "monthly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-10-09T16:00",
+    "duration_minutes": 180,
+    "recurrence_freq": "monthly"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "recurring",
+    "rec_monthly",
+    "rec_undated"
+   ],
+   "latency_ms": 1221.0
+  },
+  {
+   "index": 18,
+   "user": "Could you make update the website repeat every month on the 17th at 3:30 in the afternoon?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:17<escape>,recurrence_freq:<escape>monthly<escape>,time:<escape>15:30<escape>,title:<escape>Update the website<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:17",
+    "recurrence_freq": "monthly",
+    "time": "15:30",
+    "title": "Update the website"
+   },
+   "event": {
+    "title": "Update the website",
+    "start": "2027-10-17T15:30",
+    "recurrence_freq": "monthly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Update the website",
+    "start": "2027-10-17T15:30",
+    "recurrence_freq": "monthly"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_period",
+    "recurring",
+    "rec_monthly",
+    "rec_undated"
+   ],
+   "latency_ms": 1089.2
+  },
+  {
+   "index": 19,
+   "user": "Put vet appointment on the calendar for in 26 days from 1pm to 5pm on Google Meet",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:26d<escape>,end:<escape>17:00<escape>,location:<escape>Google Meet<escape>,time:<escape>13:00<escape>,title:<escape>Vet appointment<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:26d",
+    "end": "17:00",
+    "location": "Google Meet",
+    "time": "13:00",
+    "title": "Vet appointment"
+   },
+   "event": {
+    "title": "Vet appointment",
+    "start": "2027-07-10T13:00",
+    "duration_minutes": 240,
+    "location": "Google Meet"
+   },
+   "error": null,
+   "gold": {
+    "title": "Vet appointment",
+    "start": "2027-07-10T13:00",
+    "duration_minutes": 240,
+    "location": "Google Meet"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_range",
+    "dur_range",
+    "loc"
+   ],
+   "latency_ms": 1266.9
+  },
+  {
+   "index": 20,
+   "user": "Need book flights the last Sunday of this month at 8:30pm for 1.5 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:L:SU:0<escape>,duration_minutes:90,time:<escape>20:30<escape>,title:<escape>Book flights<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:L:SU:0",
+    "duration_minutes": 90,
+    "time": "20:30",
+    "title": "Book flights"
+   },
+   "event": {
+    "title": "Book flights",
+    "start": "2027-04-25T20:30",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Book flights",
+    "start": "2027-04-25T20:30",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1065.4
+  },
+  {
+   "index": 21,
+   "user": "next monday at 12 pm: breakfast with priya on google meet",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:MO<escape>,location:<escape>Google Meet<escape>,time:<escape>12:00<escape>,title:<escape>Breakfast with Priya<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:MO",
+    "location": "Google Meet",
+    "time": "12:00",
+    "title": "Breakfast with Priya"
+   },
+   "event": {
+    "title": "Breakfast with Priya",
+    "start": "2026-03-30T12:00",
+    "location": "Google Meet"
+   },
+   "error": null,
+   "gold": {
+    "title": "Breakfast with Priya",
+    "start": "2026-03-30T12:00",
+    "location": "Google Meet"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1015.4
+  },
+  {
+   "index": 22,
+   "user": "Tea with Nana is in 13 days at 8:00p.m.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:13d<escape>,time:<escape>20:00<escape>,title:<escape>Tea with Nana<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:13d",
+    "time": "20:00",
+    "title": "Tea with Nana"
+   },
+   "event": {
+    "title": "Tea with Nana",
+    "start": "2026-12-03T20:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Tea with Nana",
+    "start": "2026-12-03T20:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h"
+   ],
+   "latency_ms": 888.4
+  },
+  {
+   "index": 23,
+   "user": "Need kickboxing on the 7th at 16:30 for 90 min",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:7<escape>,duration_minutes:90,time:<escape>16:30<escape>,title:<escape>Kickboxing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:7",
+    "duration_minutes": 90,
+    "time": "16:30",
+    "title": "Kickboxing"
+   },
+   "event": {
+    "title": "Kickboxing",
+    "start": "2027-10-07T16:30",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Kickboxing",
+    "start": "2027-10-07T16:30",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_24h",
+    "dur"
+   ],
+   "latency_ms": 990.6
+  },
+  {
+   "index": 24,
+   "user": "Mark my calendar: roadmap review November 1st at 3:15 pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-01<escape>,time:<escape>15:15<escape>,title:<escape>Roadmap review<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-01",
+    "time": "15:15",
+    "title": "Roadmap review"
+   },
+   "event": {
+    "title": "Roadmap review",
+    "start": "2027-11-01T15:15"
+   },
+   "error": null,
+   "gold": {
+    "title": "Roadmap review",
+    "start": "2027-11-01T15:15"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 924.1
+  },
+  {
+   "index": 25,
+   "user": "Mark my calendar: pilates in 17 days at 9 in the morning",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:17d<escape>,time:<escape>09:00<escape>,title:<escape>Pilates<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:17d",
+    "time": "09:00",
+    "title": "Pilates"
+   },
+   "event": {
+    "title": "Pilates",
+    "start": "2027-04-01T09:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Pilates",
+    "start": "2027-04-01T09:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_period"
+   ],
+   "latency_ms": 874.5
+  },
+  {
+   "index": 26,
+   "user": "Pencil in fold the laundry on November 15th from 11AM to 1PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-15<escape>,end:<escape>13:00<escape>,time:<escape>11:00<escape>,title:<escape>Pencil in the laundry<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-15",
+    "end": "13:00",
+    "time": "11:00",
+    "title": "Pencil in the laundry"
+   },
+   "event": {
+    "title": "Pencil in the laundry",
+    "start": "2027-11-15T11:00",
+    "duration_minutes": 120
+   },
+   "error": null,
+   "gold": {
+    "title": "Fold the laundry",
+    "start": "2027-11-15T11:00",
+    "duration_minutes": 120
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1161.7
+  },
+  {
+   "index": 27,
+   "user": "Put kickboxing on my calendar on Mon at 7AM at the rec center starting in 5 weeks",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:5w<escape>,location:<escape>the rec center<escape>,time:<escape>07:00<escape>,title:<escape>Kickboxing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:5w",
+    "location": "the rec center",
+    "time": "07:00",
+    "title": "Kickboxing"
+   },
+   "event": {
+    "title": "Kickboxing",
+    "start": "2026-06-15T07:00",
+    "location": "the rec center"
+   },
+   "error": null,
+   "gold": {
+    "title": "Kickboxing",
+    "start": "2026-06-15T07:00",
+    "location": "the rec center",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "time_12h",
+    "loc",
+    "recurring",
+    "rec_weekly",
+    "rec_dated"
+   ],
+   "latency_ms": 1011.3
+  },
+  {
+   "index": 28,
+   "user": "Pencil in lunch with Tomas on Friday at 13:00",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:FR<escape>,time:<escape>13:00<escape>,title:<escape>Book a table with Tomas<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:FR",
+    "time": "13:00",
+    "title": "Book a table with Tomas"
+   },
+   "event": {
+    "title": "Book a table with Tomas",
+    "start": "2026-01-30T13:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Lunch with Tomas",
+    "start": "2026-01-30T13:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_24h"
+   ],
+   "latency_ms": 878.3
+  },
+  {
+   "index": 29,
+   "user": "the second Saturday of this month at 4PM, lunch with Tomas",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Lunch with Tomas",
+    "start": "2026-06-13T16:00"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h"
+   ],
+   "latency_ms": 31.5
+  },
+  {
+   "index": 30,
+   "user": "Neighborhood meeting, in six days, 1 in the afternoon",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:6d<escape>,time:<escape>13:00<escape>,title:<escape>Neighborhood meeting<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:6d",
+    "time": "13:00",
+    "title": "Neighborhood meeting"
+   },
+   "event": {
+    "title": "Neighborhood meeting",
+    "start": "2026-06-05T13:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Neighborhood meeting",
+    "start": "2026-06-05T13:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_period"
+   ],
+   "latency_ms": 827.0
+  },
+  {
+   "index": 31,
+   "user": "Need garden club on 1/28 at 15:45 for an hour and a half",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:01-28<escape>,duration_minutes:90,time:<escape>15:45<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:01-28",
+    "duration_minutes": 90,
+    "time": "15:45",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2027-01-28T15:45",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2027-01-28T15:45",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_24h",
+    "dur"
+   ],
+   "latency_ms": 1011.1
+  },
+  {
+   "index": 32,
+   "user": "add vet appointment to my calendar on the 2nd of May at 10:30am till 1pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:05-02<escape>,end:<escape>13:00<escape>,time:<escape>10:30<escape>,title:<escape>Vet appointment<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:05-02",
+    "end": "13:00",
+    "time": "10:30",
+    "title": "Vet appointment"
+   },
+   "event": {
+    "title": "Vet appointment",
+    "start": "2026-05-02T10:30",
+    "duration_minutes": 150
+   },
+   "error": null,
+   "gold": {
+    "title": "Vet appointment",
+    "start": "2026-05-02T10:30",
+    "duration_minutes": 150
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h",
+    "dur_until"
+   ],
+   "latency_ms": 1087.5
+  },
+  {
+   "index": 33,
+   "user": "Make recruiter call a regular thing, every 2 days at 11:30am until May 8",
+   "raw_output": "<start_function_call>call:create_event{recurrence_freq:<escape>daily<escape>,recurrence_interval:2,recurrence_until:<escape>05-08<escape>,time:<escape>11:30<escape>,title:<escape>Recruiter call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "recurrence_until": "05-08",
+    "time": "11:30",
+    "title": "Recruiter call"
+   },
+   "event": {
+    "title": "Recruiter call",
+    "start": "2026-02-06T11:30",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "recurrence_until": "2026-05-08"
+   },
+   "error": null,
+   "gold": {
+    "title": "Recruiter call",
+    "start": "2026-02-06T11:30",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "recurrence_until": "2026-05-08"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_daily",
+    "rec_undated",
+    "rec_interval",
+    "rec_until"
+   ],
+   "latency_ms": 1325.9
+  },
+  {
+   "index": 34,
+   "user": "Mark my calendar: update the website the 3rd of next month at 5 in the afternoon till 5:15pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dnm:3<escape>,end:<escape>17:15<escape>,time:<escape>17:00<escape>,title:<escape>Update the website<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dnm:3",
+    "end": "17:15",
+    "time": "17:00",
+    "title": "Update the website"
+   },
+   "event": {
+    "title": "Update the website",
+    "start": "2027-03-03T17:00",
+    "duration_minutes": 15
+   },
+   "error": null,
+   "gold": {
+    "title": "Update the website",
+    "start": "2027-03-03T17:00",
+    "duration_minutes": 15
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_period",
+    "dur_until"
+   ],
+   "latency_ms": 1103.3
+  },
+  {
+   "index": 35,
+   "user": "Schedule water the plants in 6 weeks at 9:25a.m. on Google Meet, for an hour",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:6w<escape>,duration_minutes:60,location:<escape>Google Meet<escape>,time:<escape>09:25<escape>,title:<escape>Water the plants<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:6w",
+    "duration_minutes": 60,
+    "location": "Google Meet",
+    "time": "09:25",
+    "title": "Water the plants"
+   },
+   "event": {
+    "title": "Water the plants",
+    "start": "2027-02-23T09:25",
+    "duration_minutes": 60,
+    "location": "Google Meet"
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the plants",
+    "start": "2027-02-23T09:25",
+    "duration_minutes": 60,
+    "location": "Google Meet"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_12h",
+    "dur",
+    "loc"
+   ],
+   "latency_ms": 1200.9
+  },
+  {
+   "index": 36,
+   "user": "I'd like to schedule refill my prescription on April 27th at 4:40p.m.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-27<escape>,time:<escape>16:40<escape>,title:<escape>Refill my prescription<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-27",
+    "time": "16:40",
+    "title": "Refill my prescription"
+   },
+   "event": {
+    "title": "Refill my prescription",
+    "start": "2027-04-27T16:40"
+   },
+   "error": null,
+   "gold": {
+    "title": "Refill my prescription",
+    "start": "2027-04-27T16:40"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 909.9
+  },
+  {
+   "index": 37,
+   "user": "Need board meeting on the 31st at 2:00 pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:31<escape>,time:<escape>14:00<escape>,title:<escape>Board meeting<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:31",
+    "time": "14:00",
+    "title": "Board meeting"
+   },
+   "event": {
+    "title": "Board meeting",
+    "start": "2026-10-31T14:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Board meeting",
+    "start": "2026-10-31T14:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_12h"
+   ],
+   "latency_ms": 798.5
+  },
+  {
+   "index": 38,
+   "user": "show me my schedule for next week",
+   "raw_output": "I can only create calendar events. Tell me what to schedule and when.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_offtopic"
+   ],
+   "latency_ms": 367.9
+  },
+  {
+   "index": 39,
+   "user": "a week from Monday at 8:05 pm, buy 3 gift cards till 10:05PM at Blue Bottle.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:MO:2<escape>,end:<escape>22:05<escape>,location:<escape>Blue Bottle<escape>,time:<escape>20:05<escape>,title:<escape>Buy 3 gift cards<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:MO:2",
+    "end": "22:05",
+    "location": "Blue Bottle",
+    "time": "20:05",
+    "title": "Buy 3 gift cards"
+   },
+   "event": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-01-26T20:05",
+    "duration_minutes": 120,
+    "location": "Blue Bottle"
+   },
+   "error": null,
+   "gold": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-01-26T20:05",
+    "duration_minutes": 120,
+    "location": "Blue Bottle"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_12h",
+    "dur_until",
+    "loc",
+    "distractor"
+   ],
+   "latency_ms": 1312.8
+  },
+  {
+   "index": 40,
+   "user": "Put haircut on my calendar on May 8",
+   "raw_output": "What time should it start? I need a date and a time to create the event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_notime"
+   ],
+   "latency_ms": 454.1
+  },
+  {
+   "index": 41,
+   "user": "Please set standing desk delivery to repeat weekly on Tuesday at 5:30pm at the community garden",
+   "raw_output": "<start_function_call>call:create_event{location:<escape>the community garden<escape>,recurrence_days:<escape>TU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>17:30<escape>,title:<escape>Standing desk delivery<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "location": "the community garden",
+    "recurrence_days": "TU",
+    "recurrence_freq": "weekly",
+    "time": "17:30",
+    "title": "Standing desk delivery"
+   },
+   "event": {
+    "title": "Standing desk delivery",
+    "start": "2027-11-02T17:30",
+    "location": "the community garden",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-11-02T17:30",
+    "location": "the community garden",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "loc",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1276.4
+  },
+  {
+   "index": 42,
+   "user": "Need kickboxing on August 17th at 09:00",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:08-17<escape>,time:<escape>09:00<escape>,title:<escape>Kickboxing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:08-17",
+    "time": "09:00",
+    "title": "Kickboxing"
+   },
+   "event": {
+    "title": "Kickboxing",
+    "start": "2026-08-17T09:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Kickboxing",
+    "start": "2026-08-17T09:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_24h"
+   ],
+   "latency_ms": 917.9
+  },
+  {
+   "index": 43,
+   "user": "i need to call mom every Thursday at 7 pm for 45 minutes",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:45,recurrence_days:<escape>TH<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>19:00<escape>,title:<escape>Call mom<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 45,
+    "recurrence_days": "TH",
+    "recurrence_freq": "weekly",
+    "time": "19:00",
+    "title": "Call mom"
+   },
+   "event": {
+    "title": "Call mom",
+    "start": "2027-08-19T19:00",
+    "duration_minutes": 45,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TH"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call mom",
+    "start": "2027-08-19T19:00",
+    "duration_minutes": 45,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TH"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "dur",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1233.3
+  },
+  {
+   "index": 44,
+   "user": "Could you add an entry called violin lesson for October 29 at 1PM until 4PM?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-29<escape>,end:<escape>16:00<escape>,time:<escape>13:00<escape>,title:<escape>Violin lesson<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-29",
+    "end": "16:00",
+    "time": "13:00",
+    "title": "Violin lesson"
+   },
+   "event": {
+    "title": "Violin lesson",
+    "start": "2026-10-29T13:00",
+    "duration_minutes": 180
+   },
+   "error": null,
+   "gold": {
+    "title": "Violin lesson",
+    "start": "2026-10-29T13:00",
+    "duration_minutes": 180
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur_until"
+   ],
+   "latency_ms": 1172.1
+  },
+  {
+   "index": 45,
+   "user": "Mark my calendar for standing desk delivery at 1:30 p.m.",
+   "raw_output": "That time has already passed. Give me a future date and time.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_nodate"
+   ],
+   "latency_ms": 371.7
+  },
+  {
+   "index": 46,
+   "user": "Create an event: supper with the Parkers at 09:45",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>eom:0<escape>,time:<escape>09:45<escape>,title:<escape>Supper with the Parkers<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "eom:0",
+    "time": "09:45",
+    "title": "Supper with the Parkers"
+   },
+   "event": {
+    "title": "Supper with the Parkers",
+    "start": "2026-11-30T09:45"
+   },
+   "error": null,
+   "gold": null,
+   "match": "false_positive",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_nodate"
+   ],
+   "latency_ms": 937.2
+  },
+  {
+   "index": 47,
+   "user": "Can you set up write thank you notes for the 12th at 9am at the library?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:12<escape>,location:<escape>the library<escape>,time:<escape>09:00<escape>,title:<escape>Write thank you notes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:12",
+    "location": "the library",
+    "time": "09:00",
+    "title": "Write thank you notes"
+   },
+   "event": {
+    "title": "Write thank you notes",
+    "start": "2027-01-12T09:00",
+    "location": "the library"
+   },
+   "error": null,
+   "gold": {
+    "title": "Write thank you notes",
+    "start": "2027-01-12T09:00",
+    "location": "the library"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_dom",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1063.5
+  },
+  {
+   "index": 48,
+   "user": "please put checkup in on the 27th of april at 8",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 586.8
+  },
+  {
+   "index": 49,
+   "user": "1:1 with Jordan Wednesday at 9 am at the train station",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "1:1 with Jordan",
+    "start": "2026-09-16T09:00",
+    "location": "the train station"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_12h",
+    "loc",
+    "distractor"
+   ],
+   "latency_ms": 31.7
+  },
+  {
+   "index": 50,
+   "user": "Set a reminder to book flights in 5 days at 4 in the afternoon at the community garden",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:5d<escape>,location:<escape>the community garden<escape>,time:<escape>16:00<escape>,title:<escape>Book flights<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:5d",
+    "location": "the community garden",
+    "time": "16:00",
+    "title": "Book flights"
+   },
+   "event": {
+    "title": "Book flights",
+    "start": "2026-10-15T16:00",
+    "location": "the community garden"
+   },
+   "error": null,
+   "gold": {
+    "title": "Book flights",
+    "start": "2026-10-15T16:00",
+    "location": "the community garden"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_period",
+    "loc"
+   ],
+   "latency_ms": 1043.7
+  },
+  {
+   "index": 51,
+   "user": "Garden club is end of the month at 11am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>eom:0<escape>,time:<escape>11:00<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "eom:0",
+    "time": "11:00",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2027-04-30T11:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2027-04-30T11:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h"
+   ],
+   "latency_ms": 852.4
+  },
+  {
+   "index": 52,
+   "user": "Put call Aunt Rosa on my calendar every other Sun at 4:00pm",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>SU<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_interval:2,time:<escape>16:00<escape>,title:<escape>Call Aunt Rosa<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "SU",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "time": "16:00",
+    "title": "Call Aunt Rosa"
+   },
+   "event": {
+    "title": "Call Aunt Rosa",
+    "start": "2027-02-14T16:00",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call Aunt Rosa",
+    "start": "2027-02-14T16:00",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "SU"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_interval"
+   ],
+   "latency_ms": 1255.8
+  },
+  {
+   "index": 53,
+   "user": "Create an event: fold the laundry on April 20th at 8",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 570.6
+  },
+  {
+   "index": 54,
+   "user": "pencil in tea with nana on february 4th at 1pm for 90 min",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-04<escape>,duration_minutes:90,time:<escape>13:00<escape>,title:<escape>Pencil in tea with Nana<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-04",
+    "duration_minutes": 90,
+    "time": "13:00",
+    "title": "Pencil in tea with Nana"
+   },
+   "event": {
+    "title": "Pencil in tea with Nana",
+    "start": "2026-02-04T13:00",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Tea with Nana",
+    "start": "2026-02-04T13:00",
+    "duration_minutes": 90
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1105.3
+  },
+  {
+   "index": 55,
+   "user": "i'd like to schedule recruiter call on march 11th at 9am for 3 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:03-11<escape>,duration_minutes:180,time:<escape>09:00<escape>,title:<escape>Recruiter call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:03-11",
+    "duration_minutes": 180,
+    "time": "09:00",
+    "title": "Recruiter call"
+   },
+   "event": {
+    "title": "Recruiter call",
+    "start": "2026-03-11T09:00",
+    "duration_minutes": 180
+   },
+   "error": null,
+   "gold": {
+    "title": "Recruiter call",
+    "start": "2026-03-11T09:00",
+    "duration_minutes": 180
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1055.6
+  },
+  {
+   "index": 56,
+   "user": "Throw water the tomatoes on my schedule Wednesday at 4pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:WE<escape>,time:<escape>16:00<escape>,title:<escape>Throw water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:WE",
+    "time": "16:00",
+    "title": "Throw water the tomatoes"
+   },
+   "event": {
+    "title": "Throw water the tomatoes",
+    "start": "2027-06-23T16:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2027-06-23T16:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_12h"
+   ],
+   "latency_ms": 812.3
+  },
+  {
+   "index": 57,
+   "user": "Make a reminder to write thank you notes this Saturday at 08:00 till 9am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:SA<escape>,end:<escape>09:00<escape>,time:<escape>08:00<escape>,title:<escape>Write thank you notes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:SA",
+    "end": "09:00",
+    "time": "08:00",
+    "title": "Write thank you notes"
+   },
+   "event": {
+    "title": "Write thank you notes",
+    "start": "2027-12-25T08:00",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "Write thank you notes",
+    "start": "2027-12-25T08:00",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_24h",
+    "dur_until"
+   ],
+   "latency_ms": 1074.3
+  },
+  {
+   "index": 58,
+   "user": "I have design review on the 28th of every month at 09:30 for 3 hours, 11 times",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:28<escape>,duration_minutes:180,recurrence_count:11,recurrence_freq:<escape>monthly<escape>,time:<escape>09:30<escape>,title:<escape>Design review<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:28",
+    "duration_minutes": 180,
+    "recurrence_count": 11,
+    "recurrence_freq": "monthly",
+    "time": "09:30",
+    "title": "Design review"
+   },
+   "event": {
+    "title": "Design review",
+    "start": "2027-02-28T09:30",
+    "duration_minutes": 180,
+    "recurrence_freq": "monthly",
+    "recurrence_count": 11
+   },
+   "error": null,
+   "gold": {
+    "title": "Design review",
+    "start": "2027-02-28T09:30",
+    "duration_minutes": 180,
+    "recurrence_freq": "monthly",
+    "recurrence_count": 11
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_24h",
+    "dur",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1436.9
+  },
+  {
+   "index": 59,
+   "user": "Add client call to my calendar every month on the 3rd at 12:05PM till 12:50pm, at Central Park",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:3<escape>,end:<escape>12:50<escape>,location:<escape>Central Park<escape>,recurrence_freq:<escape>monthly<escape>,time:<escape>12:05<escape>,title:<escape>Client call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:3",
+    "end": "12:50",
+    "location": "Central Park",
+    "recurrence_freq": "monthly",
+    "time": "12:05",
+    "title": "Client call"
+   },
+   "event": {
+    "title": "Client call",
+    "start": "2026-05-03T12:05",
+    "duration_minutes": 45,
+    "location": "Central Park",
+    "recurrence_freq": "monthly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Client call",
+    "start": "2026-05-03T12:05",
+    "duration_minutes": 45,
+    "location": "Central Park",
+    "recurrence_freq": "monthly"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "dur_until",
+    "loc",
+    "recurring",
+    "rec_monthly",
+    "rec_undated"
+   ],
+   "latency_ms": 1370.6
+  },
+  {
+   "index": 60,
+   "user": "Checkup is a week from Wednesday at half past 3pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:WE:2<escape>,time:<escape>15:30<escape>,title:<escape>Checkup<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:WE:2",
+    "time": "15:30",
+    "title": "Checkup"
+   },
+   "event": {
+    "title": "Checkup",
+    "start": "2026-09-30T15:30"
+   },
+   "error": null,
+   "gold": {
+    "title": "Checkup",
+    "start": "2026-09-30T15:30"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_words"
+   ],
+   "latency_ms": 828.6
+  },
+  {
+   "index": 61,
+   "user": "in 9 days at 12:45pm, water the tomatoes at the community garden",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:9d<escape>,location:<escape>the community garden<escape>,time:<escape>12:45<escape>,title:<escape>Water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:9d",
+    "location": "the community garden",
+    "time": "12:45",
+    "title": "Water the tomatoes"
+   },
+   "event": {
+    "title": "Water the tomatoes",
+    "start": "2026-05-28T12:45",
+    "location": "the community garden"
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2026-05-28T12:45",
+    "location": "the community garden"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1034.2
+  },
+  {
+   "index": 62,
+   "user": "Mortgage signing is on November 12th at 16:00 for 60 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-12<escape>,duration_minutes:60,time:<escape>16:00<escape>,title:<escape>Mortgage signing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-12",
+    "duration_minutes": 60,
+    "time": "16:00",
+    "title": "Mortgage signing"
+   },
+   "event": {
+    "title": "Mortgage signing",
+    "start": "2027-11-12T16:00",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "Mortgage signing",
+    "start": "2027-11-12T16:00",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_24h",
+    "dur"
+   ],
+   "latency_ms": 1087.4
+  },
+  {
+   "index": 63,
+   "user": "Please set poker night to repeat on Tuesdays and Thursdays at 9:20am starting the last Thursday of next month",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:L:TH:1<escape>,recurrence_days:<escape>TU,TH<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>09:20<escape>,title:<escape>Poker night<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:L:TH:1",
+    "recurrence_days": "TU,TH",
+    "recurrence_freq": "weekly",
+    "time": "09:20",
+    "title": "Poker night"
+   },
+   "event": {
+    "title": "Poker night",
+    "start": "2027-08-26T09:20",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU,TH"
+   },
+   "error": null,
+   "gold": {
+    "title": "Poker night",
+    "start": "2027-08-26T09:20",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU,TH"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_dated"
+   ],
+   "latency_ms": 1382.9
+  },
+  {
+   "index": 64,
+   "user": "Please set mortgage signing to repeat every 3 weeks on Friday at 10 am starting in 30 days until 10:30am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:30d<escape>,end:<escape>10:30<escape>,recurrence_days:<escape>FR<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_interval:3,time:<escape>10:00<escape>,title:<escape>Mortgage signing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:30d",
+    "end": "10:30",
+    "recurrence_days": "FR",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 3,
+    "time": "10:00",
+    "title": "Mortgage signing"
+   },
+   "event": {
+    "title": "Mortgage signing",
+    "start": "2026-08-14T10:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 3,
+    "recurrence_days": "FR"
+   },
+   "error": null,
+   "gold": {
+    "title": "Mortgage signing",
+    "start": "2026-08-14T10:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 3,
+    "recurrence_days": "FR"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur_until",
+    "recurring",
+    "rec_weekly",
+    "rec_dated",
+    "rec_interval"
+   ],
+   "latency_ms": 1707.0
+  },
+  {
+   "index": 65,
+   "user": "could you make brunch with alex repeat each sunday at 2 in the afternoon?",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>14:00<escape>,title:<escape>Brunch with Alex<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "SU",
+    "recurrence_freq": "weekly",
+    "time": "14:00",
+    "title": "Brunch with Alex"
+   },
+   "event": {
+    "title": "Brunch with Alex",
+    "start": "2026-10-11T14:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Brunch with Alex",
+    "start": "2026-10-11T14:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SU"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_period",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1082.7
+  },
+  {
+   "index": 66,
+   "user": "schedule car inspection in 15 days at 11",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 575.2
+  },
+  {
+   "index": 67,
+   "user": "Please put school concert in every month on the 26th.",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_notime"
+   ],
+   "latency_ms": 31.7
+  },
+  {
+   "index": 68,
+   "user": "Put mow the lawn on my calendar the first Thursday of next month at 6",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 584.0
+  },
+  {
+   "index": 69,
+   "user": "is tomorrow a holiday?",
+   "raw_output": "That isn't an event to create. Describe an event with a date and time.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_offtopic"
+   ],
+   "latency_ms": 466.1
+  },
+  {
+   "index": 70,
+   "user": "create a repeating event: dinner with the Hendersons each Thu at 1pm till 2PM for 5 weeks",
+   "raw_output": "<start_function_call>call:create_event{end:<escape>14:00<escape>,recurrence_count:5,recurrence_days:<escape>TH<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>13:00<escape>,title:<escape>Dinner with the Hendersons<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "end": "14:00",
+    "recurrence_count": 5,
+    "recurrence_days": "TH",
+    "recurrence_freq": "weekly",
+    "time": "13:00",
+    "title": "Dinner with the Hendersons"
+   },
+   "event": {
+    "title": "Dinner with the Hendersons",
+    "start": "2027-09-02T13:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TH",
+    "recurrence_count": 5
+   },
+   "error": null,
+   "gold": {
+    "title": "Dinner with the Hendersons",
+    "start": "2027-09-02T13:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TH",
+    "recurrence_count": 5
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "dur_until",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1543.5
+  },
+  {
+   "index": 71,
+   "user": "Need trivia night on 30 August at 7:15am for 15 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:08-30<escape>,duration_minutes:15,time:<escape>07:15<escape>,title:<escape>Trivia night<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:08-30",
+    "duration_minutes": 15,
+    "time": "07:15",
+    "title": "Trivia night"
+   },
+   "event": {
+    "title": "Trivia night",
+    "start": "2026-08-30T07:15",
+    "duration_minutes": 15
+   },
+   "error": null,
+   "gold": {
+    "title": "Trivia night",
+    "start": "2026-08-30T07:15",
+    "duration_minutes": 15
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1070.3
+  },
+  {
+   "index": 72,
+   "user": "Could you make climbing session repeat annually on October 22 at 12p.m. until 12:30pm?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-22<escape>,end:<escape>12:30<escape>,recurrence_freq:<escape>yearly<escape>,time:<escape>12:00<escape>,title:<escape>Climbing session<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-22",
+    "end": "12:30",
+    "recurrence_freq": "yearly",
+    "time": "12:00",
+    "title": "Climbing session"
+   },
+   "event": {
+    "title": "Climbing session",
+    "start": "2026-10-22T12:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Climbing session",
+    "start": "2026-10-22T12:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur_until",
+    "recurring",
+    "rec_yearly",
+    "rec_undated"
+   ],
+   "latency_ms": 1384.7
+  },
+  {
+   "index": 73,
+   "user": "Could you add an entry called take the car in for August 16th at 1:40PM?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:08-16<escape>,time:<escape>13:40<escape>,title:<escape>Take the car in<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:08-16",
+    "time": "13:40",
+    "title": "Take the car in"
+   },
+   "event": {
+    "title": "Take the car in",
+    "start": "2026-08-16T13:40"
+   },
+   "error": null,
+   "gold": {
+    "title": "Take the car in",
+    "start": "2026-08-16T13:40"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 959.6
+  },
+  {
+   "index": 74,
+   "user": "Create an event for art class in 4 days at 11am in the conference room",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:4d<escape>,location:<escape>the conference room<escape>,time:<escape>11:00<escape>,title:<escape>Art class<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:4d",
+    "location": "the conference room",
+    "time": "11:00",
+    "title": "Art class"
+   },
+   "event": {
+    "title": "Art class",
+    "start": "2026-05-30T11:00",
+    "location": "the conference room"
+   },
+   "error": null,
+   "gold": {
+    "title": "Art class",
+    "start": "2026-05-30T11:00",
+    "location": "the conference room"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1069.6
+  },
+  {
+   "index": 75,
+   "user": "Put flight check-in on my calendar on Feb 30 at 2 pm",
+   "raw_output": "There's no such date. Give me a valid date and time.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_baddate"
+   ],
+   "latency_ms": 390.9
+  },
+  {
+   "index": 76,
+   "user": "please put call the electrician in for 19 december at 11:45am at blue bottle",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:12-19<escape>,location:<escape>Blue Bottle<escape>,time:<escape>11:45<escape>,title:<escape>Call the electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:12-19",
+    "location": "Blue Bottle",
+    "time": "11:45",
+    "title": "Call the electrician"
+   },
+   "event": {
+    "title": "Call the electrician",
+    "start": "2026-12-19T11:45",
+    "location": "Blue Bottle"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2026-12-19T11:45",
+    "location": "Blue Bottle"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1116.4
+  },
+  {
+   "index": 77,
+   "user": "set up happy hour with the team on the 1st of february at quarter past 9am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-01<escape>,time:<escape>09:15<escape>,title:<escape>Happy hour with the team<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-01",
+    "time": "09:15",
+    "title": "Happy hour with the team"
+   },
+   "event": {
+    "title": "Happy hour with the team",
+    "start": "2026-02-01T09:15"
+   },
+   "error": null,
+   "gold": {
+    "title": "Happy hour with the team",
+    "start": "2026-02-01T09:15"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_words"
+   ],
+   "latency_ms": 985.7
+  },
+  {
+   "index": 78,
+   "user": "Add parent teacher conference to my calendar every two weeks on Tue at 5 in the afternoon starting 13 October",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-13<escape>,recurrence_days:<escape>TU<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_interval:2,time:<escape>17:00<escape>,title:<escape>Parent teacher conference<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-13",
+    "recurrence_days": "TU",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "time": "17:00",
+    "title": "Parent teacher conference"
+   },
+   "event": {
+    "title": "Parent teacher conference",
+    "start": "2026-10-13T17:00",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "TU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Parent teacher conference",
+    "start": "2026-10-13T17:00",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "TU"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_period",
+    "recurring",
+    "rec_weekly",
+    "rec_dated",
+    "rec_interval"
+   ],
+   "latency_ms": 1519.1
+  },
+  {
+   "index": 79,
+   "user": "Schedule haircut on the 5th of every month at 1:00p.m. ending 4 March 2028, in Room 204",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:5<escape>,location:<escape>Room 204<escape>,recurrence_freq:<escape>monthly<escape>,recurrence_until:<escape>2028-03-04<escape>,time:<escape>13:00<escape>,title:<escape>Haircut<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:5",
+    "location": "Room 204",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2028-03-04",
+    "time": "13:00",
+    "title": "Haircut"
+   },
+   "event": {
+    "title": "Haircut",
+    "start": "2026-11-05T13:00",
+    "location": "Room 204",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2028-03-04"
+   },
+   "error": null,
+   "gold": {
+    "title": "Haircut",
+    "start": "2026-11-05T13:00",
+    "location": "Room 204",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2028-03-04"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "loc",
+    "distractor",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1701.0
+  },
+  {
+   "index": 80,
+   "user": "Could you add an entry called change the air filter for the last Saturday of this month at 5pm at 88 Oak Ave?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:L:SA:0<escape>,location:<escape>88 Oak Ave<escape>,time:<escape>17:00<escape>,title:<escape>Change the air filter<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:L:SA:0",
+    "location": "88 Oak Ave",
+    "time": "17:00",
+    "title": "Change the air filter"
+   },
+   "event": {
+    "title": "Change the air filter",
+    "start": "2027-05-29T17:00",
+    "location": "88 Oak Ave"
+   },
+   "error": null,
+   "gold": {
+    "title": "Change the air filter",
+    "start": "2027-05-29T17:00",
+    "location": "88 Oak Ave"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h",
+    "loc",
+    "distractor"
+   ],
+   "latency_ms": 1167.9
+  },
+  {
+   "index": 81,
+   "user": "Pencil in water the tomatoes on the 15th of May at 12PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:05-15<escape>,time:<escape>12:00<escape>,title:<escape>Pencil in water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:05-15",
+    "time": "12:00",
+    "title": "Pencil in water the tomatoes"
+   },
+   "event": {
+    "title": "Pencil in water the tomatoes",
+    "start": "2026-05-15T12:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2026-05-15T12:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 998.2
+  },
+  {
+   "index": 82,
+   "user": "standing desk delivery is in 14 days at 11:45am for half an hour at blue bottle",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:14d<escape>,duration_minutes:30,location:<escape>Blue Bottle<escape>,time:<escape>11:45<escape>,title:<escape>Standing desk<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:14d",
+    "duration_minutes": 30,
+    "location": "Blue Bottle",
+    "time": "11:45",
+    "title": "Standing desk"
+   },
+   "event": {
+    "title": "Standing desk",
+    "start": "2027-06-29T11:45",
+    "duration_minutes": 30,
+    "location": "Blue Bottle"
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-06-29T11:45",
+    "duration_minutes": 30,
+    "location": "Blue Bottle"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h",
+    "dur",
+    "loc"
+   ],
+   "latency_ms": 1207.2
+  },
+  {
+   "index": 83,
+   "user": "I'd like brunch with Alex on Mon, Thu and Sat at 5:00pm starting February 19th till 9pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-19<escape>,end:<escape>21:00<escape>,recurrence_days:<escape>MO,TH,SA<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>17:00<escape>,title:<escape>Brunch with Alex<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-19",
+    "end": "21:00",
+    "recurrence_days": "MO,TH,SA",
+    "recurrence_freq": "weekly",
+    "time": "17:00",
+    "title": "Brunch with Alex"
+   },
+   "event": {
+    "title": "Brunch with Alex",
+    "start": "2026-02-19T17:00",
+    "duration_minutes": 240,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TH,SA"
+   },
+   "error": null,
+   "gold": {
+    "title": "Brunch with Alex",
+    "start": "2026-02-19T17:00",
+    "duration_minutes": 240,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,TH,SA"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur_until",
+    "recurring",
+    "rec_weekly",
+    "rec_dated"
+   ],
+   "latency_ms": 1696.5
+  },
+  {
+   "index": 84,
+   "user": "Please put call Aunt Rosa in on April 7 at 12:30",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 573.9
+  },
+  {
+   "index": 85,
+   "user": "Throw roadmap review on my schedule in 24 days at 5:10PM at the rec center",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:24d<escape>,location:<escape>the rec center<escape>,time:<escape>17:10<escape>,title:<escape>Roadmap review<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:24d",
+    "location": "the rec center",
+    "time": "17:10",
+    "title": "Roadmap review"
+   },
+   "event": {
+    "title": "Roadmap review",
+    "start": "2026-05-06T17:10",
+    "location": "the rec center"
+   },
+   "error": null,
+   "gold": {
+    "title": "Roadmap review",
+    "start": "2026-05-06T17:10",
+    "location": "the rec center"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1067.5
+  },
+  {
+   "index": 86,
+   "user": "Set up pottery class every Thursday at 5:15pm",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>TH<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>17:15<escape>,title:<escape>Pottery class<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "TH",
+    "recurrence_freq": "weekly",
+    "time": "17:15",
+    "title": "Pottery class"
+   },
+   "event": {
+    "title": "Pottery class",
+    "start": "2026-08-27T17:15",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TH"
+   },
+   "error": null,
+   "gold": {
+    "title": "Pottery class",
+    "start": "2026-08-27T17:15",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TH"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1073.9
+  },
+  {
+   "index": 87,
+   "user": "Please add flight check-in the third Thursday of this month at 13:00 in Building C for 60 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:3:TH:0<escape>,duration_minutes:60,location:<escape>Building C<escape>,time:<escape>13:00<escape>,title:<escape>Flight check-in<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:3:TH:0",
+    "duration_minutes": 60,
+    "location": "Building C",
+    "time": "13:00",
+    "title": "Flight check-in"
+   },
+   "event": {
+    "title": "Flight check-in",
+    "start": "2027-07-15T13:00",
+    "duration_minutes": 60,
+    "location": "Building C"
+   },
+   "error": null,
+   "gold": {
+    "title": "Flight check-in",
+    "start": "2027-07-15T13:00",
+    "duration_minutes": 60,
+    "location": "Building C"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_monthrel",
+    "time_24h",
+    "dur",
+    "loc"
+   ],
+   "latency_ms": 1276.3
+  },
+  {
+   "index": 88,
+   "user": "Could you add an entry called supper with the Parkers for 10/24 at 12:45pm for 2 hours, on Teams?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-24<escape>,duration_minutes:120,location:<escape>Teams<escape>,time:<escape>12:45<escape>,title:<escape>Supper with the Parkers<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-24",
+    "duration_minutes": 120,
+    "location": "Teams",
+    "time": "12:45",
+    "title": "Supper with the Parkers"
+   },
+   "event": {
+    "title": "Supper with the Parkers",
+    "start": "2026-10-24T12:45",
+    "duration_minutes": 120,
+    "location": "Teams"
+   },
+   "error": null,
+   "gold": {
+    "title": "Supper with the Parkers",
+    "start": "2026-10-24T12:45",
+    "duration_minutes": 120,
+    "location": "Teams"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur",
+    "loc"
+   ],
+   "latency_ms": 1324.3
+  },
+  {
+   "index": 89,
+   "user": "Don't let me forget to buy groceries in 13 days at 6:30 in the evening",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:13d<escape>,time:<escape>18:30<escape>,title:<escape>Buy groceries<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:13d",
+    "time": "18:30",
+    "title": "Buy groceries"
+   },
+   "event": {
+    "title": "Buy groceries",
+    "start": "2026-06-03T18:30"
+   },
+   "error": null,
+   "gold": {
+    "title": "Buy groceries",
+    "start": "2026-06-03T18:30"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_period"
+   ],
+   "latency_ms": 851.9
+  },
+  {
+   "index": 90,
+   "user": "I have design review on Feb 30 at 2pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-30<escape>,time:<escape>14:00<escape>,title:<escape>Design review<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-30",
+    "time": "14:00",
+    "title": "Design review"
+   },
+   "event": null,
+   "error": "not a real date: 'md:02-30'",
+   "gold": null,
+   "match": "false_positive",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_baddate"
+   ],
+   "latency_ms": 895.7
+  },
+  {
+   "index": 91,
+   "user": "Calendar: client call 28 December 5:30-6PM on Google Meet",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:12-28<escape>,end:<escape>18:00<escape>,location:<escape>Google Meet<escape>,time:<escape>17:30<escape>,title:<escape>Client call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:12-28",
+    "end": "18:00",
+    "location": "Google Meet",
+    "time": "17:30",
+    "title": "Client call"
+   },
+   "event": {
+    "title": "Client call",
+    "start": "2027-12-28T17:30",
+    "duration_minutes": 30,
+    "location": "Google Meet"
+   },
+   "error": null,
+   "gold": {
+    "title": "Client call",
+    "start": "2027-12-28T17:30",
+    "duration_minutes": 30,
+    "location": "Google Meet"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_range",
+    "dur_range",
+    "loc"
+   ],
+   "latency_ms": 1293.7
+  },
+  {
+   "index": 92,
+   "user": "Put buy 3 gift cards on my calendar every 3 weeks on Friday at 2pm for 6 occurrences, in the lobby, for an hour and a half",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:90,location:<escape>the lobby<escape>,recurrence_count:6,recurrence_days:<escape>FR<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_interval:3,time:<escape>14:00<escape>,title:<escape>Buy 3 gift cards<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 90,
+    "location": "the lobby",
+    "recurrence_count": 6,
+    "recurrence_days": "FR",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 3,
+    "time": "14:00",
+    "title": "Buy 3 gift cards"
+   },
+   "event": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-12-18T14:00",
+    "duration_minutes": 90,
+    "location": "the lobby",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 3,
+    "recurrence_days": "FR",
+    "recurrence_count": 6
+   },
+   "error": null,
+   "gold": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-12-18T14:00",
+    "duration_minutes": 90,
+    "location": "the lobby",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 3,
+    "recurrence_days": "FR",
+    "recurrence_count": 6
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "loc",
+    "distractor",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_interval",
+    "rec_count"
+   ],
+   "latency_ms": 1749.0
+  },
+  {
+   "index": 93,
+   "user": "I need to mow the lawn on Fridays at 16:30 for 3 hours, starting 23 April, at the dog park",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-23<escape>,duration_minutes:180,location:<escape>the dog park<escape>,recurrence_days:<escape>FR<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>16:30<escape>,title:<escape>Mow the lawn<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-23",
+    "duration_minutes": 180,
+    "location": "the dog park",
+    "recurrence_days": "FR",
+    "recurrence_freq": "weekly",
+    "time": "16:30",
+    "title": "Mow the lawn"
+   },
+   "event": {
+    "title": "Mow the lawn",
+    "start": "2027-04-23T16:30",
+    "duration_minutes": 180,
+    "location": "the dog park",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "FR"
+   },
+   "error": null,
+   "gold": {
+    "title": "Mow the lawn",
+    "start": "2027-04-23T16:30",
+    "duration_minutes": 180,
+    "location": "the dog park",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "FR"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_24h",
+    "dur",
+    "loc",
+    "recurring",
+    "rec_weekly",
+    "rec_dated"
+   ],
+   "latency_ms": 1735.3
+  },
+  {
+   "index": 94,
+   "user": "mark my calendar for water the tomatoes at 5p.m.",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_nodate"
+   ],
+   "latency_ms": 31.3
+  },
+  {
+   "index": 95,
+   "user": "Put water the tomatoes on my calendar on Wednesdays and Sundays at 13:15 11 times",
+   "raw_output": "<start_function_call>call:create_event{recurrence_count:11,recurrence_days:<escape>WE,SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>13:15<escape>,title:<escape>Water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_count": 11,
+    "recurrence_days": "WE,SU",
+    "recurrence_freq": "weekly",
+    "time": "13:15",
+    "title": "Water the tomatoes"
+   },
+   "event": {
+    "title": "Water the tomatoes",
+    "start": "2027-07-18T13:15",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "WE,SU",
+    "recurrence_count": 11
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2027-07-18T13:15",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "WE,SU",
+    "recurrence_count": 11
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_24h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1294.5
+  },
+  {
+   "index": 96,
+   "user": "Recurring: update the website, every weekend, 10AM",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>SA,SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>10:00<escape>,title:<escape>Update the website<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "SA,SU",
+    "recurrence_freq": "weekly",
+    "time": "10:00",
+    "title": "Update the website"
+   },
+   "event": {
+    "title": "Update the website",
+    "start": "2026-02-01T10:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA,SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Update the website",
+    "start": "2026-02-01T10:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA,SU"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1097.2
+  },
+  {
+   "index": 97,
+   "user": "Book client call on weekends at 12 noon for two hours, starting the 4th of July",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:07-04<escape>,duration_minutes:120,recurrence_days:<escape>SA,SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>12:00<escape>,title:<escape>Client call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:07-04",
+    "duration_minutes": 120,
+    "recurrence_days": "SA,SU",
+    "recurrence_freq": "weekly",
+    "time": "12:00",
+    "title": "Client call"
+   },
+   "event": {
+    "title": "Client call",
+    "start": "2027-07-04T12:00",
+    "duration_minutes": 120,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA,SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Client call",
+    "start": "2027-07-04T12:00",
+    "duration_minutes": 120,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA,SU"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_noon",
+    "dur",
+    "recurring",
+    "rec_weekly",
+    "rec_dated"
+   ],
+   "latency_ms": 1519.0
+  },
+  {
+   "index": 98,
+   "user": "New event: review the pull request Wednesday of next week at 11 in the morning on Zoom",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nw:WE<escape>,location:<escape>Zoom<escape>,time:<escape>11:00<escape>,title:<escape>Review the pull request<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nw:WE",
+    "location": "Zoom",
+    "time": "11:00",
+    "title": "Review the pull request"
+   },
+   "event": {
+    "title": "Review the pull request",
+    "start": "2027-11-10T11:00",
+    "location": "Zoom"
+   },
+   "error": null,
+   "gold": {
+    "title": "Review the pull request",
+    "start": "2027-11-10T11:00",
+    "location": "Zoom"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_period",
+    "loc"
+   ],
+   "latency_ms": 959.7
+  },
+  {
+   "index": 99,
+   "user": "remind me to write thank you notes weekly on Friday at quarter past 12pm until November 9 till 12:30pm.",
+   "raw_output": "<start_function_call>call:create_event{end:<escape>12:30<escape>,recurrence_days:<escape>FR<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_until:<escape>11-09<escape>,time:<escape>12:15<escape>,title:<escape>Write thank you notes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "end": "12:30",
+    "recurrence_days": "FR",
+    "recurrence_freq": "weekly",
+    "recurrence_until": "11-09",
+    "time": "12:15",
+    "title": "Write thank you notes"
+   },
+   "event": {
+    "title": "Write thank you notes",
+    "start": "2027-09-24T12:15",
+    "duration_minutes": 15,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "FR",
+    "recurrence_until": "2027-11-09"
+   },
+   "error": null,
+   "gold": {
+    "title": "Write thank you notes",
+    "start": "2027-09-24T12:15",
+    "duration_minutes": 15,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "FR",
+    "recurrence_until": "2027-11-09"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_words",
+    "dur_until",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1589.6
+  },
+  {
+   "index": 100,
+   "user": "could you add an entry called lunch with tomas for the third saturday of this month at 4 pm?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:3:SA:0<escape>,time:<escape>16:00<escape>,title:<escape>Lunch with Tom<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:3:SA:0",
+    "time": "16:00",
+    "title": "Lunch with Tom"
+   },
+   "event": {
+    "title": "Lunch with Tom",
+    "start": "2027-04-17T16:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Lunch with Tomas",
+    "start": "2027-04-17T16:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h"
+   ],
+   "latency_ms": 896.3
+  },
+  {
+   "index": 101,
+   "user": "Throw standing desk delivery on my schedule November 30th at 5PM till 7pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-30<escape>,end:<escape>19:00<escape>,time:<escape>17:00<escape>,title:<escape>Throw a standing desk delivery<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-30",
+    "end": "19:00",
+    "time": "17:00",
+    "title": "Throw a standing desk delivery"
+   },
+   "event": {
+    "title": "Throw a standing desk delivery",
+    "start": "2027-11-30T17:00",
+    "duration_minutes": 120
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-11-30T17:00",
+    "duration_minutes": 120
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur_until"
+   ],
+   "latency_ms": 1159.5
+  },
+  {
+   "index": 102,
+   "user": "Throw massage on my schedule 13 April at 9:50a.m. for 1 hour",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-13<escape>,duration_minutes:60,time:<escape>09:50<escape>,title:<escape>Massage<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-13",
+    "duration_minutes": 60,
+    "time": "09:50",
+    "title": "Massage"
+   },
+   "event": {
+    "title": "Massage",
+    "start": "2026-04-13T09:50",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "Massage",
+    "start": "2026-04-13T09:50",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1055.3
+  },
+  {
+   "index": 103,
+   "user": "pencil in standing desk delivery in 2 days at 5pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:2d<escape>,time:<escape>17:00<escape>,title:<escape>Pencil in the standing desk<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:2d",
+    "time": "17:00",
+    "title": "Pencil in the standing desk"
+   },
+   "event": {
+    "title": "Pencil in the standing desk",
+    "start": "2027-10-05T17:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-10-05T17:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h"
+   ],
+   "latency_ms": 951.5
+  },
+  {
+   "index": 104,
+   "user": "write thank you notes next week",
+   "raw_output": "That's too vague. Give me a specific date and time.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_vague"
+   ],
+   "latency_ms": 379.9
+  },
+  {
+   "index": 105,
+   "user": "Add therapy session to my calendar each day from 1pm to 2:30pm starting the 6th of May",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:05-06<escape>,end:<escape>14:30<escape>,recurrence_freq:<escape>daily<escape>,time:<escape>13:00<escape>,title:<escape>Therapy session<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:05-06",
+    "end": "14:30",
+    "recurrence_freq": "daily",
+    "time": "13:00",
+    "title": "Therapy session"
+   },
+   "event": {
+    "title": "Therapy session",
+    "start": "2026-05-06T13:00",
+    "duration_minutes": 90,
+    "recurrence_freq": "daily"
+   },
+   "error": null,
+   "gold": {
+    "title": "Therapy session",
+    "start": "2026-05-06T13:00",
+    "duration_minutes": 90,
+    "recurrence_freq": "daily"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_range",
+    "dur_range",
+    "recurring",
+    "rec_daily",
+    "rec_dated"
+   ],
+   "latency_ms": 1406.5
+  },
+  {
+   "index": 106,
+   "user": "recurring: violin lesson, every Tuesday, 1:30 pm ending the 3rd of August for half an hour",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:30,recurrence_days:<escape>TU<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_until:<escape>08-03<escape>,time:<escape>13:30<escape>,title:<escape>Violin lesson<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 30,
+    "recurrence_days": "TU",
+    "recurrence_freq": "weekly",
+    "recurrence_until": "08-03",
+    "time": "13:30",
+    "title": "Violin lesson"
+   },
+   "event": {
+    "title": "Violin lesson",
+    "start": "2026-12-08T13:30",
+    "duration_minutes": 30,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU",
+    "recurrence_until": "2027-08-03"
+   },
+   "error": null,
+   "gold": {
+    "title": "Violin lesson",
+    "start": "2026-12-08T13:30",
+    "duration_minutes": 30,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU",
+    "recurrence_until": "2027-08-03"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1676.7
+  },
+  {
+   "index": 107,
+   "user": "I need to review the pull request every 3 months on the 2nd at 7 in the morning 6 times, in the conference room, until 9am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:2<escape>,end:<escape>09:00<escape>,location:<escape>the conference room<escape>,recurrence_count:6,recurrence_freq:<escape>monthly<escape>,recurrence_interval:3,time:<escape>07:00<escape>,title:<escape>Review the pull request<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:2",
+    "end": "09:00",
+    "location": "the conference room",
+    "recurrence_count": 6,
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "time": "07:00",
+    "title": "Review the pull request"
+   },
+   "event": {
+    "title": "Review the pull request",
+    "start": "2026-09-02T07:00",
+    "duration_minutes": 120,
+    "location": "the conference room",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "recurrence_count": 6
+   },
+   "error": null,
+   "gold": {
+    "title": "Review the pull request",
+    "start": "2026-09-02T07:00",
+    "duration_minutes": 120,
+    "location": "the conference room",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "recurrence_count": 6
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_period",
+    "dur_until",
+    "loc",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_interval",
+    "rec_count"
+   ],
+   "latency_ms": 1885.6
+  },
+  {
+   "index": 108,
+   "user": "Need poker night on Saturday next week at 7:30PM till 8:15pm.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nw:SA<escape>,end:<escape>20:15<escape>,time:<escape>19:30<escape>,title:<escape>Poker night<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nw:SA",
+    "end": "20:15",
+    "time": "19:30",
+    "title": "Poker night"
+   },
+   "event": {
+    "title": "Poker night",
+    "start": "2026-06-27T19:30",
+    "duration_minutes": 45
+   },
+   "error": null,
+   "gold": {
+    "title": "Poker night",
+    "start": "2026-06-27T19:30",
+    "duration_minutes": 45
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_12h",
+    "dur_until"
+   ],
+   "latency_ms": 1007.6
+  },
+  {
+   "index": 109,
+   "user": "Renew my passport Saturday of next week at 12:15pm at the gym",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nw:SA<escape>,location:<escape>the gym<escape>,time:<escape>12:15<escape>,title:<escape>Renew my passport<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nw:SA",
+    "location": "the gym",
+    "time": "12:15",
+    "title": "Renew my passport"
+   },
+   "event": {
+    "title": "Renew my passport",
+    "start": "2026-09-05T12:15",
+    "location": "the gym"
+   },
+   "error": null,
+   "gold": {
+    "title": "Renew my passport",
+    "start": "2026-09-05T12:15",
+    "location": "the gym"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1004.6
+  },
+  {
+   "index": 110,
+   "user": "pencil in orthodontist visit in 13 days at 3:00 pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:13d<escape>,time:<escape>15:00<escape>,title:<escape>Pencil in orthodontist visit<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:13d",
+    "time": "15:00",
+    "title": "Pencil in orthodontist visit"
+   },
+   "event": {
+    "title": "Pencil in orthodontist visit",
+    "start": "2026-10-07T15:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Orthodontist visit",
+    "start": "2026-10-07T15:00"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h"
+   ],
+   "latency_ms": 950.7
+  },
+  {
+   "index": 111,
+   "user": "Create an event: board meeting at 6pm",
+   "raw_output": "Which day is this on? I need a date and a time to create the event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_nodate"
+   ],
+   "latency_ms": 467.4
+  },
+  {
+   "index": 112,
+   "user": "mark my calendar: buy 3 gift cards in 7 days at 10 am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:7d<escape>,time:<escape>10:00<escape>,title:<escape>Buy 3 gift cards<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:7d",
+    "time": "10:00",
+    "title": "Buy 3 gift cards"
+   },
+   "event": {
+    "title": "Buy 3 gift cards",
+    "start": "2027-12-30T10:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Buy 3 gift cards",
+    "start": "2027-12-30T10:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h",
+    "distractor"
+   ],
+   "latency_ms": 930.9
+  },
+  {
+   "index": 113,
+   "user": "Create an event: recruiter call on Jul 18, 2026 at 11.",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 570.6
+  },
+  {
+   "index": 114,
+   "user": "Email the landlord on Feb 10 at 5pm for 3 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-10<escape>,duration_minutes:180,time:<escape>17:00<escape>,title:<escape>Email the landlord<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-10",
+    "duration_minutes": 180,
+    "time": "17:00",
+    "title": "Email the landlord"
+   },
+   "event": {
+    "title": "Email the landlord",
+    "start": "2027-02-10T17:00",
+    "duration_minutes": 180
+   },
+   "error": null,
+   "gold": {
+    "title": "Email the landlord",
+    "start": "2027-02-10T17:00",
+    "duration_minutes": 180
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1077.8
+  },
+  {
+   "index": 115,
+   "user": "Could you add an entry called call the electrician for the 30th 10-10:15am?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:30<escape>,end:<escape>10:15<escape>,time:<escape>10:00<escape>,title:<escape>Call the electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:30",
+    "end": "10:15",
+    "time": "10:00",
+    "title": "Call the electrician"
+   },
+   "event": {
+    "title": "Call the electrician",
+    "start": "2027-07-30T10:00",
+    "duration_minutes": 15
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2027-07-30T10:00",
+    "duration_minutes": 15
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1100.4
+  },
+  {
+   "index": 116,
+   "user": "Add all hands at 10am",
+   "raw_output": "I need a date as well as a time to create this event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_nodate"
+   ],
+   "latency_ms": 357.4
+  },
+  {
+   "index": 117,
+   "user": "I need to go to the gym on 2/24 at 3pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-24<escape>,time:<escape>15:00<escape>,title:<escape>Go to the gym<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-24",
+    "time": "15:00",
+    "title": "Go to the gym"
+   },
+   "event": {
+    "title": "Go to the gym",
+    "start": "2027-02-24T15:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Go to the gym",
+    "start": "2027-02-24T15:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 912.1
+  },
+  {
+   "index": 118,
+   "user": "Please put brunch with Alex in in 23 days",
+   "raw_output": "What time should it start? I need a date and a time to create the event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_notime"
+   ],
+   "latency_ms": 435.4
+  },
+  {
+   "index": 119,
+   "user": "Need to send the invoice on August 21, 2026 at 9",
+   "raw_output": "I need to know whether that's morning or evening.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 311.5
+  },
+  {
+   "index": 120,
+   "user": "Please put school concert in on the 18th of November at 11:30.",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 551.6
+  },
+  {
+   "index": 121,
+   "user": "Please put pilates in for 7/19 at 10am for three hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:07-19<escape>,duration_minutes:180,time:<escape>10:00<escape>,title:<escape>Pilates<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:07-19",
+    "duration_minutes": 180,
+    "time": "10:00",
+    "title": "Pilates"
+   },
+   "event": {
+    "title": "Pilates",
+    "start": "2026-07-19T10:00",
+    "duration_minutes": 180
+   },
+   "error": null,
+   "gold": {
+    "title": "Pilates",
+    "start": "2026-07-19T10:00",
+    "duration_minutes": 180
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1060.4
+  },
+  {
+   "index": 122,
+   "user": "Set a reminder to water the tomatoes on June 10th at 16:45 at city hall",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:06-10<escape>,location:<escape>city hall<escape>,time:<escape>16:45<escape>,title:<escape>Water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:06-10",
+    "location": "city hall",
+    "time": "16:45",
+    "title": "Water the tomatoes"
+   },
+   "event": {
+    "title": "Water the tomatoes",
+    "start": "2026-06-10T16:45",
+    "location": "city hall"
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2026-06-10T16:45",
+    "location": "city hall"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_24h",
+    "loc"
+   ],
+   "latency_ms": 1129.7
+  },
+  {
+   "index": 123,
+   "user": "please put school concert in for tomorrow at 2 pm for 60 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:1d<escape>,duration_minutes:60,time:<escape>14:00<escape>,title:<escape>School concert<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:1d",
+    "duration_minutes": 60,
+    "time": "14:00",
+    "title": "School concert"
+   },
+   "event": {
+    "title": "School concert",
+    "start": "2026-04-11T14:00",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "School concert",
+    "start": "2026-04-11T14:00",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1024.9
+  },
+  {
+   "index": 124,
+   "user": "Set up go to the gym every three months on the 5th at 6:30 pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:5<escape>,recurrence_freq:<escape>monthly<escape>,recurrence_interval:3,time:<escape>18:30<escape>,title:<escape>Go to the gym<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:5",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "time": "18:30",
+    "title": "Go to the gym"
+   },
+   "event": {
+    "title": "Go to the gym",
+    "start": "2027-09-05T18:30",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3
+   },
+   "error": null,
+   "gold": {
+    "title": "Go to the gym",
+    "start": "2027-09-05T18:30",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_12h",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_interval"
+   ],
+   "latency_ms": 1213.1
+  },
+  {
+   "index": 125,
+   "user": "Recurring: standing desk delivery, yearly on Jan 17, from 9a.m. to 9:30a.m. ending 10 August 2028",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:01-17<escape>,end:<escape>09:30<escape>,recurrence_freq:<escape>yearly<escape>,recurrence_until:<escape>2028-08-10<escape>,time:<escape>09:00<escape>,title:<escape>Standing desk delivery<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:01-17",
+    "end": "09:30",
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2028-08-10",
+    "time": "09:00",
+    "title": "Standing desk delivery"
+   },
+   "event": {
+    "title": "Standing desk delivery",
+    "start": "2027-01-17T09:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2028-08-10"
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-01-17T09:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2028-08-10"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_range",
+    "dur_range",
+    "recurring",
+    "rec_yearly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1798.6
+  },
+  {
+   "index": 126,
+   "user": "doctor's appointment - Apr 7 at 6:15PM for 3 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-07<escape>,duration_minutes:180,time:<escape>18:15<escape>,title:<escape>Doctor's appointment<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-07",
+    "duration_minutes": 180,
+    "time": "18:15",
+    "title": "Doctor's appointment"
+   },
+   "event": {
+    "title": "Doctor's appointment",
+    "start": "2027-04-07T18:15",
+    "duration_minutes": 180
+   },
+   "error": null,
+   "gold": {
+    "title": "Doctor's appointment",
+    "start": "2027-04-07T18:15",
+    "duration_minutes": 180
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1152.4
+  },
+  {
+   "index": 127,
+   "user": "Mark my calendar: tea with Nana the 8th at 8 in the morning for 45 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:8<escape>,duration_minutes:45,time:<escape>08:00<escape>,title:<escape>Tea with Nana<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:8",
+    "duration_minutes": 45,
+    "time": "08:00",
+    "title": "Tea with Nana"
+   },
+   "event": {
+    "title": "Tea with Nana",
+    "start": "2026-01-08T08:00",
+    "duration_minutes": 45
+   },
+   "error": null,
+   "gold": {
+    "title": "Tea with Nana",
+    "start": "2026-01-08T08:00",
+    "duration_minutes": 45
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_period",
+    "dur"
+   ],
+   "latency_ms": 998.1
+  },
+  {
+   "index": 128,
+   "user": "every two weeks on wednesday from 4pm to 6:30pm: sprint planning starting 2 december at 123 main st",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:12-02<escape>,end:<escape>18:30<escape>,location:<escape>123 Main St<escape>,recurrence_days:<escape>WE<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_interval:2,time:<escape>16:00<escape>,title:<escape>Sprint planning<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:12-02",
+    "end": "18:30",
+    "location": "123 Main St",
+    "recurrence_days": "WE",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "time": "16:00",
+    "title": "Sprint planning"
+   },
+   "event": {
+    "title": "Sprint planning",
+    "start": "2026-12-02T16:00",
+    "duration_minutes": 150,
+    "location": "123 Main St",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "WE"
+   },
+   "error": null,
+   "gold": {
+    "title": "Sprint planning",
+    "start": "2026-12-02T16:00",
+    "duration_minutes": 150,
+    "location": "123 Main St",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "WE"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_range",
+    "dur_range",
+    "loc",
+    "distractor",
+    "recurring",
+    "rec_weekly",
+    "rec_dated",
+    "rec_interval"
+   ],
+   "latency_ms": 2002.7
+  },
+  {
+   "index": 129,
+   "user": "Throw supper with the Parkers on my schedule November 26 at 4pm at the rec center",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-26<escape>,location:<escape>the rec center<escape>,time:<escape>16:00<escape>,title:<escape>Throw supper with the Parkers<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-26",
+    "location": "the rec center",
+    "time": "16:00",
+    "title": "Throw supper with the Parkers"
+   },
+   "event": {
+    "title": "Throw supper with the Parkers",
+    "start": "2027-11-26T16:00",
+    "location": "the rec center"
+   },
+   "error": null,
+   "gold": {
+    "title": "Supper with the Parkers",
+    "start": "2027-11-26T16:00",
+    "location": "the rec center"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1214.2
+  },
+  {
+   "index": 130,
+   "user": "I'd like to schedule violin lesson on June 2 at 6 pm for two hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:06-02<escape>,duration_minutes:120,time:<escape>18:00<escape>,title:<escape>Violin lesson<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:06-02",
+    "duration_minutes": 120,
+    "time": "18:00",
+    "title": "Violin lesson"
+   },
+   "event": {
+    "title": "Violin lesson",
+    "start": "2026-06-02T18:00",
+    "duration_minutes": 120
+   },
+   "error": null,
+   "gold": {
+    "title": "Violin lesson",
+    "start": "2026-06-02T18:00",
+    "duration_minutes": 120
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1125.5
+  },
+  {
+   "index": 131,
+   "user": "the first Saturday of next month at 10:45am, tea with Nana",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:1:SA:1<escape>,time:<escape>10:45<escape>,title:<escape>Tea with Nana<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:1:SA:1",
+    "time": "10:45",
+    "title": "Tea with Nana"
+   },
+   "event": {
+    "title": "Tea with Nana",
+    "start": "2026-12-05T10:45"
+   },
+   "error": null,
+   "gold": {
+    "title": "Tea with Nana",
+    "start": "2026-12-05T10:45"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h"
+   ],
+   "latency_ms": 888.2
+  },
+  {
+   "index": 132,
+   "user": "Pilates is the 10th of next month at 5:45 pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dnm:10<escape>,time:<escape>17:45<escape>,title:<escape>Pilates<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dnm:10",
+    "time": "17:45",
+    "title": "Pilates"
+   },
+   "event": {
+    "title": "Pilates",
+    "start": "2028-01-10T17:45"
+   },
+   "error": null,
+   "gold": {
+    "title": "Pilates",
+    "start": "2028-01-10T17:45"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_monthrel",
+    "time_12h"
+   ],
+   "latency_ms": 829.7
+  },
+  {
+   "index": 133,
+   "user": "Could you make update the website repeat on Mondays and Saturdays from 5p.m. to 8p.m. for 8 occurrences?",
+   "raw_output": "<start_function_call>call:create_event{end:<escape>20:00<escape>,recurrence_count:8,recurrence_days:<escape>MO,SA<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>17:00<escape>,title:<escape>Update the website<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "end": "20:00",
+    "recurrence_count": 8,
+    "recurrence_days": "MO,SA",
+    "recurrence_freq": "weekly",
+    "time": "17:00",
+    "title": "Update the website"
+   },
+   "event": {
+    "title": "Update the website",
+    "start": "2027-11-22T17:00",
+    "duration_minutes": 180,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,SA",
+    "recurrence_count": 8
+   },
+   "error": null,
+   "gold": {
+    "title": "Update the website",
+    "start": "2027-11-22T17:00",
+    "duration_minutes": 180,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "MO,SA",
+    "recurrence_count": 8
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_range",
+    "dur_range",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1506.0
+  },
+  {
+   "index": 134,
+   "user": "throw book flights on my schedule monday at 10 a.m.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:MO<escape>,time:<escape>10:00<escape>,title:<escape>Book flights<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:MO",
+    "time": "10:00",
+    "title": "Book flights"
+   },
+   "event": {
+    "title": "Book flights",
+    "start": "2027-11-15T10:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Book flights",
+    "start": "2027-11-15T10:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_12h"
+   ],
+   "latency_ms": 823.1
+  },
+  {
+   "index": 135,
+   "user": "mark my calendar: pilates february 7 at 8 in the morning",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Pilates",
+    "start": "2027-02-07T08:00"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_period"
+   ],
+   "latency_ms": 30.8
+  },
+  {
+   "index": 136,
+   "user": "I'd like checkup every year on November 5 at 8am through February 13th, 2030 for 30 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-05<escape>,duration_minutes:30,recurrence_freq:<escape>yearly<escape>,recurrence_until:<escape>2030-02-13<escape>,time:<escape>08:00<escape>,title:<escape>Checkup<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-05",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2030-02-13",
+    "time": "08:00",
+    "title": "Checkup"
+   },
+   "event": {
+    "title": "Checkup",
+    "start": "2026-11-05T08:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2030-02-13"
+   },
+   "error": null,
+   "gold": {
+    "title": "Checkup",
+    "start": "2026-11-05T08:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_until": "2030-02-13"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "recurring",
+    "rec_yearly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1720.0
+  },
+  {
+   "index": 137,
+   "user": "Throw garden club on my schedule the 14th of June at 12:10 PM for 15 minutes.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:06-14<escape>,duration_minutes:15,time:<escape>12:10<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:06-14",
+    "duration_minutes": 15,
+    "time": "12:10",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2026-06-14T12:10",
+    "duration_minutes": 15
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2026-06-14T12:10",
+    "duration_minutes": 15
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1072.8
+  },
+  {
+   "index": 138,
+   "user": "mark my calendar: call the electrician March 13th at 3PM in Room 12",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:03-13<escape>,location:<escape>Room 12<escape>,time:<escape>15:00<escape>,title:<escape>Call the Electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:03-13",
+    "location": "Room 12",
+    "time": "15:00",
+    "title": "Call the Electrician"
+   },
+   "event": {
+    "title": "Call the Electrician",
+    "start": "2026-03-13T15:00",
+    "location": "Room 12"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2026-03-13T15:00",
+    "location": "Room 12"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "loc",
+    "distractor"
+   ],
+   "latency_ms": 1170.2
+  },
+  {
+   "index": 139,
+   "user": "Put mortgage signing on my calendar every 3 months on the 16th at 6:00 pm 8 times",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:16<escape>,recurrence_count:8,recurrence_freq:<escape>monthly<escape>,recurrence_interval:3,time:<escape>18:00<escape>,title:<escape>Mortgage signing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:16",
+    "recurrence_count": 8,
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "time": "18:00",
+    "title": "Mortgage signing"
+   },
+   "event": {
+    "title": "Mortgage signing",
+    "start": "2027-11-16T18:00",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "recurrence_count": 8
+   },
+   "error": null,
+   "gold": {
+    "title": "Mortgage signing",
+    "start": "2027-11-16T18:00",
+    "recurrence_freq": "monthly",
+    "recurrence_interval": 3,
+    "recurrence_count": 8
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_interval",
+    "rec_count"
+   ],
+   "latency_ms": 1385.9
+  },
+  {
+   "index": 140,
+   "user": "Make recruiter call a regular thing, on the 6th of every month at 8 in the evening at the rec center until 9PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:6<escape>,end:<escape>21:00<escape>,location:<escape>the rec center<escape>,recurrence_freq:<escape>monthly<escape>,time:<escape>20:00<escape>,title:<escape>Req call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:6",
+    "end": "21:00",
+    "location": "the rec center",
+    "recurrence_freq": "monthly",
+    "time": "20:00",
+    "title": "Req call"
+   },
+   "event": {
+    "title": "Req call",
+    "start": "2027-11-06T20:00",
+    "duration_minutes": 60,
+    "location": "the rec center",
+    "recurrence_freq": "monthly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Recruiter call",
+    "start": "2027-11-06T20:00",
+    "duration_minutes": 60,
+    "location": "the rec center",
+    "recurrence_freq": "monthly"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "time_period",
+    "dur_until",
+    "loc",
+    "recurring",
+    "rec_monthly",
+    "rec_undated"
+   ],
+   "latency_ms": 1460.8
+  },
+  {
+   "index": 141,
+   "user": "Could you add an entry called garden club for May 14 from 10am to 12:30pm?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:05-14<escape>,end:<escape>12:30<escape>,time:<escape>10:00<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:05-14",
+    "end": "12:30",
+    "time": "10:00",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2027-05-14T10:00",
+    "duration_minutes": 150
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2027-05-14T10:00",
+    "duration_minutes": 150
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1161.5
+  },
+  {
+   "index": 142,
+   "user": "create an event for go for a run 28 november at 5pm for an hour and a half",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-28<escape>,duration_minutes:90,time:<escape>17:00<escape>,title:<escape>Go for a run<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-28",
+    "duration_minutes": 90,
+    "time": "17:00",
+    "title": "Go for a run"
+   },
+   "event": {
+    "title": "Go for a run",
+    "start": "2027-11-28T17:00",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Go for a run",
+    "start": "2027-11-28T17:00",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1144.9
+  },
+  {
+   "index": 143,
+   "user": "please add team retro tomorrow at 16:00",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:1d<escape>,time:<escape>16:00<escape>,title:<escape>Team retro<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:1d",
+    "time": "16:00",
+    "title": "Team retro"
+   },
+   "event": {
+    "title": "Team retro",
+    "start": "2026-02-05T16:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Team retro",
+    "start": "2026-02-05T16:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_24h"
+   ],
+   "latency_ms": 871.8
+  },
+  {
+   "index": 144,
+   "user": "Put call the electrician on my calendar weekly on Sunday at 1 pm till 2pm starting 4/25",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-25<escape>,end:<escape>14:00<escape>,recurrence_days:<escape>SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>13:00<escape>,title:<escape>Call the electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-25",
+    "end": "14:00",
+    "recurrence_days": "SU",
+    "recurrence_freq": "weekly",
+    "time": "13:00",
+    "title": "Call the electrician"
+   },
+   "event": {
+    "title": "Call the electrician",
+    "start": "2027-04-25T13:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2027-04-25T13:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SU"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur_until",
+    "recurring",
+    "rec_weekly",
+    "rec_dated"
+   ],
+   "latency_ms": 1625.1
+  },
+  {
+   "index": 145,
+   "user": "Add dinner with the Hendersons to my calendar on 8/18 at 15:00 for 90 minutes.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:08-18<escape>,duration_minutes:90,time:<escape>15:00<escape>,title:<escape>Dinner with the Hendersons<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:08-18",
+    "duration_minutes": 90,
+    "time": "15:00",
+    "title": "Dinner with the Hendersons"
+   },
+   "event": {
+    "title": "Dinner with the Hendersons",
+    "start": "2027-08-18T15:00",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Dinner with the Hendersons",
+    "start": "2027-08-18T15:00",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_24h",
+    "dur"
+   ],
+   "latency_ms": 1195.2
+  },
+  {
+   "index": 146,
+   "user": "Can you set up write thank you notes for Saturday at 1:00PM?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:SA<escape>,time:<escape>13:00<escape>,title:<escape>Write thank you notes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:SA",
+    "time": "13:00",
+    "title": "Write thank you notes"
+   },
+   "event": {
+    "title": "Write thank you notes",
+    "start": "2026-04-11T13:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Write thank you notes",
+    "start": "2026-04-11T13:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_12h"
+   ],
+   "latency_ms": 864.5
+  },
+  {
+   "index": 147,
+   "user": "I'd like to schedule recruiter call on 4/25 at 5pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-25<escape>,time:<escape>17:00<escape>,title:<escape>Recruiter call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-25",
+    "time": "17:00",
+    "title": "Recruiter call"
+   },
+   "event": {
+    "title": "Recruiter call",
+    "start": "2026-04-25T17:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Recruiter call",
+    "start": "2026-04-25T17:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 941.7
+  },
+  {
+   "index": 148,
+   "user": "could you make checkup repeat every Saturday at 10 in the morning starting September 4 until February 11th?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:09-04<escape>,recurrence_days:<escape>SA<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_until:<escape>02-11<escape>,time:<escape>10:00<escape>,title:<escape>Checkup<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:09-04",
+    "recurrence_days": "SA",
+    "recurrence_freq": "weekly",
+    "recurrence_until": "02-11",
+    "time": "10:00",
+    "title": "Checkup"
+   },
+   "event": {
+    "title": "Checkup",
+    "start": "2027-09-04T10:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA",
+    "recurrence_until": "2028-02-11"
+   },
+   "error": null,
+   "gold": {
+    "title": "Checkup",
+    "start": "2027-09-04T10:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA",
+    "recurrence_until": "2028-02-11"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_period",
+    "recurring",
+    "rec_weekly",
+    "rec_dated",
+    "rec_until"
+   ],
+   "latency_ms": 1690.3
+  },
+  {
+   "index": 149,
+   "user": "Could you make recruiter call repeat every Sunday at 5:45 p.m. in Room 12 for 15 minutes?",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:15,location:<escape>Room 12<escape>,recurrence_days:<escape>SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>17:45<escape>,title:<escape>Req call<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 15,
+    "location": "Room 12",
+    "recurrence_days": "SU",
+    "recurrence_freq": "weekly",
+    "time": "17:45",
+    "title": "Req call"
+   },
+   "event": {
+    "title": "Req call",
+    "start": "2026-08-16T17:45",
+    "duration_minutes": 15,
+    "location": "Room 12",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Recruiter call",
+    "start": "2026-08-16T17:45",
+    "duration_minutes": 15,
+    "location": "Room 12",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SU"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "loc",
+    "distractor",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1490.3
+  },
+  {
+   "index": 150,
+   "user": "Book physical therapy on April 13, 2027 at half past 11am till 1pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:2027-04-13<escape>,end:<escape>13:00<escape>,time:<escape>11:30<escape>,title:<escape>Physical therapy<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:2027-04-13",
+    "end": "13:00",
+    "time": "11:30",
+    "title": "Physical therapy"
+   },
+   "event": {
+    "title": "Physical therapy",
+    "start": "2027-04-13T11:30",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Physical therapy",
+    "start": "2027-04-13T11:30",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "year_explicit",
+    "time_words",
+    "dur_until"
+   ],
+   "latency_ms": 1297.4
+  },
+  {
+   "index": 151,
+   "user": "Pencil in book flights in three days from 11AM to 3PM",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:3d<escape>,end:<escape>15:00<escape>,time:<escape>11:00<escape>,title:<escape>Book a flight<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:3d",
+    "end": "15:00",
+    "time": "11:00",
+    "title": "Book a flight"
+   },
+   "event": {
+    "title": "Book a flight",
+    "start": "2027-06-24T11:00",
+    "duration_minutes": 240
+   },
+   "error": null,
+   "gold": {
+    "title": "Book flights",
+    "start": "2027-06-24T11:00",
+    "duration_minutes": 240
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1135.3
+  },
+  {
+   "index": 152,
+   "user": "could you make standing desk delivery repeat monthly on the 23rd at 3:45p.m. until 10 january 2029 at blue bottle?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:23<escape>,location:<escape>Blue Bottle<escape>,recurrence_freq:<escape>monthly<escape>,recurrence_until:<escape>2029-01-10<escape>,time:<escape>15:45<escape>,title:<escape>Standing desk delivery<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:23",
+    "location": "Blue Bottle",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2029-01-10",
+    "time": "15:45",
+    "title": "Standing desk delivery"
+   },
+   "event": {
+    "title": "Standing desk delivery",
+    "start": "2027-12-23T15:45",
+    "location": "Blue Bottle",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2029-01-10"
+   },
+   "error": null,
+   "gold": {
+    "title": "Standing desk delivery",
+    "start": "2027-12-23T15:45",
+    "location": "Blue Bottle",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2029-01-10"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "loc",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1699.3
+  },
+  {
+   "index": 153,
+   "user": "Pencil in checkup on the 16th of October at 3 in the afternoon for 4 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-16<escape>,duration_minutes:240,time:<escape>15:00<escape>,title:<escape>Book a walk with Ravi<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-16",
+    "duration_minutes": 240,
+    "time": "15:00",
+    "title": "Book a walk with Ravi"
+   },
+   "event": {
+    "title": "Book a walk with Ravi",
+    "start": "2027-10-16T15:00",
+    "duration_minutes": 240
+   },
+   "error": null,
+   "gold": {
+    "title": "Checkup",
+    "start": "2027-10-16T15:00",
+    "duration_minutes": 240
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_period",
+    "dur"
+   ],
+   "latency_ms": 1195.6
+  },
+  {
+   "index": 154,
+   "user": "checkup is in 18 days at 5:55pm in the lobby.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:18d<escape>,location:<escape>the lobby<escape>,time:<escape>17:55<escape>,title:<escape>Checkup<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:18d",
+    "location": "the lobby",
+    "time": "17:55",
+    "title": "Checkup"
+   },
+   "event": {
+    "title": "Checkup",
+    "start": "2026-12-05T17:55",
+    "location": "the lobby"
+   },
+   "error": null,
+   "gold": {
+    "title": "Checkup",
+    "start": "2026-12-05T17:55",
+    "location": "the lobby"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 1034.7
+  },
+  {
+   "index": 155,
+   "user": "Please put climbing session in for in 18 days at 09:30 on Teams",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:18d<escape>,time:<escape>09:30<escape>,title:<escape>Climbing session<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:18d",
+    "time": "09:30",
+    "title": "Climbing session"
+   },
+   "event": {
+    "title": "Climbing session",
+    "start": "2026-01-20T09:30"
+   },
+   "error": null,
+   "gold": {
+    "title": "Climbing session",
+    "start": "2026-01-20T09:30",
+    "location": "Teams"
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_24h",
+    "loc"
+   ],
+   "latency_ms": 892.5
+  },
+  {
+   "index": 156,
+   "user": "Put buy 3 gift cards on my calendar annually on October 10 at 7am until 8am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:10-10<escape>,end:<escape>08:00<escape>,recurrence_freq:<escape>yearly<escape>,time:<escape>07:00<escape>,title:<escape>Buy 3 gift cards<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:10-10",
+    "end": "08:00",
+    "recurrence_freq": "yearly",
+    "time": "07:00",
+    "title": "Buy 3 gift cards"
+   },
+   "event": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-10-10T07:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "yearly"
+   },
+   "error": null,
+   "gold": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-10-10T07:00",
+    "duration_minutes": 60,
+    "recurrence_freq": "yearly"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur_until",
+    "distractor",
+    "recurring",
+    "rec_yearly",
+    "rec_undated"
+   ],
+   "latency_ms": 1443.3
+  },
+  {
+   "index": 157,
+   "user": "please put kickboxing in for the 5th at 3pm at the community garden for 60 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:5<escape>,duration_minutes:60,location:<escape>the community garden<escape>,time:<escape>15:00<escape>,title:<escape>Kickboxing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:5",
+    "duration_minutes": 60,
+    "location": "the community garden",
+    "time": "15:00",
+    "title": "Kickboxing"
+   },
+   "event": {
+    "title": "Kickboxing",
+    "start": "2027-10-05T15:00",
+    "duration_minutes": 60,
+    "location": "the community garden"
+   },
+   "error": null,
+   "gold": {
+    "title": "Kickboxing",
+    "start": "2027-10-05T15:00",
+    "duration_minutes": 60,
+    "location": "the community garden"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_12h",
+    "dur",
+    "loc"
+   ],
+   "latency_ms": 1203.3
+  },
+  {
+   "index": 158,
+   "user": "Schedule book club every day at half past 12pm at the library for 45 min for 3 days",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:45,location:<escape>the library<escape>,recurrence_count:3,recurrence_freq:<escape>daily<escape>,time:<escape>12:30<escape>,title:<escape>Book club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 45,
+    "location": "the library",
+    "recurrence_count": 3,
+    "recurrence_freq": "daily",
+    "time": "12:30",
+    "title": "Book club"
+   },
+   "event": {
+    "title": "Book club",
+    "start": "2026-03-16T12:30",
+    "duration_minutes": 45,
+    "location": "the library",
+    "recurrence_freq": "daily",
+    "recurrence_count": 3
+   },
+   "error": null,
+   "gold": {
+    "title": "Book club",
+    "start": "2026-03-16T12:30",
+    "duration_minutes": 45,
+    "location": "the library",
+    "recurrence_freq": "daily",
+    "recurrence_count": 3
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_words",
+    "dur",
+    "loc",
+    "recurring",
+    "rec_daily",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1364.6
+  },
+  {
+   "index": 159,
+   "user": "I have yoga class in 12 days at 1:30pm for 45 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:12d<escape>,duration_minutes:45,time:<escape>13:30<escape>,title:<escape>Yoga class<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:12d",
+    "duration_minutes": 45,
+    "time": "13:30",
+    "title": "Yoga class"
+   },
+   "event": {
+    "title": "Yoga class",
+    "start": "2027-12-07T13:30",
+    "duration_minutes": 45
+   },
+   "error": null,
+   "gold": {
+    "title": "Yoga class",
+    "start": "2027-12-07T13:30",
+    "duration_minutes": 45
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1041.9
+  },
+  {
+   "index": 160,
+   "user": "Need water the tomatoes in 4 days at quarter past 1pm",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2027-04-19T13:15"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "ood",
+    "date_rel",
+    "time_words"
+   ],
+   "latency_ms": 31.9
+  },
+  {
+   "index": 161,
+   "user": "Oil change, in 21 days, 8:10a.m.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:21d<escape>,time:<escape>08:10<escape>,title:<escape>Oil change<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:21d",
+    "time": "08:10",
+    "title": "Oil change"
+   },
+   "event": {
+    "title": "Oil change",
+    "start": "2026-12-28T08:10"
+   },
+   "error": null,
+   "gold": {
+    "title": "Oil change",
+    "start": "2026-12-28T08:10"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_12h"
+   ],
+   "latency_ms": 861.2
+  },
+  {
+   "index": 162,
+   "user": "Set up project kickoff in 16 days from 3:10pm to 3:25pm.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:16d<escape>,end:<escape>15:25<escape>,time:<escape>15:10<escape>,title:<escape>Project kickoff<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:16d",
+    "end": "15:25",
+    "time": "15:10",
+    "title": "Project kickoff"
+   },
+   "event": {
+    "title": "Project kickoff",
+    "start": "2026-04-29T15:10",
+    "duration_minutes": 15
+   },
+   "error": null,
+   "gold": {
+    "title": "Project kickoff",
+    "start": "2026-04-29T15:10",
+    "duration_minutes": 15
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_rel",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1104.8
+  },
+  {
+   "index": 163,
+   "user": "Need pilates on 15 March at 9pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:03-15<escape>,time:<escape>21:00<escape>,title:<escape>Pilates<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:03-15",
+    "time": "21:00",
+    "title": "Pilates"
+   },
+   "event": {
+    "title": "Pilates",
+    "start": "2027-03-15T21:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Pilates",
+    "start": "2027-03-15T21:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 922.6
+  },
+  {
+   "index": 164,
+   "user": "Recurring: workshop prep, each day, 2pm at the community garden",
+   "raw_output": "<start_function_call>call:create_event{location:<escape>the community garden<escape>,recurrence_freq:<escape>daily<escape>,time:<escape>14:00<escape>,title:<escape>Workshop prep<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "location": "the community garden",
+    "recurrence_freq": "daily",
+    "time": "14:00",
+    "title": "Workshop prep"
+   },
+   "event": {
+    "title": "Workshop prep",
+    "start": "2026-06-24T14:00",
+    "location": "the community garden",
+    "recurrence_freq": "daily"
+   },
+   "error": null,
+   "gold": {
+    "title": "Workshop prep",
+    "start": "2026-06-24T14:00",
+    "location": "the community garden",
+    "recurrence_freq": "daily"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "loc",
+    "recurring",
+    "rec_daily",
+    "rec_undated"
+   ],
+   "latency_ms": 1055.0
+  },
+  {
+   "index": 165,
+   "user": "I'd like trivia night on Jan 20",
+   "raw_output": "What time should it start? I need a date and a time to create the event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_notime"
+   ],
+   "latency_ms": 459.2
+  },
+  {
+   "index": 166,
+   "user": "Create an event: brunch with Alex every June 27th",
+   "raw_output": "What time should it start? I need a date and a time to create the event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_notime"
+   ],
+   "latency_ms": 451.5
+  },
+  {
+   "index": 167,
+   "user": "Mark my calendar: trivia night 6/7 at 11a.m.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:06-07<escape>,time:<escape>11:00<escape>,title:<escape>Trivia night<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:06-07",
+    "time": "11:00",
+    "title": "Trivia night"
+   },
+   "event": {
+    "title": "Trivia night",
+    "start": "2027-06-07T11:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Trivia night",
+    "start": "2027-06-07T11:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 920.7
+  },
+  {
+   "index": 168,
+   "user": "the 9th of November at 10 a.m.: project kickoff for 30 minutes",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:11-09<escape>,duration_minutes:30,time:<escape>10:00<escape>,title:<escape>Project kickoff<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:11-09",
+    "duration_minutes": 30,
+    "time": "10:00",
+    "title": "Project kickoff"
+   },
+   "event": {
+    "title": "Project kickoff",
+    "start": "2026-11-09T10:00",
+    "duration_minutes": 30
+   },
+   "error": null,
+   "gold": {
+    "title": "Project kickoff",
+    "start": "2026-11-09T10:00",
+    "duration_minutes": 30
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1094.1
+  },
+  {
+   "index": 169,
+   "user": "Could you make change the air filter repeat yearly on Apr 27 at 4pm till 4:30pm 5 times?",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:04-27<escape>,end:<escape>16:30<escape>,recurrence_count:5,recurrence_freq:<escape>yearly<escape>,time:<escape>16:00<escape>,title:<escape>Change the air filter<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:04-27",
+    "end": "16:30",
+    "recurrence_count": 5,
+    "recurrence_freq": "yearly",
+    "time": "16:00",
+    "title": "Change the air filter"
+   },
+   "event": {
+    "title": "Change the air filter",
+    "start": "2028-04-27T16:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_count": 5
+   },
+   "error": null,
+   "gold": {
+    "title": "Change the air filter",
+    "start": "2028-04-27T16:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "yearly",
+    "recurrence_count": 5
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur_until",
+    "recurring",
+    "rec_yearly",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1611.6
+  },
+  {
+   "index": 170,
+   "user": "Schedule eye exam tomorrow at 9",
+   "raw_output": "Is that am or pm? Please give the time with am/pm or in 24-hour form.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_ambiguous"
+   ],
+   "latency_ms": 601.4
+  },
+  {
+   "index": 171,
+   "user": "book parent teacher conference monthly on the 14th at 18:30 ending april 19th.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:14<escape>,recurrence_freq:<escape>monthly<escape>,recurrence_until:<escape>04-19<escape>,time:<escape>18:30<escape>,title:<escape>Parent teacher conference<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:14",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "04-19",
+    "time": "18:30",
+    "title": "Parent teacher conference"
+   },
+   "event": {
+    "title": "Parent teacher conference",
+    "start": "2027-02-14T18:30",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2027-04-19"
+   },
+   "error": null,
+   "gold": {
+    "title": "Parent teacher conference",
+    "start": "2027-02-14T18:30",
+    "recurrence_freq": "monthly",
+    "recurrence_until": "2027-04-19"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_24h",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_until"
+   ],
+   "latency_ms": 1432.8
+  },
+  {
+   "index": 172,
+   "user": "this Saturday at 8:30 in the morning: clean the garage until 12:30pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:SA<escape>,end:<escape>12:30<escape>,time:<escape>08:30<escape>,title:<escape>Clean the garage<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:SA",
+    "end": "12:30",
+    "time": "08:30",
+    "title": "Clean the garage"
+   },
+   "event": {
+    "title": "Clean the garage",
+    "start": "2026-08-22T08:30",
+    "duration_minutes": 240
+   },
+   "error": null,
+   "gold": {
+    "title": "Clean the garage",
+    "start": "2026-08-22T08:30",
+    "duration_minutes": 240
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_weekday",
+    "time_period",
+    "dur_until"
+   ],
+   "latency_ms": 1100.8
+  },
+  {
+   "index": 173,
+   "user": "Set up call mom on the 19th 1:45-3:15pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:19<escape>,end:<escape>15:15<escape>,time:<escape>13:45<escape>,title:<escape>Call mom<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:19",
+    "end": "15:15",
+    "time": "13:45",
+    "title": "Call mom"
+   },
+   "event": {
+    "title": "Call mom",
+    "start": "2028-01-19T13:45",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Call mom",
+    "start": "2028-01-19T13:45",
+    "duration_minutes": 90
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_dom",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1108.4
+  },
+  {
+   "index": 174,
+   "user": "Make water the tomatoes a regular thing, every two weeks on Saturday at 4p.m.",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>SA<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_interval:2,time:<escape>16:00<escape>,title:<escape>Water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "SA",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "time": "16:00",
+    "title": "Water the tomatoes"
+   },
+   "event": {
+    "title": "Water the tomatoes",
+    "start": "2027-08-28T16:00",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "SA"
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2027-08-28T16:00",
+    "recurrence_freq": "weekly",
+    "recurrence_interval": 2,
+    "recurrence_days": "SA"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated",
+    "rec_interval"
+   ],
+   "latency_ms": 1280.5
+  },
+  {
+   "index": 175,
+   "user": "need to call Aunt Rosa on Sunday",
+   "raw_output": "I need a start time to create this event.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_notime"
+   ],
+   "latency_ms": 264.1
+  },
+  {
+   "index": 176,
+   "user": "Make send the invoice a regular thing, on weekends at 08:45",
+   "raw_output": "<start_function_call>call:create_event{recurrence_days:<escape>SA,SU<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>08:45<escape>,title:<escape>Send the invoice<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "recurrence_days": "SA,SU",
+    "recurrence_freq": "weekly",
+    "time": "08:45",
+    "title": "Send the invoice"
+   },
+   "event": {
+    "title": "Send the invoice",
+    "start": "2027-05-01T08:45",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA,SU"
+   },
+   "error": null,
+   "gold": {
+    "title": "Send the invoice",
+    "start": "2027-05-01T08:45",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "SA,SU"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_24h",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1127.3
+  },
+  {
+   "index": 177,
+   "user": "on June 15, 2027 3:45-4:45pm, climbing session",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:2027-06-15<escape>,end:<escape>16:45<escape>,time:<escape>15:45<escape>,title:<escape>Climbing session<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:2027-06-15",
+    "end": "16:45",
+    "time": "15:45",
+    "title": "Climbing session"
+   },
+   "event": {
+    "title": "Climbing session",
+    "start": "2027-06-15T15:45",
+    "duration_minutes": 60
+   },
+   "error": null,
+   "gold": {
+    "title": "Climbing session",
+    "start": "2027-06-15T15:45",
+    "duration_minutes": 60
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "year_explicit",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1307.4
+  },
+  {
+   "index": 178,
+   "user": "i'd like to schedule take the car in a week from sunday at 7pm for half an hour",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:SU:2<escape>,duration_minutes:30,time:<escape>19:00<escape>,title:<escape>Take the car in a week<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:SU:2",
+    "duration_minutes": 30,
+    "time": "19:00",
+    "title": "Take the car in a week"
+   },
+   "event": {
+    "title": "Take the car in a week",
+    "start": "2027-09-12T19:00",
+    "duration_minutes": 30
+   },
+   "error": null,
+   "gold": {
+    "title": "Take the car in",
+    "start": "2027-09-12T19:00",
+    "duration_minutes": 30
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_12h",
+    "dur"
+   ],
+   "latency_ms": 1149.3
+  },
+  {
+   "index": 179,
+   "user": "Mark my calendar: board meeting 27 February at 5:50pm at the community garden, for 4 hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-27<escape>,duration_minutes:240,location:<escape>the community garden<escape>,time:<escape>17:50<escape>,title:<escape>Board meeting<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-27",
+    "duration_minutes": 240,
+    "location": "the community garden",
+    "time": "17:50",
+    "title": "Board meeting"
+   },
+   "event": {
+    "title": "Board meeting",
+    "start": "2027-02-27T17:50",
+    "duration_minutes": 240,
+    "location": "the community garden"
+   },
+   "error": null,
+   "gold": {
+    "title": "Board meeting",
+    "start": "2027-02-27T17:50",
+    "duration_minutes": 240,
+    "location": "the community garden"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur",
+    "loc"
+   ],
+   "latency_ms": 1303.2
+  },
+  {
+   "index": 180,
+   "user": "Please set water the tomatoes to repeat every two days at 12 pm 12 times for half an hour starting in 14 days",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>in:14d<escape>,duration_minutes:30,recurrence_count:12,recurrence_freq:<escape>daily<escape>,recurrence_interval:2,time:<escape>12:00<escape>,title:<escape>Water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "in:14d",
+    "duration_minutes": 30,
+    "recurrence_count": 12,
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "time": "12:00",
+    "title": "Water the tomatoes"
+   },
+   "event": {
+    "title": "Water the tomatoes",
+    "start": "2026-12-02T12:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "recurrence_count": 12
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2026-12-02T12:00",
+    "duration_minutes": 30,
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "recurrence_count": 12
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "recurring",
+    "rec_daily",
+    "rec_dated",
+    "rec_interval",
+    "rec_count"
+   ],
+   "latency_ms": 1632.3
+  },
+  {
+   "index": 181,
+   "user": "Need mortgage signing on Sunday next week at 14:00",
+   "raw_output": "<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": {
+    "title": "Mortgage signing",
+    "start": "2027-03-21T14:00"
+   },
+   "match": "missed_tool_call",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_24h"
+   ],
+   "latency_ms": 31.4
+  },
+  {
+   "index": 182,
+   "user": "Set up all hands on 18 August at 3:15pm",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:08-18<escape>,time:<escape>15:15<escape>,title:<escape>All hands<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:08-18",
+    "time": "15:15",
+    "title": "All hands"
+   },
+   "event": {
+    "title": "All hands",
+    "start": "2027-08-18T15:15"
+   },
+   "error": null,
+   "gold": {
+    "title": "All hands",
+    "start": "2027-08-18T15:15"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_12h"
+   ],
+   "latency_ms": 947.1
+  },
+  {
+   "index": 183,
+   "user": "Pencil in call Aunt Rosa on the 26th from 5pm to 5:30pm at the community garden",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:26<escape>,end:<escape>17:30<escape>,location:<escape>the community garden<escape>,time:<escape>17:00<escape>,title:<escape>Call Aunt Rosa<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:26",
+    "end": "17:30",
+    "location": "the community garden",
+    "time": "17:00",
+    "title": "Call Aunt Rosa"
+   },
+   "event": {
+    "title": "Call Aunt Rosa",
+    "start": "2026-02-26T17:00",
+    "duration_minutes": 30,
+    "location": "the community garden"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call Aunt Rosa",
+    "start": "2026-02-26T17:00",
+    "duration_minutes": 30,
+    "location": "the community garden"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_range",
+    "dur_range",
+    "loc"
+   ],
+   "latency_ms": 1348.9
+  },
+  {
+   "index": 184,
+   "user": "i'd like to schedule take the car in on the 15th at 7am at 88 Oak Ave",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:15<escape>,location:<escape>88 Oak Ave<escape>,time:<escape>07:00<escape>,title:<escape>Take the car in<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:15",
+    "location": "88 Oak Ave",
+    "time": "07:00",
+    "title": "Take the car in"
+   },
+   "event": {
+    "title": "Take the car in",
+    "start": "2026-11-15T07:00",
+    "location": "88 Oak Ave"
+   },
+   "error": null,
+   "gold": {
+    "title": "Take the car in",
+    "start": "2026-11-15T07:00",
+    "location": "88 Oak Ave"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_dom",
+    "time_12h",
+    "loc",
+    "distractor"
+   ],
+   "latency_ms": 1127.0
+  },
+  {
+   "index": 185,
+   "user": "read my last text message",
+   "raw_output": "I can only create calendar events. Tell me what to schedule and when.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ood",
+    "reject",
+    "reject_offtopic"
+   ],
+   "latency_ms": 398.0
+  },
+  {
+   "index": 186,
+   "user": "Recurring: call the electrician, on Tuesdays and Wednesdays, 7pm starting the third Tuesday of next month ending September 17",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nth:3:TU:1<escape>,recurrence_days:<escape>TU,WE<escape>,recurrence_freq:<escape>weekly<escape>,recurrence_until:<escape>09-17<escape>,time:<escape>19:00<escape>,title:<escape>Call the Electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nth:3:TU:1",
+    "recurrence_days": "TU,WE",
+    "recurrence_freq": "weekly",
+    "recurrence_until": "09-17",
+    "time": "19:00",
+    "title": "Call the Electrician"
+   },
+   "event": {
+    "title": "Call the Electrician",
+    "start": "2026-06-16T19:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU,WE",
+    "recurrence_until": "2026-09-17"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2026-06-16T19:00",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "TU,WE",
+    "recurrence_until": "2026-09-17"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "recurring",
+    "rec_weekly",
+    "rec_dated",
+    "rec_until"
+   ],
+   "latency_ms": 1755.1
+  },
+  {
+   "index": 187,
+   "user": "i have project kickoff on the 19th at 6 a.m.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:19<escape>,time:<escape>06:00<escape>,title:<escape>Project kickoff<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:19",
+    "time": "06:00",
+    "title": "Project kickoff"
+   },
+   "event": {
+    "title": "Project kickoff",
+    "start": "2027-07-19T06:00"
+   },
+   "error": null,
+   "gold": {
+    "title": "Project kickoff",
+    "start": "2027-07-19T06:00"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_dom",
+    "time_12h"
+   ],
+   "latency_ms": 826.7
+  },
+  {
+   "index": 188,
+   "user": "book signing, the 3rd of August, 17:45",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:08-03<escape>,time:<escape>17:45<escape>,title:<escape>Book signing<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:08-03",
+    "time": "17:45",
+    "title": "Book signing"
+   },
+   "event": {
+    "title": "Book signing",
+    "start": "2026-08-03T17:45"
+   },
+   "error": null,
+   "gold": {
+    "title": "Book signing",
+    "start": "2026-08-03T17:45"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_24h"
+   ],
+   "latency_ms": 926.3
+  },
+  {
+   "index": 189,
+   "user": "Mark my calendar: garden club Friday at 2:00pm at the rec center.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>wd:FR<escape>,location:<escape>the rec center<escape>,time:<escape>14:00<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "wd:FR",
+    "location": "the rec center",
+    "time": "14:00",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2027-08-20T14:00",
+    "location": "the rec center"
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2027-08-20T14:00",
+    "location": "the rec center"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_12h",
+    "loc"
+   ],
+   "latency_ms": 987.1
+  },
+  {
+   "index": 190,
+   "user": "Need supper with the Parkers on March 10th at 18:00 on Teams",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:03-10<escape>,location:<escape>Teams<escape>,time:<escape>18:00<escape>,title:<escape>Supper with the Parkers<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:03-10",
+    "location": "Teams",
+    "time": "18:00",
+    "title": "Supper with the Parkers"
+   },
+   "event": {
+    "title": "Supper with the Parkers",
+    "start": "2026-03-10T18:00",
+    "location": "Teams"
+   },
+   "error": null,
+   "gold": {
+    "title": "Supper with the Parkers",
+    "start": "2026-03-10T18:00",
+    "location": "Teams"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_24h",
+    "loc"
+   ],
+   "latency_ms": 1117.6
+  },
+  {
+   "index": 191,
+   "user": "I have lunch with Dad daily at half past 6am at Dr. Patel's office",
+   "raw_output": "<start_function_call>call:create_event{location:<escape>Dr. Patel's office<escape>,recurrence_freq:<escape>daily<escape>,time:<escape>06:30<escape>,title:<escape>Lunch with Dad<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "location": "Dr. Patel's office",
+    "recurrence_freq": "daily",
+    "time": "06:30",
+    "title": "Lunch with Dad"
+   },
+   "event": {
+    "title": "Lunch with Dad",
+    "start": "2027-05-11T06:30",
+    "location": "Dr. Patel's office",
+    "recurrence_freq": "daily"
+   },
+   "error": null,
+   "gold": {
+    "title": "Lunch with Dad",
+    "start": "2027-05-11T06:30",
+    "location": "Dr. Patel's office",
+    "recurrence_freq": "daily"
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "time_words",
+    "loc",
+    "recurring",
+    "rec_daily",
+    "rec_undated"
+   ],
+   "latency_ms": 1127.0
+  },
+  {
+   "index": 192,
+   "user": "Recurring: roadmap review, monthly on the 2nd, 2PM for seven months at the community garden for 2 hours.",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dom:2<escape>,duration_minutes:120,location:<escape>the community garden<escape>,recurrence_count:7,recurrence_freq:<escape>monthly<escape>,time:<escape>14:00<escape>,title:<escape>Roadmap review<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dom:2",
+    "duration_minutes": 120,
+    "location": "the community garden",
+    "recurrence_count": 7,
+    "recurrence_freq": "monthly",
+    "time": "14:00",
+    "title": "Roadmap review"
+   },
+   "event": {
+    "title": "Roadmap review",
+    "start": "2027-07-02T14:00",
+    "duration_minutes": 120,
+    "location": "the community garden",
+    "recurrence_freq": "monthly",
+    "recurrence_count": 7
+   },
+   "error": null,
+   "gold": {
+    "title": "Roadmap review",
+    "start": "2027-07-02T14:00",
+    "duration_minutes": 120,
+    "location": "the community garden",
+    "recurrence_freq": "monthly",
+    "recurrence_count": 7
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "loc",
+    "recurring",
+    "rec_monthly",
+    "rec_undated",
+    "rec_count"
+   ],
+   "latency_ms": 1615.0
+  },
+  {
+   "index": 193,
+   "user": "Clean the garage at some point today.",
+   "raw_output": "I need an exact date and time, not 'sometime'.<end_of_turn>",
+   "pred": null,
+   "event": null,
+   "error": null,
+   "gold": null,
+   "match": "correct_rejection",
+   "tags": [
+    "ind",
+    "reject",
+    "reject_vague"
+   ],
+   "latency_ms": 353.2
+  },
+  {
+   "index": 194,
+   "user": "Throw water the tomatoes on my schedule Wednesday of next week from 7:30am to 9am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>nw:WE<escape>,end:<escape>09:00<escape>,time:<escape>07:30<escape>,title:<escape>Throw water the tomatoes<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "nw:WE",
+    "end": "09:00",
+    "time": "07:30",
+    "title": "Throw water the tomatoes"
+   },
+   "event": {
+    "title": "Throw water the tomatoes",
+    "start": "2026-12-09T07:30",
+    "duration_minutes": 90
+   },
+   "error": null,
+   "gold": {
+    "title": "Water the tomatoes",
+    "start": "2026-12-09T07:30",
+    "duration_minutes": 90
+   },
+   "match": "wrong_args",
+   "tags": [
+    "ood",
+    "date_weekday",
+    "time_range",
+    "dur_range"
+   ],
+   "latency_ms": 1128.1
+  },
+  {
+   "index": 195,
+   "user": "1:1 with Jordan, 9/27, 11-11:45am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:09-27<escape>,end:<escape>11:45<escape>,time:<escape>11:00<escape>,title:<escape>1:1 with Jordan<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:09-27",
+    "end": "11:45",
+    "time": "11:00",
+    "title": "1:1 with Jordan"
+   },
+   "event": {
+    "title": "1:1 with Jordan",
+    "start": "2027-09-27T11:00",
+    "duration_minutes": 45
+   },
+   "error": null,
+   "gold": {
+    "title": "1:1 with Jordan",
+    "start": "2027-09-27T11:00",
+    "duration_minutes": 45
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_abs",
+    "time_range",
+    "dur_range",
+    "distractor"
+   ],
+   "latency_ms": 1217.1
+  },
+  {
+   "index": 196,
+   "user": "spin class the 30th of next month at quarter past 9am till 9:45am",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>dnm:30<escape>,end:<escape>09:45<escape>,time:<escape>09:15<escape>,title:<escape>Spin class<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "dnm:30",
+    "end": "09:45",
+    "time": "09:15",
+    "title": "Spin class"
+   },
+   "event": {
+    "title": "Spin class",
+    "start": "2027-12-30T09:15",
+    "duration_minutes": 30
+   },
+   "error": null,
+   "gold": {
+    "title": "Spin class",
+    "start": "2027-12-30T09:15",
+    "duration_minutes": 30
+   },
+   "match": "exact",
+   "tags": [
+    "ind",
+    "date_monthrel",
+    "time_words",
+    "dur_until"
+   ],
+   "latency_ms": 1083.3
+  },
+  {
+   "index": 197,
+   "user": "Please put buy 3 gift cards in for 2/16 at 11 a.m. at city hall, for two hours",
+   "raw_output": "<start_function_call>call:create_event{date:<escape>md:02-16<escape>,duration_minutes:120,location:<escape>City Hall<escape>,time:<escape>11:00<escape>,title:<escape>Buy 3 gift cards<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "date": "md:02-16",
+    "duration_minutes": 120,
+    "location": "City Hall",
+    "time": "11:00",
+    "title": "Buy 3 gift cards"
+   },
+   "event": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-02-16T11:00",
+    "duration_minutes": 120,
+    "location": "City Hall"
+   },
+   "error": null,
+   "gold": {
+    "title": "Buy 3 gift cards",
+    "start": "2026-02-16T11:00",
+    "duration_minutes": 120,
+    "location": "city hall"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "date_abs",
+    "time_12h",
+    "dur",
+    "loc",
+    "distractor"
+   ],
+   "latency_ms": 1355.5
+  },
+  {
+   "index": 198,
+   "user": "Please set garden club to repeat every two days at 1:00pm for three hours, at Blue Bottle",
+   "raw_output": "<start_function_call>call:create_event{duration_minutes:180,location:<escape>Blue Bottle<escape>,recurrence_freq:<escape>daily<escape>,recurrence_interval:2,time:<escape>13:00<escape>,title:<escape>Garden club<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "duration_minutes": 180,
+    "location": "Blue Bottle",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2,
+    "time": "13:00",
+    "title": "Garden club"
+   },
+   "event": {
+    "title": "Garden club",
+    "start": "2026-05-02T13:00",
+    "duration_minutes": 180,
+    "location": "Blue Bottle",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2
+   },
+   "error": null,
+   "gold": {
+    "title": "Garden club",
+    "start": "2026-05-02T13:00",
+    "duration_minutes": 180,
+    "location": "Blue Bottle",
+    "recurrence_freq": "daily",
+    "recurrence_interval": 2
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "dur",
+    "loc",
+    "recurring",
+    "rec_daily",
+    "rec_undated",
+    "rec_interval"
+   ],
+   "latency_ms": 1339.3
+  },
+  {
+   "index": 199,
+   "user": "Could you make call the electrician repeat every Wednesday at 12pm in the lobby?",
+   "raw_output": "<start_function_call>call:create_event{location:<escape>the lobby<escape>,recurrence_days:<escape>WE<escape>,recurrence_freq:<escape>weekly<escape>,time:<escape>12:00<escape>,title:<escape>Call the electrician<escape>}<end_function_call><start_function_response>",
+   "pred": {
+    "location": "the lobby",
+    "recurrence_days": "WE",
+    "recurrence_freq": "weekly",
+    "time": "12:00",
+    "title": "Call the electrician"
+   },
+   "event": {
+    "title": "Call the electrician",
+    "start": "2026-01-21T12:00",
+    "location": "the lobby",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "WE"
+   },
+   "error": null,
+   "gold": {
+    "title": "Call the electrician",
+    "start": "2026-01-21T12:00",
+    "location": "the lobby",
+    "recurrence_freq": "weekly",
+    "recurrence_days": "WE"
+   },
+   "match": "exact",
+   "tags": [
+    "ood",
+    "time_12h",
+    "loc",
+    "recurring",
+    "rec_weekly",
+    "rec_undated"
+   ],
+   "latency_ms": 1230.5
+  }
+ ]
+}
